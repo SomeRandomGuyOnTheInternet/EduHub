@@ -18,7 +18,6 @@ class CreateMeetingsTable extends Migration
             $table->unsignedBigInteger('user_id'); // Foreign key
             $table->unsignedBigInteger('timeslot_id');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
-            $table->timestamp('meeting_time');
             $table->timestamps();
 
             // Adding foreign key constraint
