@@ -14,10 +14,11 @@ class CreateTimeslotsTable extends Migration
     public function up()
     {
         Schema::create('timeslots', function (Blueprint $table) {
-            $table->id();
+            $table->id('timeslot_id');
             $table->unsignedBigInteger('user_id'); // Foreign key
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
+            $table->date('meeting_date');
+            $table->enum('timeslot', ['09:00', '11:00', '13:00', '15:00', '17:00']);
+            $table->boolean('is_booked')->default(false);
             $table->timestamps();
 
             // Adding foreign key constraint
