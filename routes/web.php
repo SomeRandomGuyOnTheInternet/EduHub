@@ -40,11 +40,11 @@ Route::middleware(['auth', 'professor'])->prefix('professor/modules/{module_id}'
     // Content routes
     Route::prefix('content')->name('modules.content.professor.')->group(function () {
         Route::get('/', [ModuleContentController::class, 'indexForProfessor'])->name('index');
-        Route::get('{content_id}', [ModuleContentController::class, 'showForProfessor'])->name('show');
         Route::get('create-folder', [ModuleContentController::class, 'createFolder'])->name('create-folder');
         Route::post('store-folder', [ModuleContentController::class, 'storeFolder'])->name('store-folder');
         Route::get('create-content', [ModuleContentController::class, 'createContent'])->name('create-content');
         Route::post('store-content', [ModuleContentController::class, 'storeContent'])->name('store-content');
+        Route::get('{content_id}', [ModuleContentController::class, 'showForProfessor'])->name('show');
         Route::get('edit-folder/{folder_id}', [ModuleContentController::class, 'editFolder'])->name('edit-folder');
         Route::put('update-folder/{folder_id}', [ModuleContentController::class, 'updateFolder'])->name('update-folder');
         Route::delete('delete-folder/{folder_id}', [ModuleContentController::class, 'destroyFolder'])->name('delete-folder');

@@ -33,7 +33,6 @@ class ModuleContentController extends Controller
     // Method to show form to create a new folder
     public function createFolder($module_id)
     {
-        Log::info("Creating folder for module: $module_id");
         $module = Module::findOrFail($module_id);
         return view('professor.content.create_folder', compact('module'));
     }
