@@ -10,7 +10,7 @@ class MeetingController extends Controller
 {
     public function index()
     {
-        $meetings = Meeting::with('student', 'timeslot.professor')->get();
+        $meetings = Meeting::with('user', 'timeslot.user')->get();
         return view('meetings.index', compact('meetings'));
     }
 
