@@ -5,6 +5,15 @@
 @section('content')
 <div class="container mt-5">
     <h2>Create Content for Module: {{ $module->module_name }}</h2>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="{{ route('modules.content.professor.store-content', ['module_id' => $module->module_id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
@@ -25,7 +34,7 @@
         </div>
         <div class="form-group">
             <label for="file_path">Upload File</label>
-            <input type="file" class="form-control-file" id="file_path" name="file_path" required>
+            <input type="file" class="form-control-file" id="file_path" name="file_path">
         </div>
         <button type="submit" class="btn btn-success">Create Content</button>
     </form>

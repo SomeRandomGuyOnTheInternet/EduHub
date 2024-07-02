@@ -62,26 +62,38 @@ class ModuleContentController extends Controller
         return view('professor.content.create_content', compact('module', 'folders'));
     }
 
-    // Method to store new content
+       // Method to store new content
     public function storeContent(Request $request, $module_id)
     {
+        // Validate the incoming request data
         $request->validate([
-            'module_folder_id' => 'required|exists:module_folders,module_folder_id',
+            'module_folder_id' => 'required|exists:module_folders,module_folder_id', // Assuming the primary key in module_folders table is 'id'
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'file_path' => 'required|file',
+            'file_path' => 'nullable|file',
         ]);
 
-        $filePath = $request->file('file_path')->store('contents');
+        // Log the request data to check if file_path is present
+        Log::info('Store content request data:', $request->all());
 
+        // Initialize the $filePath variable
+        $filePath = null;
+
+        // Check if the file is present
+        if ($request->hasFile('file_path')) {
+            $filePath = $request->file('file_path')->store('contents');
+        }
+
+        // Create a new ModuleContent record in the database
         ModuleContent::create([
-            'module_folder_id' => $request->module_folder_id,
+            'module_folder_id' => $request->module_folder_id, // Ensure this matches the column name in your database
             'title' => $request->title,
             'description' => $request->description,
             'file_path' => $filePath,
-            'upload_date' => now(),
+            'upload_date' => now(), // This assumes you have an 'upload_date' column in your module_contents table
         ]);
 
+        // Redirect to the module content index page with a success message
         return redirect()->route('modules.content.professor.index', ['module_id' => $module_id])
             ->with('success', 'Content created successfully.');
     }
