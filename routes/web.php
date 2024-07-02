@@ -8,6 +8,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\navBarController;
+use App\Http\Controllers\TimeslotController;
+use App\Http\Controllers\MeetingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -76,6 +78,17 @@ Route::middleware(['auth', 'professor'])->prefix('professor/modules/{module_id}'
     });
 });
 
+// Timeslot Routes
+Route::get('timeslots', [TimeslotController::class, 'index'])->name('timeslots.index');
+Route::get('timeslots/create', [TimeslotController::class, 'create'])->name('timeslots.create');
+Route::post('timeslots', [TimeslotController::class, 'store'])->name('timeslots.store');
+
+// Meeting Routes
+Route::get('meetings', [MeetingController::class, 'index'])->name('meetings.index');
+Route::get('meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
+Route::post('meetings', [MeetingController::class, 'store'])->name('meetings.store');
+Route::patch('meetings/{id}', [MeetingController::class, 'update'])->name('meetings.update');
+
 // Grouping routes for modules with student role-based access
 Route::middleware(['auth', 'student'])->prefix('student/modules/{module_id}')->group(function () {
     //Route::get('dashboard', [ModuleController::class, 'dashboard'])->name('modules.dashboard.student');
@@ -87,7 +100,7 @@ Route::middleware(['auth', 'student'])->prefix('student/modules/{module_id}')->g
         Route::post('toggle-favourite', [ModuleContentController::class, 'toggleFavouriteContent'])->name('toggle-favourite');
         Route::post('download', [ModuleContentController::class, 'downloadContent'])->name('download');
     });
-    
+
     // Quiz routes
     Route::prefix('quizzes')->name('modules.quizzes.student.')->group(function () {
         Route::get('/', [QuizController::class, 'indexForStudent'])->name('index');
