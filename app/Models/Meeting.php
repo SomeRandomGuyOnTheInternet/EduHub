@@ -9,15 +9,20 @@ class Meeting extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'timeslot_id', 'status'];
+    protected $fillable = ['user_id', 'timeslot_id', 'module_id', 'meeting_time'];
 
-    public function student()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
     public function timeslot()
     {
         return $this->belongsTo(Timeslot::class);
+    }
+
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
     }
 }

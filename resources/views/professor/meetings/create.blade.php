@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <h1>Create Meeting Slot</h1>
+    <h1>Create Meeting Slot for Module: {{ $module->module_name}} </h1>
+    
     <form action="{{ route('modules.meetings.professor.store', ['module_id' => $module->module_id]) }}" method="POST">
         @csrf
         @method('post')

@@ -15,6 +15,7 @@ class CreateMeetingsTable extends Migration
         Schema::create('meetings', function (Blueprint $table) {
             $table->id('meeting_id');
             $table->unsignedBigInteger('user_id'); // Foreign key
+            $table->unsignedBigInteger('module_id'); // Foreign key
             $table->unsignedBigInteger('timeslot_id');
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->timestamps();
@@ -29,6 +30,11 @@ class CreateMeetingsTable extends Migration
                 ->references('timeslot_id')
                 ->on('timeslots')
                 ->onDelete('cascade');
+
+            $table->foreign('module_id')
+            ->references('module_id')
+            ->on('modules')
+            ->onDelete('cascade');
         });
     }
 

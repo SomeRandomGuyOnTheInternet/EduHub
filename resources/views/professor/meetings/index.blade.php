@@ -6,9 +6,14 @@
     <ul>
         @foreach ($meetings as $meeting)
             <li>
-                Student: {{ $meeting->student->name }},
-                Professor: {{ $meeting->timeslot->professor->name }},
-                Time: {{ $meeting->timeslot->meeting_date }} {{ $meeting->timeslot->timeslot }},
+            <tr>
+                <td>{{ $meeting->timeslot }}</td>
+                <td>{{ $meeting->status }}</td>
+                <td>{{ $meeting->meeting_date }}</td>
+              
+            </tr>
+              
+            Time: {{ $meeting->timeslot->meeting_date }} {{ $meeting->timeslot->timeslot }},
                 Status: {{ $meeting->status }}
                 @if($meeting->status == 'pending' && auth()->user()->id == $meeting->timeslot->professor_id)
                     <form action="{{ route('meetings.update', $meeting->id) }}" method="POST" style="display:inline">
