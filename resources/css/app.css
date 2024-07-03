@@ -1,18 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* .nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
-    color: #495057;
-    background-color: #fff;
-    border-color: #dee2e6 #dee2e6 #fff;
-}
-
-.nav-tabs .nav-link {
-    border: 1px solid #dee2e6;
-}
-
-.favourite-icon {
-    color: red;
-} */

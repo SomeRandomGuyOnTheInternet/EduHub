@@ -917,3 +917,49 @@ video {
 .color-primary {
     color: #198754 !important;
 }
+
+.nav-bar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+.nav-bar ul {
+    list-style-type: none;
+    padding: 0;
+}
+.nav-bar li {
+    padding: 8px;
+    background-color: #ffffff;
+    margin-bottom: 4px;
+    border-radius: 4px;
+}
+.nav-bar li a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+}
+.sub-menu {
+    display: none;
+    padding-left: 20px;
+}
+.sub-menu li {
+    background-color: #e9ecef;
+}
+
+/* Content Styles */
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+/* Override any Tailwind CSS classes */
+.bg-gray-100 {
+    background-color: #fff !important;
+}
+.dark\:bg-gray-900 {
+    background-color: #ffffff !important;
+}
