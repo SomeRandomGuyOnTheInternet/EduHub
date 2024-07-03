@@ -8,6 +8,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\navBarController;
+use App\Http\Controllers\TimeslotController;
+use App\Http\Controllers\MeetingController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,7 +20,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/left-nav-bar', [NavBarController::class, 'showNavBar'])->name('left-nav-bar');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -40,11 +41,11 @@ Route::middleware(['auth', 'professor'])->prefix('professor/modules/{module_id}'
     // Content routes
     Route::prefix('content')->name('modules.content.professor.')->group(function () {
         Route::get('/', [ModuleContentController::class, 'indexForProfessor'])->name('index');
-        Route::get('{content_id}', [ModuleContentController::class, 'showForProfessor'])->name('show');
         Route::get('create-folder', [ModuleContentController::class, 'createFolder'])->name('create-folder');
         Route::post('store-folder', [ModuleContentController::class, 'storeFolder'])->name('store-folder');
         Route::get('create-content', [ModuleContentController::class, 'createContent'])->name('create-content');
         Route::post('store-content', [ModuleContentController::class, 'storeContent'])->name('store-content');
+        Route::get('{content_id}', [ModuleContentController::class, 'showForProfessor'])->name('show');
         Route::get('edit-folder/{folder_id}', [ModuleContentController::class, 'editFolder'])->name('edit-folder');
         Route::put('update-folder/{folder_id}', [ModuleContentController::class, 'updateFolder'])->name('update-folder');
         Route::delete('delete-folder/{folder_id}', [ModuleContentController::class, 'destroyFolder'])->name('delete-folder');
@@ -74,7 +75,25 @@ Route::middleware(['auth', 'professor'])->prefix('professor/modules/{module_id}'
         Route::put('{news_id}', [NewsController::class, 'updateForProfessor'])->name('update');
         Route::delete('{news_id}', [NewsController::class, 'destroyForProfessor'])->name('destroy');
     });
+
+     // Meetings routes
+        Route::prefix('meetings')->name('modules.meetings.professor.')->group(function () {
+        Route::get('meetings', [MeetingController::class, 'index'])->name('index');
+        Route::get('meetings/create', [MeetingController::class, 'create'])->name('create');
+        Route::post('meetings', [MeetingController::class, 'store'])->name('store');
+    });
 });
+
+// Timeslot Routes
+Route::get('timeslots', [TimeslotController::class, 'index'])->name('timeslots.index');
+Route::get('timeslots/create', [TimeslotController::class, 'create'])->name('timeslots.create');
+Route::post('timeslots', [TimeslotController::class, 'store'])->name('timeslots.store');
+
+// // Meeting Routes
+// Route::get('meetings', [MeetingController::class, 'index'])->name('professor.meetings.index');
+// Route::get('meetings/create', [MeetingController::class, 'create'])->name('professor.meetings.create');
+// Route::post('meetings', [MeetingController::class, 'store'])->name('professor.meetings.store');
+// Route::patch('meetings/{id}', [MeetingController::class, 'update'])->name('meetings.update');
 
 // Grouping routes for modules with student role-based access
 Route::middleware(['auth', 'student'])->prefix('student/modules/{module_id}')->group(function () {
@@ -87,7 +106,7 @@ Route::middleware(['auth', 'student'])->prefix('student/modules/{module_id}')->g
         Route::post('toggle-favourite', [ModuleContentController::class, 'toggleFavouriteContent'])->name('toggle-favourite');
         Route::post('download', [ModuleContentController::class, 'downloadContent'])->name('download');
     });
-    
+
     // Quiz routes
     Route::prefix('quizzes')->name('modules.quizzes.student.')->group(function () {
         Route::get('/', [QuizController::class, 'indexForStudent'])->name('index');
@@ -100,6 +119,14 @@ Route::middleware(['auth', 'student'])->prefix('student/modules/{module_id}')->g
         Route::get('/', [NewsController::class, 'indexForStudent'])->name('index');
         Route::get('{news_id}', [NewsController::class, 'showForStudent'])->name('show');
     });
+
+     // Meetings routes
+     Route::prefix('meetings')->name('modules.meetings.student.')->group(function () {
+        Route::get('meetings', [MeetingController::class, 'index'])->name('student.meetings.index');
+        Route::get('meetings/create', [MeetingController::class, 'create'])->name('student.meetings.create');
+        Route::post('meetings', [MeetingController::class, 'store'])->name('student.meetings.store');
+    });
+    
 });
 
 

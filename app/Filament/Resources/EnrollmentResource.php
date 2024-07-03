@@ -20,7 +20,6 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\DateColumn;
 
-
 class EnrollmentResource extends Resource
 {
     protected static ?string $model = Enrollment::class;
@@ -32,31 +31,40 @@ class EnrollmentResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Select::make('user_id')
-                    ->label('User')
-                    ->options(User::all()->pluck('user.name', 'user_id'))
-                    ->searchable()
-                    ->required(),
-                Select::make('module_id')
-                    ->label('Module')
-                    ->options(Module::all()->pluck('module_name', 'module_id'))
-                    ->searchable()
-                    ->required(),
-                DatePicker::make('enrollment_date')
-                    ->required(),
-            ]);
+        ->schema([
+            Select::make('user_id')
+            ->label('User')
+            ->options(User::where('user_type', 'student')
+                ->get()
+                ->mapWithKeys(function ($user) {
+                    return [$user->user_id => $user->first_name . ' ' . $user->last_name];
+                })
+                ->toArray())
+            ->searchable()
+            ->required(),
+            Select::make('module_id')
+                ->label('Module')
+                ->options(Module::all()->pluck('module_name', 'module_id')->toArray())
+                ->searchable()
+                ->required(),
+            DatePicker::make('enrollment_date')
+                ->required(),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('student.user.name')->label('Student Name')->searchable(),
+                TextColumn::make('user.name')->label('Student Name')->searchable(),
                 TextColumn::make('module.module_name')->label('Module Name')->searchable(),
                 TextColumn::make('enrollment_date')->label('Enrollment Date')->sortable(),
             ])
-            ->filters([Tables\Filters\SelectFilter::make('module_id')->relationship('module', 'module_name')->label('Module')])
+            ->filters([
+                Tables\Filters\SelectFilter::make('module_id')
+                    ->relationship('module', 'module_name')
+                    ->label('Module')
+            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])

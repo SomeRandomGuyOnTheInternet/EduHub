@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Http\Responses\LogoutResponse;
 use Illuminate\Support\ServiceProvider;
 use Filament\Http\Responses\Auth\Contracts\LogoutResponse as LogoutResponseContract;
+use App\Http\ViewComposers\NavBarComposer;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Use NavBarComposer for views that include the navigation bar
+        View::composer('layouts.app', NavBarComposer::class);
     }
 }
