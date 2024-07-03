@@ -17,6 +17,8 @@ class MeetingController extends Controller
         // $meetings = Meeting::with('user', 'timeslot.user')->get();
         $meetings = DB::table('meetings')
                 ->join('timeslots', 'meetings.timeslot_id', '=', 'timeslots.timeslot_id')
+                ->join('users','meetings.user_id','=','users.user_id')
+                ->where('meetings.module_id', $module_id)
                 ->get();
         // DB::table('modules')
         //         ->join('teaches', 'modules.module_id', '=', 'teaches.module_id')
@@ -24,6 +26,7 @@ class MeetingController extends Controller
         //         ->select('modules.module_name', 'modules.module_id') // Include module_id in the selection
         //         ->get();
         // $timeslots = DB::table('timeslots');
+        // dd($meetings);
         return view('professor.meetings.index', compact('module','meetings'));
     }
 
