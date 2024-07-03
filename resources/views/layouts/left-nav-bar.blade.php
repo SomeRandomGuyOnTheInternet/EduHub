@@ -36,8 +36,9 @@
                     </li>
                     <li>
                         @if(Auth::user()->user_type == 'professor')
-                            <a
-                                href="{{ route('modules.meetings.professor.index', ['module_id' => $module->module_id]) }}">Meetings</a>
+                            <a href="{{ route('modules.meetings.professor.index', ['module_id' => $module->module_id]) }}">Meetings</a>
+                        @elseif(Auth::user()->user_type == 'student')
+                            <a href="{{ route('modules.meetings.student.index', ['module_id' => $module->module_id]) }}">Meetings</a>
                         @endif 
                     </li>
                 </ul>

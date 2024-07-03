@@ -85,9 +85,9 @@ Route::middleware(['auth', 'professor'])->prefix('professor/modules/{module_id}'
 });
 
 // Timeslot Routes
-Route::get('timeslots', [TimeslotController::class, 'index'])->name('timeslots.index');
-Route::get('timeslots/create', [TimeslotController::class, 'create'])->name('timeslots.create');
-Route::post('timeslots', [TimeslotController::class, 'store'])->name('timeslots.store');
+// Route::get('timeslots', [TimeslotController::class, 'index'])->name('timeslots.index');
+// Route::get('timeslots/create', [TimeslotController::class, 'create'])->name('timeslots.create');
+// Route::post('timeslots', [TimeslotController::class, 'store'])->name('timeslots.store');
 
 // // Meeting Routes
 // Route::get('meetings', [MeetingController::class, 'index'])->name('professor.meetings.index');
@@ -122,9 +122,8 @@ Route::middleware(['auth', 'student'])->prefix('student/modules/{module_id}')->g
 
      // Meetings routes
      Route::prefix('meetings')->name('modules.meetings.student.')->group(function () {
-        Route::get('meetings', [MeetingController::class, 'index'])->name('student.meetings.index');
-        Route::get('meetings/create', [MeetingController::class, 'create'])->name('student.meetings.create');
-        Route::post('meetings', [MeetingController::class, 'store'])->name('student.meetings.store');
+        Route::get('meetings', [MeetingController::class, 'indexForStudent'])->name('index');
+        
     });
     
 });

@@ -30,6 +30,25 @@ class MeetingController extends Controller
         return view('professor.meetings.index', compact('module','meetings'));
     }
 
+    public function indexForStudent($module_id)
+    {
+        $module = Module::findOrFail($module_id); // Finds the module by its ID, or fails with a 404 error if not found.
+        // $meetings = Meeting::with('user', 'timeslot.user')->get();
+        $meetings = DB::table('meetings')
+                ->join('timeslots', 'meetings.timeslot_id', '=', 'timeslots.timeslot_id')
+                ->join('users','meetings.user_id','=','users.user_id')
+                ->where('meetings.module_id', $module_id)
+                ->get();
+        // DB::table('modules')
+        //         ->join('teaches', 'modules.module_id', '=', 'teaches.module_id')
+        //         ->where('teaches.user_id', $userId)
+        //         ->select('modules.module_name', 'modules.module_id') // Include module_id in the selection
+        //         ->get();
+        // $timeslots = DB::table('timeslots');
+        // dd($meetings);
+        return view('student.meetings.index', compact('module','meetings'));
+    }
+
     public function create($module_id)
     {
         $timeslots = Timeslot::where('is_booked', false)->get();
