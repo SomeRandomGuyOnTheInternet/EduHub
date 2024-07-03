@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Timeslot;
 use Illuminate\Http\Request;
+use App\Models\Module;
 
 class TimeslotController extends Controller
 {

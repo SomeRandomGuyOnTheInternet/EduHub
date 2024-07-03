@@ -17,7 +17,7 @@ class CreateTimeslotsTable extends Migration
             $table->id('timeslot_id');
             $table->unsignedBigInteger('user_id'); // Foreign key
             $table->date('meeting_date');
-            $table->enum('timeslot', ['09:00', '11:00', '13:00', '15:00', '17:00']);
+            $table->enum('timeslot', ['09:00', '10:00','11:00', '12:00','13:00', '14:00','15:00', '17:00']);
             $table->boolean('is_booked')->default(false);
             $table->timestamps();
 

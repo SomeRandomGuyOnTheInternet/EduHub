@@ -76,6 +76,13 @@ Route::middleware(['auth', 'professor'])->prefix('professor/modules/{module_id}'
         Route::put('{news_id}', [NewsController::class, 'updateForProfessor'])->name('update');
         Route::delete('{news_id}', [NewsController::class, 'destroyForProfessor'])->name('destroy');
     });
+
+     // Meetings routes
+        Route::prefix('meetings')->name('modules.meetings.professor.')->group(function () {
+        Route::get('meetings', [MeetingController::class, 'index'])->name('index');
+        Route::get('meetings/create', [MeetingController::class, 'create'])->name('create');
+        Route::post('meetings', [MeetingController::class, 'store'])->name('store');
+    });
 });
 
 // Timeslot Routes
@@ -83,11 +90,11 @@ Route::get('timeslots', [TimeslotController::class, 'index'])->name('timeslots.i
 Route::get('timeslots/create', [TimeslotController::class, 'create'])->name('timeslots.create');
 Route::post('timeslots', [TimeslotController::class, 'store'])->name('timeslots.store');
 
-// Meeting Routes
-Route::get('meetings', [MeetingController::class, 'index'])->name('meetings.index');
-Route::get('meetings/create', [MeetingController::class, 'create'])->name('meetings.create');
-Route::post('meetings', [MeetingController::class, 'store'])->name('meetings.store');
-Route::patch('meetings/{id}', [MeetingController::class, 'update'])->name('meetings.update');
+// // Meeting Routes
+// Route::get('meetings', [MeetingController::class, 'index'])->name('professor.meetings.index');
+// Route::get('meetings/create', [MeetingController::class, 'create'])->name('professor.meetings.create');
+// Route::post('meetings', [MeetingController::class, 'store'])->name('professor.meetings.store');
+// Route::patch('meetings/{id}', [MeetingController::class, 'update'])->name('meetings.update');
 
 // Grouping routes for modules with student role-based access
 Route::middleware(['auth', 'student'])->prefix('student/modules/{module_id}')->group(function () {
@@ -113,6 +120,14 @@ Route::middleware(['auth', 'student'])->prefix('student/modules/{module_id}')->g
         Route::get('/', [NewsController::class, 'indexForStudent'])->name('index');
         Route::get('{news_id}', [NewsController::class, 'showForStudent'])->name('show');
     });
+
+     // Meetings routes
+     Route::prefix('meetings')->name('modules.meetings.student.')->group(function () {
+        Route::get('meetings', [MeetingController::class, 'index'])->name('student.meetings.index');
+        Route::get('meetings/create', [MeetingController::class, 'create'])->name('student.meetings.create');
+        Route::post('meetings', [MeetingController::class, 'store'])->name('student.meetings.store');
+    });
+    
 });
 
 
