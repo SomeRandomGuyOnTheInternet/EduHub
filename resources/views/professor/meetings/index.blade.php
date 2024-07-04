@@ -14,7 +14,7 @@
                             <br>
                             Meeting Time: {{ $meeting->timeslot }}
                             <br>
-                            Meeting held by : Prof {{$meeting->first_name }} {{ $meeting->last_name }}
+                            Meeting held by : Prof {{$meeting->professor_first_name }} {{ $meeting->professor_last_name }}
                         </div>
                         <div class="card-body">
                             <p class="card-text">Status: <strong>{{ $meeting->status }}</strong></p>
@@ -35,7 +35,7 @@
                                 </form>
                             @endif
 
-                            <p class="card-text">Status: <strong>{{ $meeting->status }}</strong></p>
+                            <p class="card-text">Status: <strong>{{  $meeting->student_first_name }} {{  $meeting->student_last_name }}</strong></p>
                         </div>
                     </div>
                 </div>

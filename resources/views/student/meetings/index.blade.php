@@ -4,6 +4,7 @@
     <div class="container mt-5">
         <h1 class="mb-3">Meetings for {{ $module->module_name }} </h1>
         <div class="row">
+            
             @foreach ($meetings as $meeting)
                 <div class="col-md-4 mb-4">
                     <div class="card">
