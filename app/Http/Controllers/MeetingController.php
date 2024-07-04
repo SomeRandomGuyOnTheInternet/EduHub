@@ -9,6 +9,7 @@ use App\Models\Module;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
 class MeetingController extends Controller
 {
     public function index($module_id)
@@ -20,6 +21,8 @@ class MeetingController extends Controller
                 ->join('users','meetings.user_id','=','users.user_id')
                 ->where('meetings.module_id', $module_id)
                 ->get();
+
+
         // DB::table('modules')
         //         ->join('teaches', 'modules.module_id', '=', 'teaches.module_id')
         //         ->where('teaches.user_id', $userId)
@@ -92,25 +95,56 @@ class MeetingController extends Controller
     //     // $meeting->save();
     //     return redirect()->route('modules.meetings.professor.index', ['module_id' => $module_id])->with('success', 'Meeting booked successfully');
     // }
+    // public function update(Request $request, $module_id, $meeting_id)
+    // {
+    //     // $meeting = Meeting::where('module_id', $module_id)->where('meeting_id', $meeting_id)->firstOrFail();
+    //     // $meeting->is_booked = true;
+    //     // $meeting->status = $request->input('status');
+    //     // $meeting->booked_by_user_id = $meeting->user_id;
+    //     // $meeting->save();
+        
+    //     $module = Module::findOrFail($module_id); // Finds the module by its ID, or fails with a 404 error if not found.
+    //     // $meetings = Meeting::where('meeting_id', $meeting_id)
+    //     // ->join('timeslots', 'meetings.timeslot_id', '=', 'timeslots.timeslot_id')
+    //     // ->firstOrFail();
+
+
+    //     $meetings = DB::table('meetings')
+    //     ->join('timeslots', 'meetings.timeslot_id', '=', 'timeslots.timeslot_id')
+    //     // ->where('meetings.module_id', $module_id)
+    //     ->where('meeting_id', $meeting_id)
+    //     // ->get();
+    //     ->first();
+
+
+    //     $meetings->is_booked = true;
+    //     $meetings->status = $request->input('status');
+    //     $meetings->booked_by_user_id = $meetings->user_id;
+    //     // dd($meetings);
+    //     $meetings->save();
+    //     // return back()->with('success', 'Meeting slot booked successfully!');
+    //     return redirect()->route('modules.meetings.student.index', ['module_id' => $module_id])->with('success', 'Meeting slot booked successfully!');
+    //     // return view('student.meetings.index', compact('module','meetings'));
+    // }
+
     public function update(Request $request, $module_id, $meeting_id)
     {
-        // $meeting = Meeting::where('module_id', $module_id)->where('meeting_id', $meeting_id)->firstOrFail();
-        // $meeting->is_booked = true;
-        // $meeting->status = $request->input('status');
-        // $meeting->booked_by_user_id = $meeting->user_id;
-        // $meeting->save();
-        $module = Module::findOrFail($module_id); // Finds the module by its ID, or fails with a 404 error if not found.
-        $meetings = Meeting::where('meeting_id', $meeting_id)->firstOrFail();
-        $meetings->update([
-            'is_booked' => true,
-            'status' => $request->input('status'),
-            'booked_by_user_id' => auth()->user()->id
-        ]);
-        // dd($meetings);
-        
-        return back()->with('success', 'Meeting slot booked successfully!');
-        // return view('student.meetings.index', compact('module','meetings'));
+        // Assuming Meeting is your Eloquent model and is set up correctly
+        $meeting = Meeting::where('meeting_id', $meeting_id)->firstOrFail();
+
+        // $meeting->is_booked = true;  // timeslot 
+        $meeting->status = $request->input('status');
+        $meeting->booked_by_user_id = $meeting->user_id;
+        $meeting->save();
+
+        $timeslot = TimeSlot::where('timeslot_id',$meeting->timeslot_id)->firstOrFail();
+        $timeslot->is_booked = true; 
+        // dd($timeslot);
+        return redirect()->route('modules.meetings.student.index', ['module_id' => $module_id])
+                        ->with('success', 'Meeting slot booked successfully!');
     }
+
+
     
 
 }

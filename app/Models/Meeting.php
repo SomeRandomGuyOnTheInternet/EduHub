@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Meeting extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['user_id', 'timeslot_id', 'module_id', 'meeting_time'];
+    protected $primaryKey = 'meeting_id';
+    protected $fillable = ['user_id', 'timeslot_id', 'module_id', 'meeting_time', 'booked_by_user_id'];
 
     public function user()
     {
@@ -18,7 +18,9 @@ class Meeting extends Model
 
     public function timeslot()
     {
-        return $this->belongsTo(Timeslot::class);
+        // return $this->belongsTo(Timeslot::class);
+        return $this->belongsTo(Timeslot::class, 'timeslot_id');
+
     }
 
     public function module()

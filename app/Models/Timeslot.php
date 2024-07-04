@@ -18,6 +18,7 @@ class Timeslot extends Model
 
     public function meetings()
     {
-        return $this->hasMany(Meeting::class);
+        // return $this->hasMany(Meeting::class);
+        return $this->hasMany(Meeting::class, 'timeslot_id');
     }
 }

@@ -34,6 +34,8 @@
                                     <button type="submit" class="btn btn-danger">Reject</button>
                                 </form>
                             @endif
+
+                            <p class="card-text">Status: <strong>{{ $meeting->status }}</strong></p>
                         </div>
                     </div>
                 </div>
