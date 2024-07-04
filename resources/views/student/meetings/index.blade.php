@@ -18,21 +18,16 @@
                         <div class="card-body">
                             <p class="card-text">Status: <strong>{{ $meeting->status }}</strong></p>
 
-                            @if($meeting->status == 'pending' && auth()->user()->id == $meeting->user_id)
-                
-                                <form action="{{ route('meetings.update', $meeting->id) }}" method="POST" class="d-inline">
+                            @if($meeting->status == 'vacant')                            
+                            <form action="{{ route('modules.meetings.student.update', ['module_id' => $module->module_id, 'meeting_id' => $meeting->meeting_id])}}" method="POST" class="d-inline">
                                     @csrf
                                     @method('PATCH')
-                                    <input type="hidden" name="status" value="accepted">
-                                    <button type="submit" class="btn btn-success">Accept</button>
-                                </form>
-                                <form action="{{ route('meetings.update', $meeting->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <input type="hidden" name="status" value="rejected">
-                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                    <input type="hidden" name="status" value="booked">
+                                    <input type="hidden" name="is_booked" value="true">
+                                    <button type="submit" class="btn btn-success"> Book this slot </button>
                                 </form>
                             @endif
+
                         </div>
                     </div>
                 </div>

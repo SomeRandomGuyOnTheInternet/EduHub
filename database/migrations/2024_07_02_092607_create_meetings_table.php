@@ -17,7 +17,8 @@ class CreateMeetingsTable extends Migration
             $table->unsignedBigInteger('user_id'); // Foreign key
             $table->unsignedBigInteger('module_id'); // Foreign key
             $table->unsignedBigInteger('timeslot_id');
-            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
+            $table->unsignedBigInteger('booked_by_user_id')->nullable();
+            $table->enum('status', ['vacant', 'booked'])->default('vacant');
             $table->timestamps();
 
             // Adding foreign key constraint

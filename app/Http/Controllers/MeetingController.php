@@ -79,17 +79,38 @@ class MeetingController extends Controller
         $newMeeting = Meeting::create([
             'user_id' => auth()->id(),
             'module_id' => $module_id,
-            'timeslot_id' => $timeslot->id,
+            'timeslot_id' => $timeslot->id,  // this one corret keeee ? 
             'status' => 'pending', // Default status
         ]);
         return redirect()->route('modules.meetings.professor.index', ['module_id' => $module_id])->with('success', 'Meeting created successfully');
     }
 
-    public function update(Request $request, $id)
+    // public function update(Request $request, $module_id)
+    // {
+    //     // $meeting = Meeting::find($id);
+    //     // $meeting->status = $request->status;
+    //     // $meeting->save();
+    //     return redirect()->route('modules.meetings.professor.index', ['module_id' => $module_id])->with('success', 'Meeting booked successfully');
+    // }
+    public function update(Request $request, $module_id, $meeting_id)
     {
-        $meeting = Meeting::find($id);
-        $meeting->status = $request->status;
-        $meeting->save();
-        return redirect()->route('meetings.index');
+        // $meeting = Meeting::where('module_id', $module_id)->where('meeting_id', $meeting_id)->firstOrFail();
+        // $meeting->is_booked = true;
+        // $meeting->status = $request->input('status');
+        // $meeting->booked_by_user_id = $meeting->user_id;
+        // $meeting->save();
+        $module = Module::findOrFail($module_id); // Finds the module by its ID, or fails with a 404 error if not found.
+        $meetings = Meeting::where('meeting_id', $meeting_id)->firstOrFail();
+        $meetings->update([
+            'is_booked' => true,
+            'status' => $request->input('status'),
+            'booked_by_user_id' => auth()->user()->id
+        ]);
+        // dd($meetings);
+        
+        return back()->with('success', 'Meeting slot booked successfully!');
+        // return view('student.meetings.index', compact('module','meetings'));
     }
+    
+
 }

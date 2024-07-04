@@ -123,7 +123,8 @@ Route::middleware(['auth', 'student'])->prefix('student/modules/{module_id}')->g
      // Meetings routes
      Route::prefix('meetings')->name('modules.meetings.student.')->group(function () {
         Route::get('meetings', [MeetingController::class, 'indexForStudent'])->name('index');
-        
+        Route::patch('meetings/{meeting_id}', [MeetingController::class, 'update'])->name('update');
+        // Route::patch('/modules/{module_id}/meetings/{meeting_id}/update', 'MeetingController@update')->name('modules.meetings.student.update');
     });
     
 });
