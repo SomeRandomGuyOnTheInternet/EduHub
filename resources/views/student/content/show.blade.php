@@ -12,6 +12,11 @@
             </div>
             <div class="card-body">
                 <p>{{ $content->description }}</p>
+                @if(strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) == 'PDF')
+                <div class="pdf-viewer">
+                    <embed src="{{ route('modules.content.student.view', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}" width="100%" height="1200px" type="application/pdf">
+                </div>
+                @endif
                 <p><strong>File Type:</strong> {{ strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) }}</p>
                 <p><strong>Uploaded On:</strong> {{ $content->created_at->format('h:iA, d M Y') }}</p>
                 <form action="{{ route('modules.content.student.toggle-favourite', ['module_id' => $module->module_id]) }}" method="POST">
@@ -21,9 +26,8 @@
                         {{ $content->is_favourited ? 'Unfavourite' : 'Favourite' }}
                     </button>
                 </form>
-                <form action="{{ route('modules.content.student.download', ['module_id' => $module->module_id]) }}" method="POST" class="mt-2">
+                <form action="{{ route('modules.content.student.downloadSingle', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}" method="POST" class="mt-2">
                     @csrf
-                    <input type="hidden" name="content_ids[]" value="{{ $content->content_id }}">
                     <button type="submit" class="btn btn-success">Download</button>
                 </form>
             </div>

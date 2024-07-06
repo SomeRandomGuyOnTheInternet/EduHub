@@ -46,6 +46,7 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
         Route::get('create-content', [ModuleContentController::class, 'createContent'])->name('create-content');
         Route::post('store-content', [ModuleContentController::class, 'storeContent'])->name('store-content');
         Route::get('{content_id}', [ModuleContentController::class, 'showForProfessor'])->name('show');
+        Route::get('{content_id}/view', [ModuleContentController::class, 'viewContent'])->name('view');
         Route::get('edit-folder/{folder_id}', [ModuleContentController::class, 'editFolder'])->name('edit-folder');
         Route::put('update-folder/{folder_id}', [ModuleContentController::class, 'updateFolder'])->name('update-folder');
         Route::delete('delete-folder/{folder_id}', [ModuleContentController::class, 'destroyFolder'])->name('delete-folder');
@@ -103,8 +104,10 @@ Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/
     Route::prefix('content')->name('modules.content.student.')->group(function () {
         Route::get('/', [ModuleContentController::class, 'indexForStudent'])->name('index');
         Route::get('{content_id}', [ModuleContentController::class, 'showForStudent'])->name('show');
+        Route::get('{content_id}/view', [ModuleContentController::class, 'viewContent'])->name('view');
         Route::post('toggle-favourite', [ModuleContentController::class, 'toggleFavouriteContent'])->name('toggle-favourite');
         Route::post('download', [ModuleContentController::class, 'downloadContent'])->name('download');
+        Route::post('download/{content_id}', [ModuleContentController::class, 'downloadSingleContent'])->name('downloadSingle');
     });
 
     // Quiz routes

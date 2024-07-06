@@ -8,6 +8,11 @@
     <div class="container mt-5">
         <h2>{{ $content->title }}</h2>
         <p>{{ $content->description }}</p>
+        @if(strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) == 'PDF')
+        <div class="pdf-viewer">
+            <embed src="{{ route('modules.content.professor.view', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}" width="100%" height="1200px" type="application/pdf">
+        </div>
+        @endif
         <p><strong>Type:</strong> {{ strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) }}</p>
         <p><strong>Time Uploaded:</strong> {{ $content->created_at->format('h:iA, d M Y') }}</p>
 

@@ -62,26 +62,26 @@ class ModuleContentController extends Controller
         return view('professor.content.create_content', compact('module', 'folders'));
     }
 
-       // Method to store new content
     public function storeContent(Request $request, $module_id)
     {
         // Validate the incoming request data
         $request->validate([
-            'module_folder_id' => 'required|exists:module_folders,module_folder_id', // Assuming the primary key in module_folders table is 'id'
+            'module_folder_id' => 'required|exists:module_folders,module_folder_id', 
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'file_path' => 'nullable|file',
         ]);
-
-        // Log the request data to check if file_path is present
-        Log::info('Store content request data:', $request->all());
 
         // Initialize the $filePath variable
         $filePath = null;
 
         // Check if the file is present
         if ($request->hasFile('file_path')) {
-            $filePath = $request->file('file_path')->store('contents');
+            // Get the original file name
+            $originalFileName = $request->file('file_path')->getClientOriginalName();
+
+            // Store the file with the original name in the 'contents' directory
+            $filePath = $request->file('file_path')->storeAs('contents', $originalFileName);
         }
 
         // Create a new ModuleContent record in the database
@@ -145,33 +145,52 @@ class ModuleContentController extends Controller
             'description' => 'nullable|string',
             'file_path' => 'nullable|file',
         ]);
-
+    
         $content = ModuleContent::findOrFail($content_id);
-
+    
+        // Initialize the $data array with the updated values
         $data = [
             'module_folder_id' => $request->module_folder_id,
             'title' => $request->title,
             'description' => $request->description,
         ];
-
+    
+        // Check if a new file is uploaded
         if ($request->hasFile('file_path')) {
-            $data['file_path'] = $request->file('file_path')->store('contents');
+            // Delete the old file if it exists
+            if ($content->file_path && Storage::exists($content->file_path)) {
+                Storage::delete($content->file_path);
+            }
+    
+            // Store the new file with its original name
+            $originalFileName = $request->file('file_path')->getClientOriginalName();
+            $data['file_path'] = $request->file('file_path')->storeAs('contents', time() . '_' . $originalFileName);
         }
-
+    
+        // Update the content record in the database
         $content->update($data);
-
+    
         return redirect()->route('modules.content.professor.index', ['module_id' => $module_id])
             ->with('success', 'Content updated successfully.');
     }
+    
 
     public function destroyContent($module_id, $content_id)
     {
         $content = ModuleContent::findOrFail($content_id);
+    
+        // Delete the file from storage if it exists
+        if ($content->file_path && Storage::exists($content->file_path)) {
+            Storage::delete($content->file_path);
+        }
+    
+        // Delete the content record from the database
         $content->delete();
-
+    
         return redirect()->route('modules.content.professor.index', ['module_id' => $module_id])
             ->with('success', 'Content deleted successfully.');
     }
+    
 
     public function indexForStudent($module_id)
     {
@@ -220,13 +239,45 @@ class ModuleContentController extends Controller
         if ($zip->open(public_path($fileName), \ZipArchive::CREATE) === TRUE) {
             foreach ($request->content_ids as $content_id) {
                 $content = ModuleContent::find($content_id);
-                $relativeNameInZipFile = basename($content->file_path);
-                $zip->addFile(storage_path('app/' . $content->file_path), $relativeNameInZipFile);
+                if ($content && $content->file_path) {
+                    $fileContents = Storage::get($content->file_path);
+                    $relativeNameInZipFile = basename($content->file_path);
+                    $zip->addFromString($relativeNameInZipFile, $fileContents);
+                }
             }
             $zip->close();
         }
 
-        return response()->download(public_path($fileName));
+        return response()->download(public_path($fileName))->deleteFileAfterSend(true);
+    }
+
+    public function downloadSingleContent($module_id, $content_id)
+    {
+        $content = ModuleContent::findOrFail($content_id);
+
+        // Get the file path from the content
+        $filePath = storage_path('app/' . $content->file_path);
+
+        // Check if file exists
+        if (!file_exists($filePath)) {
+            return redirect()->route('modules.content.student.index', ['module_id' => $module_id])
+                ->with('error', 'File not found.');
+        }
+
+        // Return the file as a download response
+        return response()->download($filePath, basename($filePath));
+    }
+
+    public function viewContent($module_id, $content_id)
+    {
+        $content = ModuleContent::findOrFail($content_id);
+        $path = storage_path('app/' . $content->file_path);
+
+        if (!file_exists($path)) {
+            abort(404);
+        }
+
+        return response()->file($path);
     }
 
     public function showForStudent($module_id, $content_id)
