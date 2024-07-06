@@ -35,7 +35,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
 // Grouping routes for modules with professor role-based access
-Route::middleware(['auth', 'professor'])->prefix('professor/modules/{module_id}')->group(function () {
+Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('professor/modules/{module_id}')->group(function () {
     //Route::get('dashboard', [ModuleController::class, 'dashboard'])->name('modules.dashboard.professor');
 
     // Content routes
@@ -96,7 +96,7 @@ Route::middleware(['auth', 'professor'])->prefix('professor/modules/{module_id}'
 // Route::patch('meetings/{id}', [MeetingController::class, 'update'])->name('meetings.update');
 
 // Grouping routes for modules with student role-based access
-Route::middleware(['auth', 'student'])->prefix('student/modules/{module_id}')->group(function () {
+Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/modules/{module_id}')->group(function () {
     //Route::get('dashboard', [ModuleController::class, 'dashboard'])->name('modules.dashboard.student');
 
     // Content routes

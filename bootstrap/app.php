@@ -15,9 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'professor' => \App\Http\Middleware\EnsureUserIsProfessor::class,
             'student' => \App\Http\Middleware\EnsureUserIsStudent::class,
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
+            'checkModuleOwnership' => \App\Http\Middleware\CheckModuleOwnership::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
-
