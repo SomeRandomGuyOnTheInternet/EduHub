@@ -24,7 +24,7 @@
                     id="folder-{{ $folder->module_folder_id }}" role="tabpanel"
                     aria-labelledby="tab-{{ $folder->module_folder_id }}">
                     <form
-                        action="{{ route('modules.content.student.toggle-favourite', ['module_id' => $module->module_id]) }}"
+                        action="{{ route('modules.student.content.toggle-favourite', ['module_id' => $module->module_id]) }}"
                         method="POST">
                         @csrf
                         <table class="table table-bordered">
@@ -44,7 +44,7 @@
                                                 class="content-checkbox-{{ $folder->module_folder_id }}"></td>
 
                                         <td><a
-                                                href="{{ route('modules.content.student.show', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}">{{ $content->title }}</a>
+                                                href="{{ route('modules.student.content.show', ['module_id' => $module->module_id, 'content' => $content->content_id]) }}">{{ $content->title }}</a>
                                         </td>
 
                                         <td>{{ strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION))}}</td>
@@ -62,7 +62,7 @@
                         </table>
                         <button type="submit" class="btn btn-primary">Toggle Favourite</button>
                     </form>
-                    <form action="{{ route('modules.content.student.download', ['module_id' => $module->module_id]) }}"
+                    <form action="{{ route('modules.student.content.download', ['module_id' => $module->module_id]) }}"
                         method="POST">
                         @csrf
                         <input type="hidden" name="content_ids[]" class="download-content-ids">

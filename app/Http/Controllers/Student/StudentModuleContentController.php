@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
+use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Module;
 use App\Models\Favourite;
@@ -31,7 +32,7 @@ class StudentModuleContentController extends Controller
         $user = Auth::user();
 
         if (!$user) {
-            return redirect()->route('modules.content.student.index', ['module_id' => $module_id])
+            return redirect()->route('modules.student.content.index', ['module_id' => $module_id])
                 ->with('error', 'User not authenticated.');
         }
 
@@ -51,7 +52,7 @@ class StudentModuleContentController extends Controller
             }
         }
 
-        return redirect()->route('modules.content.student.index', ['module_id' => $module_id])
+        return redirect()->route('modules.student.content.index', ['module_id' => $module_id])
             ->with('success', 'Content favourite status toggled successfully.');
     }
 
@@ -85,7 +86,7 @@ class StudentModuleContentController extends Controller
 
         // Check if file exists
         if (!file_exists($filePath)) {
-            return redirect()->route('modules.content.student.index', ['module_id' => $module_id])
+            return redirect()->route('modules.student.content.index', ['module_id' => $module_id])
                 ->with('error', 'File not found.');
         }
 

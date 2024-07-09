@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimeslotController;
 use App\Http\Controllers\Professor\ProfessorModuleFolderController;
 use App\Http\Controllers\Professor\ProfessorModuleContentController;
+use App\Http\Controllers\Student\StudentModuleContentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', function () {
@@ -83,8 +84,14 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
 // Route::patch('meetings/{id}', [MeetingController::class, 'update'])->name('meetings.update');
 
 // Grouping routes for modules with student role-based access
-Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/modules/{module_id}')->group(function () {
+Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/modules/{module_id}')->name('modules.student.')->group(function () {
     //Route::get('dashboard', [ModuleController::class, 'dashboard'])->name('modules.dashboard.student');
+
+    Route::resource('content', StudentModuleContentController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
+    Route::get('content/{content_id}/view', [StudentModuleContentController::class, 'viewContent'])->name('content.view');
+    Route::post('content/toggle-favourite', [StudentModuleContentController::class, 'toggleFavouriteContent'])->name('content.toggle-favourite');
+    Route::post('content/download', [StudentModuleContentController::class, 'downloadContent'])->name('content.download');
+    Route::post('content/download/{content_id}', [StudentModuleContentController::class, 'downloadSingleContent'])->name('content.downloadSingle');
 
     // // Content routes
     // Route::prefix('content')->name('modules.content.student.')->group(function () {
