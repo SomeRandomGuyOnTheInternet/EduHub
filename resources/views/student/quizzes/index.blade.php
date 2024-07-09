@@ -41,7 +41,7 @@
                             <td>{{ $quiz->quiz_description }}</td>
                             <td>{{ $quiz->quiz_date }}</td>
                             <td>
-                                <a href="{{ route('modules.quizzes.student.show', ['module_id' => $module->module_id, 'id' => $quiz->quiz_id]) }}" class="btn btn-info btn-sm">Start</a>
+                                <a href="{{ route('modules.student.quizzes.show', ['module_id' => $module->module_id, 'quiz' => $quiz->quiz_id]) }}" class="btn btn-info btn-sm">Start</a>
                             </td>
                         </tr>
                     @endforeach

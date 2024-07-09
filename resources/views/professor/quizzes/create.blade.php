@@ -25,7 +25,7 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('modules.quizzes.professor.store', ['module_id' => $module_id]) }}" method="POST">
+        <form action="{{ route('modules.professor.quizzes.store', ['module_id' => $module_id]) }}" method="POST">
             @csrf
             <input type="hidden" name="module_id" value="{{ $module_id }}">
             <div class="form-group">

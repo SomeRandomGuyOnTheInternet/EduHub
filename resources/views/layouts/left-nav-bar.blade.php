@@ -25,6 +25,15 @@
                             <a href="{{ route('modules.student.news.index', ['module_id' => $module->module_id]) }}">News</a>
                         @endif
                     </li>
+                    <li>
+                        @if(Auth::user()->user_type == 'professor')
+                            <a
+                                href="{{ route('modules.professor.quizzes.index', ['module_id' => $module->module_id]) }}">Quizzes</a>
+                        @elseif(Auth::user()->user_type == 'student')
+                            <a
+                                href="{{ route('modules.student.quizzes.index', ['module_id' => $module->module_id]) }}">Quizzes</a>
+                        @endif
+                    </li>
                 </ul>
             </li>
         @endforeach

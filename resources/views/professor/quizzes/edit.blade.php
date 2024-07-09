@@ -19,7 +19,7 @@
             </div>
         @endif
 
-        <form action="{{ route('modules.quizzes.professor.update', ['module_id' => $module->module_id, 'id' => $quiz->quiz_id]) }}" method="POST">
+        <form action="{{ route('modules.professor.quizzes.update', ['module_id' => $module->module_id, 'quiz' => $quiz->quiz_id]) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="form-group">

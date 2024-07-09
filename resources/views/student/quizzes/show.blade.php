@@ -6,7 +6,7 @@
 <body>
     <div class="container mt-5">
         <h2>Attempt Quiz: {{ $quiz->quiz_title }}</h2>
-        <form action="{{ route('modules.quizzes.student.attempt', ['module_id' => $module->module_id, 'id' => $quiz->quiz_id]) }}" method="POST">
+        <form action="{{ route('modules.student.quizzes.attempt', ['module_id' => $module->module_id, 'id' => $quiz->quiz_id]) }}" method="POST">
             @csrf
             @foreach ($quiz->questions as $index => $question)
             <div class="form-group">
