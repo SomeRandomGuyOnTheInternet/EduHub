@@ -10,15 +10,15 @@
         <p>{{ $content->description }}</p>
         @if(strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) == 'PDF')
         <div class="pdf-viewer">
-            <embed src="{{ route('modules.content.professor.view', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}" width="100%" height="1200px" type="application/pdf">
+            <embed src="{{ route('modules.professor.content.view', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}" width="100%" height="1200px" type="application/pdf">
         </div>
         @endif
         <p><strong>Type:</strong> {{ strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) }}</p>
         <p><strong>Time Uploaded:</strong> {{ $content->created_at->format('h:iA, d M Y') }}</p>
 
-        <a href="{{ route('modules.content.professor.edit-content', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}"
+        <a href="{{ route('modules.professor.content.edit', ['module_id' => $module->module_id, 'content' => $content->content_id]) }}"
             class="btn btn-warning btn-sm">Edit</a>
-        <form action="{{ route('modules.content.professor.delete-content', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}"
+        <form action="{{ route('modules.professor.content.destroy', ['module_id' => $module->module_id, 'content' => $content->content_id]) }}"
             method="POST" style="display:inline;">
             @csrf
             @method('DELETE')

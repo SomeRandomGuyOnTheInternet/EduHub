@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\QuizController;
-use App\Http\Controllers\ModuleContentController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\navBarController;
-use App\Http\Controllers\TimeslotController;
 use App\Http\Controllers\MeetingController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TimeslotController;
+use App\Http\Controllers\Professor\ProfessorModuleFolderController;
+use App\Http\Controllers\Professor\ProfessorModuleContentController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,26 +36,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 
 // Grouping routes for modules with professor role-based access
-Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('professor/modules/{module_id}')->group(function () {
+Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('professor/modules/{module_id}')->name('modules.professor.')->group(function () {
     //Route::get('dashboard', [ModuleController::class, 'dashboard'])->name('modules.dashboard.professor');
-
-    // Content routes
-    Route::prefix('content')->name('modules.content.professor.')->group(function () {
-        Route::get('/', [ModuleContentController::class, 'indexForProfessor'])->name('index');
-        Route::get('create-folder', [ModuleContentController::class, 'createFolder'])->name('create-folder');
-        Route::post('store-folder', [ModuleContentController::class, 'storeFolder'])->name('store-folder');
-        Route::get('create-content', [ModuleContentController::class, 'createContent'])->name('create-content');
-        Route::post('store-content', [ModuleContentController::class, 'storeContent'])->name('store-content');
-        Route::get('{content_id}', [ModuleContentController::class, 'showForProfessor'])->name('show');
-        Route::get('{content_id}/view', [ModuleContentController::class, 'viewContent'])->name('view');
-        Route::get('edit-folder/{folder_id}', [ModuleContentController::class, 'editFolder'])->name('edit-folder');
-        Route::put('update-folder/{folder_id}', [ModuleContentController::class, 'updateFolder'])->name('update-folder');
-        Route::delete('delete-folder/{folder_id}', [ModuleContentController::class, 'destroyFolder'])->name('delete-folder');
-        Route::get('edit-content/{content_id}', [ModuleContentController::class, 'editContent'])->name('edit-content');
-        Route::put('update-content/{content_id}', [ModuleContentController::class, 'updateContent'])->name('update-content');
-        Route::delete('delete-content/{content_id}', [ModuleContentController::class, 'destroyContent'])->name('delete-content');
-    });
-
+    Route::resource('content', ProfessorModuleContentController::class);
+    Route::resource('folder', ProfessorModuleFolderController::class)->except(['index', 'show']);
+    Route::get('content/{content_id}/view', [ProfessorModuleContentController::class, 'viewContent'])->name('content.view');
     // Quiz routes
     Route::prefix('quizzes')->name('modules.quizzes.professor.')->group(function () {
         Route::get('/', [QuizController::class, 'indexForProfessor'])->name('index');
@@ -100,15 +86,15 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
 Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/modules/{module_id}')->group(function () {
     //Route::get('dashboard', [ModuleController::class, 'dashboard'])->name('modules.dashboard.student');
 
-    // Content routes
-    Route::prefix('content')->name('modules.content.student.')->group(function () {
-        Route::get('/', [ModuleContentController::class, 'indexForStudent'])->name('index');
-        Route::get('{content_id}', [ModuleContentController::class, 'showForStudent'])->name('show');
-        Route::get('{content_id}/view', [ModuleContentController::class, 'viewContent'])->name('view');
-        Route::post('toggle-favourite', [ModuleContentController::class, 'toggleFavouriteContent'])->name('toggle-favourite');
-        Route::post('download', [ModuleContentController::class, 'downloadContent'])->name('download');
-        Route::post('download/{content_id}', [ModuleContentController::class, 'downloadSingleContent'])->name('downloadSingle');
-    });
+    // // Content routes
+    // Route::prefix('content')->name('modules.content.student.')->group(function () {
+    //     Route::get('/', [ModuleContentController::class, 'indexForStudent'])->name('index');
+    //     Route::get('{content_id}', [ModuleContentController::class, 'showForStudent'])->name('show');
+    //     Route::get('{content_id}/view', [ModuleContentController::class, 'viewContent'])->name('view');
+    //     Route::post('toggle-favourite', [ModuleContentController::class, 'toggleFavouriteContent'])->name('toggle-favourite');
+    //     Route::post('download', [ModuleContentController::class, 'downloadContent'])->name('download');
+    //     Route::post('download/{content_id}', [ModuleContentController::class, 'downloadSingleContent'])->name('downloadSingle');
+    // });
 
     // Quiz routes
     Route::prefix('quizzes')->name('modules.quizzes.student.')->group(function () {

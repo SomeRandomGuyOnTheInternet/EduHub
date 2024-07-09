@@ -8,7 +8,7 @@
     <div class="container mt-5">
         <h2>Edit Content for Module: {{ $module->module_name }}</h2>
         <form
-            action="{{ route('modules.content.professor.update-content', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}"
+            action="{{ route('modules.professor.content.update', ['module_id' => $module->module_id, 'content' => $content->content_id]) }}"
             method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
