@@ -20,7 +20,7 @@
                         <tbody>
                             @foreach ($newsItems as $news)
                                 <tr>
-                                    <td><a href="{{ route('modules.news.student.show', ['module_id' => $module->module_id, 'news_id' => $news->news_id]) }}">{{ $news->news_title }}</a></td>
+                                    <td><a href="{{ route('modules.student.news.show', ['module_id' => $module->module_id, 'news' => $news->news_id]) }}">{{ $news->news_title }}</a></td>
                                     <td>{{ $news->news_description }}</td>
                                     <td>
                                         @if (!empty($news->updated_at))

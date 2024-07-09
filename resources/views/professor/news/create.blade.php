@@ -5,7 +5,7 @@
 @section('content')
     <div class="container mt-5">
         <h2>Create News for Module: {{ $module->module_name }}</h2>
-        <form action="{{ route('modules.news.professor.store', ['module_id' => $module->module_id]) }}" method="POST">
+        <form action="{{ route('modules.professor.news.store', ['module_id' => $module->module_id]) }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="news_title">News Title</label>

@@ -17,7 +17,14 @@
                                 href="{{ route('modules.student.content.index', ['module_id' => $module->module_id]) }}">Content</a>
                         @endif
                     </li>
-
+                    <li><a href="{{ url('assignments/' . $module->module_id) }}">Assignments</a></li>
+                    <li>
+                        @if(Auth::user()->user_type == 'professor')
+                            <a href="{{ route('modules.professor.news.index', ['module_id' => $module->module_id]) }}">News</a>
+                        @elseif(Auth::user()->user_type == 'student')
+                            <a href="{{ route('modules.student.news.index', ['module_id' => $module->module_id]) }}">News</a>
+                        @endif
+                    </li>
                 </ul>
             </li>
         @endforeach

@@ -10,7 +10,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimeslotController;
 use App\Http\Controllers\Professor\ProfessorModuleFolderController;
 use App\Http\Controllers\Professor\ProfessorModuleContentController;
+use App\Http\Controllers\Professor\ProfessorNewsController;
 use App\Http\Controllers\Student\StudentModuleContentController;
+use App\Http\Controllers\Student\StudentNewsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 Route::get('/', function () {
@@ -38,10 +40,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 // Grouping routes for modules with professor role-based access
 Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('professor/modules/{module_id}')->name('modules.professor.')->group(function () {
-    //Route::get('dashboard', [ModuleController::class, 'dashboard'])->name('modules.dashboard.professor');
+
+    // Module Content Routes
     Route::resource('content', ProfessorModuleContentController::class);
     Route::resource('folder', ProfessorModuleFolderController::class)->except(['index', 'show']);
     Route::get('content/{content_id}/view', [ProfessorModuleContentController::class, 'viewContent'])->name('content.view');
+
+    // News Routes
+    Route::resource('news', ProfessorNewsController::class);
+
     // Quiz routes
     Route::prefix('quizzes')->name('modules.quizzes.professor.')->group(function () {
         Route::get('/', [QuizController::class, 'indexForProfessor'])->name('index');
@@ -53,16 +60,16 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
         Route::delete('{id}', [QuizController::class, 'destroyForProfessor'])->name('destroy');
     });
 
-    // News routes
-    Route::prefix('news')->name('modules.news.professor.')->group(function () {
-        Route::get('/', [NewsController::class, 'indexForProfessor'])->name('index');
-        Route::get('create', [NewsController::class, 'createForProfessor'])->name('create');
-        Route::post('/', [NewsController::class, 'storeForProfessor'])->name('store');
-        Route::get('{news_id}', [NewsController::class, 'showForProfessor'])->name('show');
-        Route::get('{news_id}/edit', [NewsController::class, 'editForProfessor'])->name('edit');
-        Route::put('{news_id}', [NewsController::class, 'updateForProfessor'])->name('update');
-        Route::delete('{news_id}', [NewsController::class, 'destroyForProfessor'])->name('destroy');
-    });
+    // // News routes
+    // Route::prefix('news')->name('modules.news.professor.')->group(function () {
+    //     Route::get('/', [NewsController::class, 'indexForProfessor'])->name('index');
+    //     Route::get('create', [NewsController::class, 'createForProfessor'])->name('create');
+    //     Route::post('/', [NewsController::class, 'storeForProfessor'])->name('store');
+    //     Route::get('{news_id}', [NewsController::class, 'showForProfessor'])->name('show');
+    //     Route::get('{news_id}/edit', [NewsController::class, 'editForProfessor'])->name('edit');
+    //     Route::put('{news_id}', [NewsController::class, 'updateForProfessor'])->name('update');
+    //     Route::delete('{news_id}', [NewsController::class, 'destroyForProfessor'])->name('destroy');
+    // });
 
      // Meetings routes
         Route::prefix('meetings')->name('modules.meetings.professor.')->group(function () {
@@ -87,11 +94,15 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
 Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/modules/{module_id}')->name('modules.student.')->group(function () {
     //Route::get('dashboard', [ModuleController::class, 'dashboard'])->name('modules.dashboard.student');
 
+    // Module Content Routes
     Route::resource('content', StudentModuleContentController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
     Route::get('content/{content_id}/view', [StudentModuleContentController::class, 'viewContent'])->name('content.view');
     Route::post('content/toggle-favourite', [StudentModuleContentController::class, 'toggleFavouriteContent'])->name('content.toggle-favourite');
     Route::post('content/download', [StudentModuleContentController::class, 'downloadContent'])->name('content.download');
     Route::post('content/download/{content_id}', [StudentModuleContentController::class, 'downloadSingleContent'])->name('content.downloadSingle');
+
+    // News Routes
+    Route::resource('news', StudentNewsController::class)->except(['create', 'store', 'edit', 'update', 'destroy']);
 
     // // Content routes
     // Route::prefix('content')->name('modules.content.student.')->group(function () {
@@ -110,11 +121,11 @@ Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/
         Route::post('{id}/attempt', [QuizController::class, 'attempt'])->name('attempt');
     });
 
-    // News routes
-    Route::prefix('news')->name('modules.news.student.')->group(function () {
-        Route::get('/', [NewsController::class, 'indexForStudent'])->name('index');
-        Route::get('{news_id}', [NewsController::class, 'showForStudent'])->name('show');
-    });
+    // // News routes
+    // Route::prefix('news')->name('modules.news.student.')->group(function () {
+    //     Route::get('/', [NewsController::class, 'indexForStudent'])->name('index');
+    //     Route::get('{news_id}', [NewsController::class, 'showForStudent'])->name('show');
+    // });
 
      // Meetings routes
      Route::prefix('meetings')->name('modules.meetings.student.')->group(function () {

@@ -22,6 +22,6 @@
             </small>
         </div>
     </div>
-    <a href="{{ route('modules.news.professor.index', ['module_id' => $module->module_id]) }}" class="btn btn-secondary mt-3">Back to News</a>
+    <a href="{{ route('modules.professor.news.index', ['module_id' => $module->module_id]) }}" class="btn btn-secondary mt-3">Back to News</a>
 </div>
 @endsection
