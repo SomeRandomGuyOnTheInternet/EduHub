@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ModuleVisited extends Model
 {
     use HasFactory;
-
+    
+    protected $table = 'module_visited';
     protected $primaryKey = 'module_visited_id';
     protected $fillable = ['user_id', 'content_id', 'module_id'];
 
