@@ -3,30 +3,32 @@
 use App\Http\Controllers\Professor\ProfessorAssignmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Professor\ProfessorModuleFolderController;
-use App\Http\Controllers\Professor\ProfessorModuleContentController;
-use App\Http\Controllers\Professor\ProfessorNewsController;
-use App\Http\Controllers\Professor\ProfessorQuizController;
-use App\Http\Controllers\Professor\ProfessorMeetingController;
-use App\Http\Controllers\Student\StudentModuleContentController;
 use App\Http\Controllers\Student\StudentNewsController;
 use App\Http\Controllers\Student\StudentQuizController;
 use App\Http\Controllers\Student\StudentMeetingController;
+use App\Http\Controllers\Professor\ProfessorNewsController;
+use App\Http\Controllers\Professor\ProfessorQuizController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Student\StudentModuleHomeController;
+use App\Http\Controllers\Professor\ProfessorMeetingController;
+use App\Http\Controllers\Student\StudentModuleContentController;
+use App\Http\Controllers\Professor\ProfessorModuleFolderController;
+use App\Http\Controllers\Professor\ProfessorModuleContentController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::middleware(['auth', 'student'])->group(function () {
+    Route::get('/dashboard', [StudentModuleHomeController::class, 'index'])->name('dashboard');
+}); 
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/login', function () {
@@ -74,6 +76,8 @@ Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/
 
     // Meeting Routes
     Route::resource('meetings', StudentMeetingController::class)->only(['index', 'update']);
+
+    
 });
 
 
