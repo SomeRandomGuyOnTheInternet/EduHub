@@ -17,8 +17,6 @@
                     <li>
                         @if(Auth::user()->user_type == 'professor')
                             <a href="{{ route('modules.professor.assignments.index', ['module_id' => $module->module_id]) }}">Assignments</a>
-                        @elseif(Auth::user()->user_type == 'student')
-                            <a href="{{ route('modules.student.assignments.index', ['module_id' => $module->module_id]) }}">Assignments</a>
                         @endif
                     </li>
                     <li>
@@ -40,7 +38,7 @@
                             <a href="{{ route('modules.professor.meetings.index', ['module_id' => $module->module_id]) }}">Meetings</a>
                         @elseif(Auth::user()->user_type == 'student')
                             <a href="{{ route('modules.student.meetings.index', ['module_id' => $module->module_id]) }}">Meetings</a>
-                        @endif 
+                        @endif
                     </li>
                 </ul>
             </li>
