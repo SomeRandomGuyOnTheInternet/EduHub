@@ -2,7 +2,7 @@
 @section('content')
     <h1>Create Meeting Slot for Module: {{ $module->module_name}} </h1>
     
-    <form action="{{ route('modules.meetings.professor.store', ['module_id' => $module->module_id]) }}" method="POST">
+    <form action="{{ route('modules.professor.meetings.store', ['module_id' => $module->module_id]) }}" method="POST">
         @csrf
         @method('post')
         <label for="meeting_date">Meeting Date:</label>
@@ -16,6 +16,6 @@
         
         <button type="submit">Create Timeslot</button>
         <br> 
-        <a href="{{ route('modules.meetings.professor.index', ['module_id' => $module->module_id]) }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('modules.professor.meetings.index', ['module_id' => $module->module_id]) }}" class="btn btn-secondary">Cancel</a>
     </form>
 @endsection

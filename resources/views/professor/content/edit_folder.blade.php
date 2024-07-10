@@ -8,7 +8,7 @@
     <div class="container mt-5">
         <h2>Edit Folder for Module: {{ $module->module_name }}</h2>
         <form
-            action="{{ route('modules.professor.folder.update', ['module_id' => $module->module_id, 'folder_id' => $folder->module_folder_id]) }}"
+            action="{{ route('modules.professor.folder.update', ['module_id' => $module->module_id, 'folder' => $folder->module_folder_id]) }}"
             method="POST">
             @csrf
             @method('PUT')

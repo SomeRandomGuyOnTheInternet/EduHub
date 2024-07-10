@@ -20,7 +20,7 @@
                             <p class="card-text">Status: <strong>{{ $meeting->status }}</strong></p>
 
                             @if($meeting->status == 'vacant')                            
-                            <form action="{{ route('modules.meetings.student.update', ['module_id' => $module->module_id, 'meeting_id' => $meeting->meeting_id])}}" method="POST" class="d-inline">
+                            <form action="{{ route('modules.student.meetings.update', ['module_id' => $module->module_id, 'meeting' => $meeting->meeting_id])}}" method="POST" class="d-inline">
                                     @csrf
                                     @method('PATCH')
                                     <input type="hidden" name="status" value="booked">

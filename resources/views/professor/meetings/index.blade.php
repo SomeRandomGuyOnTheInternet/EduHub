@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-5">
         <h1 class="mb-3">Meetings for {{ $module->module_name }} </h1>
-        <a href="{{ route('modules.meetings.professor.create', ['module_id' => $module->module_id]) }}" class="btn btn-primary mb-3">Create Meeting Slot</a>
+        <a href="{{ route('modules.professor.meetings.create', ['module_id' => $module->module_id]) }}" class="btn btn-primary mb-3">Create Meeting Slot</a>
         <div class="row">
             @foreach ($meetings as $meeting)
                 <div class="col-md-4 mb-4">
