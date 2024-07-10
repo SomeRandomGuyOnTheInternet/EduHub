@@ -1,3 +1,4 @@
+<!-- resources/views/professor/assignment/show.blade.php -->
 @extends('layouts.app')
 
 @section('content')
@@ -6,8 +7,8 @@
     <p>{{ $assignment->description }}</p>
     <p><strong>Weightage:</strong> {{ $assignment->weightage }}</p>
     <p><strong>Due Date:</strong> {{ $assignment->due_date }}</p>
-
-    <livewire:professor.assignment-download :assignment_id="$assignment->assignment_id" />
-    <livewire:professor.assignment-grade :assignment_id="$assignment->assignment_id" />
+    @if($assignment->file_path)
+        <p><strong>File:</strong> <a href="{{ Storage::url($assignment->file_path) }}" target="_blank">{{ $fileName }}</a></p>
+    @endif
 </div>
 @endsection

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('weightage', 100);
             $table->text('description')->nullable();
             $table->date('due_date');
+            $table->string('file_path')->nullable();
             $table->timestamps();
 
             $table->foreign('module_id')->references('module_id')->on('modules')->onDelete('cascade');

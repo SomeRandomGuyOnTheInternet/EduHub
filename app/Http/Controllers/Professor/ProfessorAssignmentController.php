@@ -19,32 +19,51 @@ class ProfessorAssignmentController extends Controller
         return view('professor.assignment.create', compact('module_id'));
     }
 
-    public function store(Request $request, $module_id)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'weightage' => 'required|numeric',
-            'description' => 'required|string',
-            'due_date' => 'required|date',
-        ]);
+public function store(Request $request, $module_id)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'weightage' => 'required|numeric',
+        'description' => 'required|string',
+        'due_date' => 'required|date',
+        'file' => 'nullable|file|max:2048',
+    ]);
 
-        Assignment::create([
-            'module_id' => $module_id,
-            'title' => $request->title,
-            'weightage' => $request->weightage,
-            'description' => $request->description,
-            'due_date' => $request->due_date,
-        ]);
-
-        return redirect()->route('modules.professor.assignments.index', $module_id)
-                         ->with('success', 'Assignment created successfully.');
+    $filePath = null;
+    $originalFileName = null;
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $originalFileName = $file->getClientOriginalName();
+        $filePath = $file->storeAs('assignments', $originalFileName, 'public');
     }
 
-    public function show($module_id, $assignment_id)
-    {
-        $assignment = Assignment::findOrFail($assignment_id);
-        return view('professor.assignment.show', compact('assignment', 'module_id'));
-    }
+    $assignment = new Assignment();
+    $assignment->module_id = $module_id;
+    $assignment->title = $request->title;
+    $assignment->weightage = $request->weightage;
+    $assignment->description = $request->description;
+    $assignment->due_date = $request->due_date;
+    $assignment->file_path = $filePath;
+
+    $assignment->save();
+
+    // Debugging statement to check assignment data
+    logger()->info('Assignment Data:', $assignment->toArray());
+
+    return redirect()->route('modules.professor.assignments.index', $module_id)
+                     ->with('success', 'Assignment created successfully.');
+}
+
+public function show($module_id, $assignment_id)
+{
+    $assignment = Assignment::findOrFail($assignment_id);
+
+    // Extract the file name from the file path
+    $fileName = basename($assignment->file_path);
+
+    return view('professor.assignment.show', compact('assignment', 'module_id', 'fileName'));
+}
+
 
     public function destroy($module_id, $assignment_id)
     {
