@@ -17,6 +17,11 @@ class Assignment extends Model
         return $this->belongsTo(Module::class, 'module_id');
     }
 
+    public function submissions()
+    {
+        return $this->hasMany(AssignmentSubmission::class, 'assignment_id');
+    }
+
     public function grades()
     {
         return $this->hasMany(Grade::class, 'assignment_id');

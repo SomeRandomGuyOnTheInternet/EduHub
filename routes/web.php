@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Professor\ProfessorAssignmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Professor\ProfessorModuleFolderController;
@@ -49,6 +50,9 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
 
     // Meeting Routes
     Route::resource('meetings', ProfessorMeetingController::class)->only(['index', 'create', 'store']);
+
+    //Assignment Routes
+    Route::resource('assignments', ProfessorAssignmentController::class);
 });
 
 // Grouping routes for modules with student role-based access
