@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Student;
 
-use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Module;
 use App\Models\Favourite;
 use App\Models\ModuleFolder;
 use Illuminate\Http\Request;
 use App\Models\ModuleContent;
+use App\Models\ModuleVisited;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -108,8 +109,18 @@ class StudentModuleContentController extends Controller
 
     public function show($module_id, $content_id)
     {
+        // Retrieve the module and content
         $module = Module::findOrFail($module_id);
         $content = ModuleContent::with('favourites')->findOrFail($content_id);
+
+        // Log the module visit
+        ModuleVisited::create([
+            'user_id' => Auth::id(),
+            'content_id' => $content->content_id,
+            'module_id' => $module->module_id,
+        ]);
+
+        // Return the view
         return view('student.content.show', compact('module', 'content'));
     }
 
