@@ -28,11 +28,15 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (Auth::user()->user_type === 'admin') {
-            return redirect()->intended('/admin');
-        }
+        $user = Auth::user(); // Define the $user variable
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        if ($user->user_type === 'admin') {
+            return redirect()->intended('/admin');
+        } elseif ($user->user_type === 'professor') {
+            return redirect()->intended(route('professor.dashboard'));
+        } elseif ($user->user_type === 'student') {
+            return redirect()->intended(route('student.dashboard'));
+        }
     }
 
     /**

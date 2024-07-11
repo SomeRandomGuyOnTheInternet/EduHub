@@ -27,14 +27,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//only for student to go to dashboard
 Route::middleware(['auth', 'student'])->group(function () {
-    Route::get('/dashboard', [StudentModuleHomeController::class, 'index'])->name('dashboard');
+    Route::get('/student/dashboard', [StudentModuleHomeController::class, 'index'])->name('student.dashboard');
 }); 
 
+//only for professor to go to dashbaord
 Route::middleware(['auth', 'professor'])->group(function () {
-    Route::get('/dashboard', [ProfessorModuleHomeController::class, 'index'])->name('dashboard');
+    Route::get('/professor/dashboard', [ProfessorModuleHomeController::class, 'index'])->name('professor.dashboard');
 }); 
 
+//only for admin routing
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/login', function () {
         return redirect()->route('login');
