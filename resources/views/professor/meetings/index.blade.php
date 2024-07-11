@@ -1,14 +1,20 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="title">
+        {{ __('Meetings') }}
+    </x-slot>
 
-@section('content')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Meetings for ') }}{{ $module->module_name }}
+        </h2>
+    </x-slot>
+
     <div class="container mt-5">
-        <h1 class="mb-3">Meetings for {{ $module->module_name }} </h1>
         <a href="{{ route('modules.professor.meetings.create', ['module_id' => $module->module_id]) }}" class="btn btn-primary mb-3">Create Meeting Slot</a>
         <div class="row">
             @foreach ($meetings as $meeting)
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                  
                         <div class="card-header">
                             Meeting Date: {{ $meeting->meeting_date }} 
                             <br>
@@ -20,7 +26,6 @@
                             <p class="card-text">Status: <strong>{{ $meeting->status }}</strong></p>
 
                             @if($meeting->status == 'pending' && auth()->user()->id == $meeting->user_id)
-                
                                 <form action="{{ route('meetings.update', $meeting->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('PATCH')
@@ -42,4 +47,4 @@
             @endforeach
         </div>
     </div>
-@endsection
+</x-app-layout>
