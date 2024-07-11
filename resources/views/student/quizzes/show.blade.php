@@ -1,11 +1,15 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="title">
+        {{ __('Learning Content') }}
+    </x-slot>
 
-@section('title', 'Learning Content')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Attempt Quiz: ') }}{{ $quiz->quiz_title }}
+        </h2>
+    </x-slot>
 
-@section('content')
-<body>
     <div class="container mt-5">
-        <h2>Attempt Quiz: {{ $quiz->quiz_title }}</h2>
         <form action="{{ route('modules.student.quizzes.attempt', ['module_id' => $module->module_id, 'id' => $quiz->quiz_id]) }}" method="POST">
             @csrf
             @foreach ($quiz->questions as $index => $question)
@@ -29,6 +33,4 @@
             <button type="submit" class="btn btn-success">Submit Quiz</button>
         </form>
     </div>
-</body>
-</html>
-@endsection
+</x-app-layout>

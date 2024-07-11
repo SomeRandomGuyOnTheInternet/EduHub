@@ -1,11 +1,15 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="title">
+        {{ __('News') }}
+    </x-slot>
 
-@section('title', 'News')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ $module->module_name }} - {{ __('News') }}
+        </h2>
+    </x-slot>
 
-@section('content')
     <div class="container mt-5">
-        <h2>{{ $module->module_name }} - News</h2>
-
         <div class="tab-content" id="newsTabsContent">
             <div class="tab-pane fade show active" id="news" role="tabpanel">
                 <div class="mt-3">
@@ -41,4 +45,4 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-@endsection
+</x-app-layout>
