@@ -1,25 +1,25 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="title">
+        {{ __('Edit Content') }}
+    </x-slot>
 
-@section('title', 'Learning Content')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Edit Content for Module: ') }}{{ $module->module_name }}
+        </h2>
+    </x-slot>
 
-@section('content')
-
-<body>
     <div class="container mt-5">
-        <h2>Edit Content for Module: {{ $module->module_name }}</h2>
-        <form
-            action="{{ route('modules.professor.content.update', ['module_id' => $module->module_id, 'content' => $content->content_id]) }}"
-            method="POST" enctype="multipart/form-data">
+        <form action="{{ route('modules.professor.content.update', ['module_id' => $module->module_id, 'content' => $content->content_id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-group">
                 <label for="module_folder_id">Folder</label>
                 <select class="form-control" id="module_folder_id" name="module_folder_id" required>
                     @foreach ($folders as $folder)
-                    <option value="{{ $folder->module_folder_id }}"
-                        {{ $folder->module_folder_id == $content->module_folder_id ? 'selected' : '' }}>
-                        {{ $folder->folder_name }}
-                    </option>
+                        <option value="{{ $folder->module_folder_id }}" {{ $folder->module_folder_id == $content->module_folder_id ? 'selected' : '' }}>
+                            {{ $folder->folder_name }}
+                        </option>
                     @endforeach
                 </select>
             </div>
@@ -29,8 +29,7 @@
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description"
-                    name="description">{{ $content->description }}</textarea>
+                <textarea class="form-control" id="description" name="description">{{ $content->description }}</textarea>
             </div>
             <div class="form-group">
                 <label for="file_path">Upload New File (Optional)</label>
@@ -39,6 +38,4 @@
             <button type="submit" class="btn btn-success">Update Content</button>
         </form>
     </div>
-</body>
-
-@endsection
+</x-app-layout>

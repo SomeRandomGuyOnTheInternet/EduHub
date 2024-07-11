@@ -1,12 +1,15 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="title">
+        {{ __('Learning Content') }}
+    </x-slot>
 
-@section('title', 'Learning Content')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ $content->title }}
+        </h2>
+    </x-slot>
 
-@section('content')
-
-<body>
     <div class="container mt-5">
-        <h2>{{ $content->title }}</h2>
         <p>{{ $content->description }}</p>
         @if(strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) == 'PDF')
         <div class="pdf-viewer">
@@ -29,6 +32,4 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-
-@endsection
+</x-app-layout>
