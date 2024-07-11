@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Professor\ProfessorAssignmentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentNewsController;
@@ -12,6 +11,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Student\StudentModuleHomeController;
 use App\Http\Controllers\Professor\ProfessorMeetingController;
 use App\Http\Controllers\Student\StudentModuleContentController;
+use App\Http\Controllers\Professor\ProfessorAssignmentController;
+use App\Http\Controllers\Professor\ProfessorModuleHomeController;
 use App\Http\Controllers\Professor\ProfessorModuleFolderController;
 use App\Http\Controllers\Professor\ProfessorModuleContentController;
 
@@ -28,6 +29,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'student'])->group(function () {
     Route::get('/dashboard', [StudentModuleHomeController::class, 'index'])->name('dashboard');
+}); 
+
+Route::middleware(['auth', 'professor'])->group(function () {
+    Route::get('/dashboard', [ProfessorModuleHomeController::class, 'index'])->name('dashboard');
 }); 
 
 Route::middleware(['auth', 'admin'])->group(function () {

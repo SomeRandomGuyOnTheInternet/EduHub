@@ -54,6 +54,6 @@ class StudentModuleHomeController extends Controller
 
 
         // Pass events to the view
-        return view('dashboard', compact('events'));
+        return view('student.home.dashboard', compact('events'));
     }
 }
