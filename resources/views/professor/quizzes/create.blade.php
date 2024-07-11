@@ -1,11 +1,15 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="title">
+        {{ __('Learning Content') }}
+    </x-slot>
 
-@section('title', 'Learning Content')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Create Quiz') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-<body>
     <div class="container mt-5">
-        <h2>Create Quiz</h2>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -72,7 +76,6 @@
             <button type="button" class="btn btn-primary" id="addQuestionBtn">Add New Question</button>
             <button type="submit" class="btn btn-success">Publish Quiz</button>
         </form>
-
     </div>
 
     <script>
@@ -111,6 +114,4 @@
             questionsContainer.appendChild(newQuestion);
         });
     </script>
-</body>
-
-@endsection
+</x-app-layout>

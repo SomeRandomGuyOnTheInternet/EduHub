@@ -1,12 +1,15 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="title">
+        {{ __('Learning Content') }}
+    </x-slot>
 
-@section('title', 'Learning Content')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Quizzes for Module: ') }}{{ $module->module_name }}
+        </h2>
+    </x-slot>
 
-@section('content')
-<body>
     <div class="container mt-5">
-        <h2>Quizzes for Module: {{ $module->module_name }}</h2>
-
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -54,5 +57,4 @@
             </table>
         @endif
     </div>
-</body>
-@endsection
+</x-app-layout>

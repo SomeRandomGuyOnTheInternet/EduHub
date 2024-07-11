@@ -1,11 +1,15 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="title">
+        {{ __('Learning Content') }}
+    </x-slot>
 
-@section('title', 'Learning Content')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Quiz: ') }}{{ $quiz->quiz_title }}
+        </h2>
+    </x-slot>
 
-@section('content')
-<body>
     <div class="container mt-5">
-        <h2>Quiz: {{ $quiz->quiz_title }}</h2>
         <p><strong>Module:</strong> {{ $module->module_name }}</p>
         <p><strong>Description:</strong> {{ $quiz->quiz_description }}</p>
         <p><strong>Date:</strong> {{ $quiz->quiz_date }}</p>
@@ -27,5 +31,4 @@
             </div>
         @endforeach
     </div>
-</body>
-@endsection
+</x-app-layout>
