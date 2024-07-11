@@ -15,23 +15,17 @@ class StudentMeetingController extends Controller
 {
 
     public function index($module_id)
-    {
-        $module = Module::findOrFail($module_id); // Finds the module by its ID, or fails with a 404 error if not found.
-        // $meetings = Meeting::with('user', 'timeslot.user')->get();
-        $meetings = DB::table('meetings')
-            ->join('timeslots', 'meetings.timeslot_id', '=', 'timeslots.timeslot_id')
-            ->join('users', 'meetings.user_id', '=', 'users.user_id')
-            ->where('meetings.module_id', $module_id)
-            ->get();
-        // DB::table('modules')
-        //         ->join('teaches', 'modules.module_id', '=', 'teaches.module_id')
-        //         ->where('teaches.user_id', $userId)
-        //         ->select('modules.module_name', 'modules.module_id') // Include module_id in the selection
-        //         ->get();
-        // $timeslots = DB::table('timeslots');
-        // dd($meetings);
-        return view('student.meetings.index', compact('module', 'meetings'));
-    }
+{
+    $module = Module::findOrFail($module_id);
+
+    $meetings = DB::table('meetings')
+        ->join('users', 'meetings.user_id', '=', 'users.user_id')
+        ->where('meetings.module_id', $module_id)
+        ->get();
+
+    return view('student.meetings.index', compact('module', 'meetings'));
+}
+
 
     public function update(Request $request, $module_id, $meeting_id)
     {
@@ -43,8 +37,6 @@ class StudentMeetingController extends Controller
         $meeting->booked_by_user_id = auth()->id();
         $meeting->save();
 
-        $timeslot = TimeSlot::where('timeslot_id', $meeting->timeslot_id)->firstOrFail();
-        $timeslot->is_booked = true;
         // dd($timeslot);
         return redirect()->route('modules.student.meetings.index', ['module_id' => $module_id])
             ->with('success', 'Meeting slot booked successfully!');

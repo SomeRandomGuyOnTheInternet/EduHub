@@ -16,8 +16,9 @@ class CreateMeetingsTable extends Migration
             $table->id('meeting_id');
             $table->unsignedBigInteger('user_id'); // Foreign key
             $table->unsignedBigInteger('module_id'); // Foreign key
-            $table->unsignedBigInteger('timeslot_id');
             $table->unsignedBigInteger('booked_by_user_id')->nullable();
+            $table->date('meeting_date')->nullable();
+            $table->string('timeslot')->nullable();
             $table->enum('status', ['vacant', 'booked'])->default('vacant');
             $table->timestamps();
 
@@ -25,11 +26,6 @@ class CreateMeetingsTable extends Migration
             $table->foreign('user_id')
                 ->references('user_id')
                 ->on('users')
-                ->onDelete('cascade');
-
-            $table->foreign('timeslot_id')
-                ->references('timeslot_id')
-                ->on('timeslots')
                 ->onDelete('cascade');
 
             $table->foreign('module_id')
