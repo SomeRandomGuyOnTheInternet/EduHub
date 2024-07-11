@@ -1,10 +1,15 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="title">
+        {{ __('Create News') }}
+    </x-slot>
 
-@section('title', 'Create News')
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Create News for Module: ') }}{{ $module->module_name }}
+        </h2>
+    </x-slot>
 
-@section('content')
     <div class="container mt-5">
-        <h2>Create News for Module: {{ $module->module_name }}</h2>
         <form action="{{ route('modules.professor.news.store', ['module_id' => $module->module_id]) }}" method="POST">
             @csrf
             <div class="form-group">
@@ -19,4 +24,4 @@
             <button type="submit" class="btn btn-success">Create News</button>
         </form>
     </div>
-@endsection
+</x-app-layout>
