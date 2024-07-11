@@ -10,7 +10,32 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
-            <div id="calendar"></div>
+            <div id="calendar" class="mb-4"></div>
+            <div class="row">
+                @foreach($events as $event)
+                    @php
+                        $eventStartDate = \Carbon\Carbon::parse($event->start);
+                        $today = \Carbon\Carbon::today();
+                    @endphp
+
+                    @if ($eventStartDate->isFuture())
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $event->title }}</h5>
+                                    <p class="card-text">Module: {{ $event->module_name }}</p>
+                                    <p class="card-text">Start Date: {{ $event->start }}</p>
+                                    @if($event->type === 'assignment')
+                                        <span class="badge bg-warning text-dark">Assignment</span>
+                                    @elseif($event->type === 'quiz')
+                                        <span class="badge bg-info text-dark">Quiz</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection
@@ -24,26 +49,21 @@
 
             var calendarEvents = events.map(function(event) {
                 var title = event.title;
-                var module_name = event.module_name; // Fetch module name
+                var module_name = event.module_name;
 
                 var eventData = {
-                    title: title + ' (' + module_name + ')', // Combine title and module name
+                    title: title + ' (' + module_name + ')',
                     start: event.start,
-                    end: event.end,
+                    end: event.end || event.start,
                     extendedProps: {}
                 };
 
-                // Determine if the event is an assignment or quiz and adjust accordingly
-                if (event.assignment_id) {
-                    // Assignment
-                    eventData.color = '#f0ad4e'; // Optional: Set color for assignments
-                    eventData.classNames = 'assignment-event'; // Assign a CSS class for assignments
-                } 
-                
-                if (event.quiz_id) {
-                    // Quiz
-                    eventData.color = '#5bc0de'; // Optional: Set color for quizzes
-                    eventData.classNames = 'quiz-event'; // Assign a CSS class for quizzes
+                if (event.type === 'assignment') {
+                    eventData.color = '#f0ad4e';
+                    eventData.classNames = 'assignment-event';
+                } else if (event.type === 'quiz') {
+                    eventData.color = '#5bc0de';
+                    eventData.classNames = 'quiz-event';
                 }
 
                 return eventData;
@@ -61,31 +81,26 @@
                 editable: false,
                 dayMaxEvents: true,
                 events: calendarEvents,
-                eventDisplay: 'block', // Ensure events are displayed as blocks
-                eventTextColor: 'black' // Set text color for events
+                eventDisplay: 'block',
+                eventTextColor: 'black'
             });
 
             calendar.render();
         });
     </script>
     <style>
-        /* Override FullCalendar default styles */
         .fc-event-main-frame .fc-event-time {
-            display: none !important; /* Hide event time */
+            display: none !important;
         }
-    
-        /* Style assignments */
         .fc-event-title.assignment-event {
-            background-color: #f0ad4e !important; /* Set background color for assignments */
-            border-color: #f0ad4e !important; /* Set border color for assignments */
-            color: black !important; /* Set text color for assignments */
+            background-color: #f0ad4e !important;
+            border-color: #f0ad4e !important;
+            color: black !important;
         }
-    
-        /* Style quizzes */
         .fc-event-title.quiz-event {
-            background-color: #5bc0de !important; /* Set background color for quizzes */
-            border-color: #5bc0de !important; /* Set border color for quizzes */
-            color: black !important; /* Set text color for quizzes */
+            background-color: #5bc0de !important;
+            border-color: #5bc0de !important;
+            color: black !important;
         }
     </style>
 @endsection

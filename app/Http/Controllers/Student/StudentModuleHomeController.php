@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Student;
 use App\Models\Quiz;
 use App\Models\Module;
 use App\Models\Assignment;
-
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,11 +22,17 @@ class StudentModuleHomeController extends Controller
         // Fetch assignments and quizzes based on module IDs
         $assignments = Assignment::whereIn('module_id', $moduleIds)
             ->select('assignment_id as id', 'title', 'due_date as start', 'module_id')
-            ->get();
+            ->get()
+            ->each(function($item) {
+                $item->type = 'assignment';
+            });
 
         $quizzes = Quiz::whereIn('module_id', $moduleIds)
             ->select('quiz_id as id', 'quiz_title as title', 'quiz_date as start', 'module_id')
-            ->get();
+            ->get()
+            ->each(function($item) {
+                $item->type = 'quiz';
+            });
 
         // Merge assignments and quizzes into events
         $events = $assignments->concat($quizzes);
@@ -46,6 +51,7 @@ class StudentModuleHomeController extends Controller
 
             return $event;
         });
+
 
         // Pass events to the view
         return view('dashboard', compact('events'));
