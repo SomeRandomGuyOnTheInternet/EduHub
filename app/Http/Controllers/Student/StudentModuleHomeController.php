@@ -6,6 +6,8 @@ use App\Models\Quiz;
 use App\Models\Module;
 use App\Models\Assignment;
 use App\Models\Enrollment;
+use App\Models\Meeting;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -34,24 +36,45 @@ class StudentModuleHomeController extends Controller
                 $item->type = 'quiz';
             });
 
-        // Merge assignments and quizzes into events
-        $events = $assignments->concat($quizzes);
+        // Fetch meetings based on module IDs and user ID
+        $meetings = Meeting::whereIn('module_id', $moduleIds)
+            ->where('booked_by_user_id', $user->user_id)
+            ->select('meeting_id as id', 'meeting_date as start', 'module_id', 'timeslot', 'user_id')
+            ->get()
+            ->each(function($item) {
+                $item->type = 'meeting';
+            });
+
+        // Merge assignments, quizzes, and meetings into events
+        $events = $assignments->concat($quizzes)->concat($meetings);
 
         // Fetch module names and associate with events
         $moduleNames = Module::whereIn('module_id', $moduleIds)
             ->pluck('module_name', 'module_id');
 
-        // Append module name to each event
-        $events = $events->map(function ($event) use ($moduleNames) {
+        // Fetch professor names and associate with meetings
+        $professorIds = $meetings->pluck('user_id')->unique();
+        $professors = User::whereIn('user_id', $professorIds)
+            ->get(['user_id', 'first_name', 'last_name'])
+            ->keyBy('user_id')
+            ->map(function($professor) {
+                return $professor->first_name . ' ' . $professor->last_name;
+            });
+
+        // Append module name and professor name to each event
+        $events = $events->map(function ($event) use ($moduleNames, $professors) {
             $moduleId = $event->module_id;
             $moduleName = $moduleNames[$moduleId] ?? 'Unknown Module';
-
-            // Append module name to the event object
             $event->module_name = $moduleName;
+
+            if ($event->type === 'meeting') {
+                $professorId = $event->user_id;
+                $professorName = $professors[$professorId] ?? 'Unknown Professor';
+                $event->professor_name = $professorName;
+            }
 
             return $event;
         });
-
 
         // Pass events to the view
         return view('student.home.dashboard', compact('events'));
