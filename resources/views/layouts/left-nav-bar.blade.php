@@ -56,3 +56,17 @@
         }
     }
 </script>
+
+<style>
+    /* left-nav-bar.blade.php */
+    .nav-bar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 200px; /* Adjust width as needed */
+        height: 100%;
+        background-color: #f8f9fa;
+        padding: 20px;
+        z-index: 100; /* Ensure it's on top of other elements */
+    }
+</style>
