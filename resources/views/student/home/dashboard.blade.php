@@ -12,6 +12,13 @@
             </div>
             <br>
             <div id="calendar" class="mb-4"></div>
+            <br>
+            <div class="bg-grey dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    {{ __("Announcements") }}
+                </div>
+            </div>
+            <br>
             <div class="row">
                 @foreach($events as $event)
                 @php
