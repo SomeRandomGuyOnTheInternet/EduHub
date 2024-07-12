@@ -5,11 +5,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-grey dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
             </div>
+            <br>
             <div id="calendar" class="mb-4"></div>
             <div class="row">
                 @foreach($events as $event)
@@ -17,7 +18,6 @@
                         $eventStartDate = \Carbon\Carbon::parse($event->start);
                         $today = \Carbon\Carbon::today();
                     @endphp
-
                     @if ($eventStartDate->isFuture())
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card">
@@ -46,14 +46,13 @@
             var events = @json($events);
 
             var calendarEvents = events.map(function(event) {
-                var title = event.title;
-                var module_name = event.module_name;
-
                 var eventData = {
-                    title: title + ' (' + module_name + ')',
+                    title: event.title,
                     start: event.start,
                     end: event.end || event.start,
-                    extendedProps: {}
+                    extendedProps: {
+                        module_name: event.module_name
+                    }
                 };
 
                 if (event.type === 'assignment') {
@@ -80,7 +79,14 @@
                 dayMaxEvents: true,
                 events: calendarEvents,
                 eventDisplay: 'block',
-                eventTextColor: 'black'
+                eventTextColor: 'black',
+                eventContent: function(arg) {
+                    var title = arg.event.title;
+                    var module_name = arg.event.extendedProps.module_name;
+                    var eventContent = document.createElement('div');
+                    eventContent.innerHTML = `<div>${title}</div><div style="font-size: 1em; color: #555;">${module_name}</div>`;
+                    return { domNodes: [eventContent] };
+                }
             });
 
             calendar.render();
@@ -99,6 +105,9 @@
             background-color: #5bc0de !important;
             border-color: #5bc0de !important;
             color: black !important;
+        }
+        .fc-event-main {
+            white-space: pre-line; /* Ensures line breaks are rendered */
         }
     </style>
 </x-app-layout>
