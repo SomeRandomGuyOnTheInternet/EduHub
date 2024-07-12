@@ -17,11 +17,6 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
     protected $appends = ['name'];
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make($value);
-    }
-
     public function getNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
