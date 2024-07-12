@@ -59,10 +59,11 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
     Route::resource('quizzes', ProfessorQuizController::class);
 
     // Meeting Routes
-    Route::resource('meetings', ProfessorMeetingController::class)->only(['index', 'create', 'store']);
+    Route::resource('meetings', ProfessorMeetingController::class);
 
     //Assignment Routes
     Route::resource('assignments', ProfessorAssignmentController::class);
+    
 });
 
 // Grouping routes for modules with student role-based access

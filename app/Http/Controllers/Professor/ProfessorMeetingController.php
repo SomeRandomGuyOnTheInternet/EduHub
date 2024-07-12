@@ -62,4 +62,40 @@ class ProfessorMeetingController extends Controller
         ]);
         return redirect()->route('modules.professor.meetings.index', ['module_id' => $module_id])->with('success', 'Meeting created successfully');
     }
+
+    public function destroy($module_id, $meeting_id)
+    {
+        $meeting = Meeting::findOrFail($meeting_id);
+        $meeting->delete();
+
+        return redirect()->route('modules.professor.meetings.index', $module_id)->with('success', 'Meeting deleted successfully');
+    }
+
+
+    public function edit($module_id, $meeting_id)
+    {
+        $meeting = Meeting::findOrFail($meeting_id);
+        $module = Module::findOrFail($module_id);
+        $times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '17:00'];
+
+        return view('professor.meetings.edit', compact('meeting', 'module', 'times'));
+    }
+
+
+
+    public function update(Request $request, $module_id, $meeting_id)
+    {
+        $validated = $request->validate([
+            'meeting_date' => 'required|date',
+            'timeslot' => 'required',
+        ]);
+
+        $meeting = Meeting::findOrFail($meeting_id);
+        $meeting->update($validated);
+
+        return redirect()->route('modules.professor.meetings.index', ['module_id' => $module_id])->with('success', 'Meeting created successfully');
+    }
+
+
+
 }
