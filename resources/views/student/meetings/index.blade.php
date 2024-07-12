@@ -13,7 +13,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-header">
-                            Meeting Date: {{ $meeting->meeting_date }} 
+                            Meeting Date: {{ $meeting->meeting_date }}
                             <br>
                             Meeting Time: {{ $meeting->timeslot }}
                             <br>
@@ -22,13 +22,24 @@
                         <div class="card-body">
                             <p class="card-text">Status: <strong>{{ $meeting->status }}</strong></p>
 
-                            @if($meeting->status == 'vacant')                            
-                                <form action="{{ route('modules.student.meetings.update', ['module_id' => $module->module_id, 'meeting' => $meeting->meeting_id])}}" method="POST" class="d-inline">
+                            @if($meeting->status == 'vacant')
+                                <form
+                                    action="{{ route('modules.student.meetings.update', ['module_id' => $module->module_id, 'meeting' => $meeting->meeting_id]) }}"
+                                    method="POST" class="d-inline">
                                     @csrf
                                     @method('PATCH')
                                     <input type="hidden" name="status" value="booked">
                                     <input type="hidden" name="is_booked" value="true">
                                     <button type="submit" class="btn btn-success">Book this slot</button>
+                                </form>
+                            @elseif($meeting->status == 'booked' && $meeting->booked_by_user_id == auth()->id())
+                                <form
+                                    action="{{ route('modules.student.meetings.updateBooking', ['module_id' => $module->module_id, 'meeting' => $meeting->meeting_id]) }}"
+                                    method="POST" class="d-inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="hidden" name="status" value="vacant">
+                                    <button type="submit" class="btn btn-danger">Cancel Booking</button>
                                 </form>
                             @endif
                         </div>

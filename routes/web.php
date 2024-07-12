@@ -30,12 +30,12 @@ Route::middleware('auth')->group(function () {
 //only for student to go to dashboard
 Route::middleware(['auth', 'student'])->group(function () {
     Route::get('/student/dashboard', [StudentModuleHomeController::class, 'index'])->name('student.dashboard');
-}); 
+});
 
 //only for professor to go to dashbaord
 Route::middleware(['auth', 'professor'])->group(function () {
     Route::get('/professor/dashboard', [ProfessorModuleHomeController::class, 'index'])->name('professor.dashboard');
-}); 
+});
 
 //only for admin routing
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -63,7 +63,7 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
 
     //Assignment Routes
     Route::resource('assignments', ProfessorAssignmentController::class);
-    
+
 });
 
 // Grouping routes for modules with student role-based access
@@ -84,9 +84,10 @@ Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/
     Route::post('quizzes/{id}/attempt', [StudentQuizController::class, 'attempt'])->name('quizzes.attempt');
 
     // Meeting Routes
-    Route::resource('meetings', StudentMeetingController::class)->only(['index', 'update']);
+    Route::resource('meetings', StudentMeetingController::class);
+    Route::patch('meetings/{meeting}/update-booking', [StudentMeetingController::class, 'updateBooking'])->name('meetings.updateBooking');
 
-    
+
 });
 
 

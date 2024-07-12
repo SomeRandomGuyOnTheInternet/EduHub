@@ -42,7 +42,20 @@ class StudentMeetingController extends Controller
             ->with('success', 'Meeting slot booked successfully!');
     }
 
+    public function updateBooking(Request $request, $module_id, $meeting_id)
+    {
+        // Assuming Meeting is your Eloquent model and is set up correctly
+        $meeting = Meeting::where('meeting_id', $meeting_id)->firstOrFail();
 
+        // $meeting->is_booked = true;  // timeslot 
+        $meeting->status = $request->input('status');
+        $meeting->booked_by_user_id = null;
+        $meeting->save();
+
+        // dd($timeslot);
+        return redirect()->route('modules.student.meetings.index', ['module_id' => $module_id])
+            ->with('success', 'Meeting slot unbooked successfully!');
+    }
 
 
 }
