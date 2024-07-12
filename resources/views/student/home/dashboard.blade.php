@@ -39,68 +39,66 @@
         </div>
     </div>
 
-    @push('scripts')
-        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var calendarEl = document.getElementById('calendar');
-                var events = @json($events);
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var events = @json($events);
 
-                var calendarEvents = events.map(function(event) {
-                    var title = event.title;
-                    var module_name = event.module_name;
+            var calendarEvents = events.map(function(event) {
+                var title = event.title;
+                var module_name = event.module_name;
 
-                    var eventData = {
-                        title: title + ' (' + module_name + ')',
-                        start: event.start,
-                        end: event.end || event.start,
-                        extendedProps: {}
-                    };
+                var eventData = {
+                    title: title + ' (' + module_name + ')',
+                    start: event.start,
+                    end: event.end || event.start,
+                    extendedProps: {}
+                };
 
-                    if (event.type === 'assignment') {
-                        eventData.color = '#f0ad4e';
-                        eventData.classNames = 'assignment-event';
-                    } else if (event.type === 'quiz') {
-                        eventData.color = '#5bc0de';
-                        eventData.classNames = 'quiz-event';
-                    }
+                if (event.type === 'assignment') {
+                    eventData.color = '#f0ad4e';
+                    eventData.classNames = 'assignment-event';
+                } else if (event.type === 'quiz') {
+                    eventData.color = '#5bc0de';
+                    eventData.classNames = 'quiz-event';
+                }
 
-                    return eventData;
-                });
-
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,dayGridWeek,dayGridDay'
-                    },
-                    navLinks: true,
-                    selectable: true,
-                    selectMirror: true,
-                    editable: false,
-                    dayMaxEvents: true,
-                    events: calendarEvents,
-                    eventDisplay: 'block',
-                    eventTextColor: 'black'
-                });
-
-                calendar.render();
+                return eventData;
             });
-        </script>
-        <style>
-            .fc-event-main-frame .fc-event-time {
-                display: none !important;
-            }
-            .fc-event-title.assignment-event {
-                background-color: #f0ad4e !important;
-                border-color: #f0ad4e !important;
-                color: black !important;
-            }
-            .fc-event-title.quiz-event {
-                background-color: #5bc0de !important;
-                border-color: #5bc0de !important;
-                color: black !important;
-            }
-        </style>
-    @endpush
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek,dayGridDay'
+                },
+                navLinks: true,
+                selectable: true,
+                selectMirror: true,
+                editable: false,
+                dayMaxEvents: true,
+                events: calendarEvents,
+                eventDisplay: 'block',
+                eventTextColor: 'black'
+            });
+
+            calendar.render();
+        });
+    </script>
+    <style>
+        .fc-event-main-frame .fc-event-time {
+            display: none !important;
+        }
+        .fc-event-title.assignment-event {
+            background-color: #f0ad4e !important;
+            border-color: #f0ad4e !important;
+            color: black !important;
+        }
+        .fc-event-title.quiz-event {
+            background-color: #5bc0de !important;
+            border-color: #5bc0de !important;
+            color: black !important;
+        }
+    </style>
 </x-app-layout>
