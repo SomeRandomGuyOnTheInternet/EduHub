@@ -10,7 +10,10 @@
     </x-slot>
 
     <div class="container mt-5">
-        <form action="{{ route('modules.student.quizzes.attempt', ['module_id' => $module->module_id, 'id' => $quiz->quiz_id]) }}" method="POST">
+        <div class="alert alert-info" role="alert">
+            <strong>Time Remaining: <span id="timer"></span></strong>
+        </div>
+        <form id="quiz-form" action="{{ route('modules.student.quizzes.attempt', ['module_id' => $module->module_id, 'id' => $quiz->quiz_id]) }}" method="POST">
             @csrf
             @foreach ($quiz->questions as $index => $question)
             <div class="form-group">
@@ -33,4 +36,22 @@
             <button type="submit" class="btn btn-success">Submit Quiz</button>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var duration = {{ $quiz->duration }} * 60; // Duration in seconds
+            var timer = document.getElementById('timer');
+            var interval = setInterval(function() {
+                var minutes = Math.floor(duration / 60);
+                var seconds = duration % 60;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                timer.textContent = minutes + ':' + seconds;
+                if (--duration < 0) {
+                    clearInterval(interval);
+                    alert('Time is up!');
+                    document.getElementById('quiz-form').submit();
+                }
+            }, 1000);
+        });
+    </script>
 </x-app-layout>

@@ -78,13 +78,8 @@ class StudentQuizController extends Controller
         }
     }
 
-    // Process a student's quiz attempt.
     public function attempt(Request $request, $module_id, $id)
     {
-        $request->validate([
-            'answers.*' => 'required', // Validates that each answer is provided.
-        ]);
-
         $user = Auth::user(); // Retrieves the authenticated user.
         $quiz = Quiz::where('quiz_id', $id)->where('module_id', $module_id)->firstOrFail(); // Finds the quiz by its ID and module ID, or fails with a 404 error if not found.
 
@@ -97,7 +92,7 @@ class StudentQuizController extends Controller
         ]);
 
         foreach ($quiz->questions as $index => $question) { // Iterates over each question in the quiz.
-            $submittedAnswer = $request->answers[$index]; // Retrieves the submitted answer.
+            $submittedAnswer = $request->answers[$index] ?? null; // Retrieves the submitted answer or null if not provided.
             $correctAnswer = $question->correct_option; // Retrieves the correct answer.
 
             $isCorrect = $submittedAnswer === $correctAnswer; // Checks if the answer is correct.
@@ -107,7 +102,9 @@ class StudentQuizController extends Controller
             QuizSubmission::create([ // Creates a new quiz submission.
                 'quiz_questions_id' => $question->quiz_questions_id, // Sets the question ID.
                 'user_id' => $user->user_id, // Sets the user ID.
-                'submission_answer' => $submittedAnswer, // Sets the submitted answer.
+                'submission_answer' => $submittedAnswer ?? '', // Sets the submitted answer, or empty string if not provided.
+                'is_correct' => $isCorrect, // Sets whether the answer is correct.
+                'marks' => $marksObtained, // Sets the marks obtained.
             ]);
         }
 

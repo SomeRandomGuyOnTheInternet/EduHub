@@ -41,8 +41,12 @@
                 <textarea class="form-control" id="description" name="description" required></textarea>
             </div>
             <div class="form-group">
-                <label for="datetime">Date and Time*</label>
+                <label for="datetime">Start Date and Time*</label>
                 <input type="datetime-local" class="form-control" id="datetime" name="datetime" required>
+            </div>
+            <div>
+                <label for="duration">Duration (in minutes):</label>
+                <input type="number" class="form-control" id="duration" name="duration" required>
             </div>
 
             <div id="questions-container">

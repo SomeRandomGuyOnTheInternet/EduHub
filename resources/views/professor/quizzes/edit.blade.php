@@ -37,6 +37,10 @@
                 <label for="datetime">Date and Time*</label>
                 <input type="datetime-local" class="form-control" id="datetime" name="datetime" value="{{ $quiz->quiz_date }}" required>
             </div>
+            <div>
+                <label for="duration">Duration (in minutes):</label>
+                <input type="number" class="form-control" id="duration" name="duration" value="{{ $quiz->duration }}" required>
+            </div>
 
             @foreach($quiz->questions as $index => $question)
                 <div class="question-group">

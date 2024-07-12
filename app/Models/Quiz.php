@@ -12,7 +12,7 @@ class Quiz extends Model
     protected $table = 'quiz';
 
     protected $fillable = [
-        'module_id', 'quiz_title', 'quiz_description', 'quiz_date'
+        'module_id', 'quiz_title', 'quiz_description', 'quiz_date', 'duration'
     ];
 
     public function questions()

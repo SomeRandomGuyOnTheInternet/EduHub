@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('quiz_title', 50);
             $table->text('quiz_description')->nullable();
             $table->timestamp('quiz_date');
+            $table->integer('duration')->default(60); // Duration in minutes
             $table->timestamps();
 
             $table->foreign('module_id')->references('module_id')->on('modules')->onDelete('cascade');

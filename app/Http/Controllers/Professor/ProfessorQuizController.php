@@ -37,6 +37,7 @@ class ProfessorQuizController extends Controller
                 'title' => 'required', // The quiz title is required.
                 'description' => 'required', // The quiz description is required.
                 'datetime' => 'required|date', // The quiz date and time are required and must be a valid date.
+                'duration' => 'required|integer', // The quiz duration is required and must be an integer.
                 'questions.*' => 'required', // Each question is required.
                 'options.*.*' => 'required', // Each option for each question is required.
                 'correct_options.*' => 'required', // Each correct option is required.
@@ -48,6 +49,7 @@ class ProfessorQuizController extends Controller
                 'quiz_title' => $request->title, // Sets the quiz title.
                 'quiz_description' => $request->description, // Sets the quiz description.
                 'quiz_date' => $request->datetime, // Sets the quiz date.
+                'duration' => $request->duration, // Sets the quiz duration.
             ]);
 
             foreach ($request->questions as $index => $question) { // Iterates over each question.
@@ -97,7 +99,8 @@ class ProfessorQuizController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'datetime' => 'required|date', // Corrected the date field to match the request data
+            'datetime' => 'required|date', 
+            'duration' => 'required|integer', 
             'questions.*' => 'required|string',
             'options.*.*' => 'required|string',
             'correct_options.*' => 'required|string',
