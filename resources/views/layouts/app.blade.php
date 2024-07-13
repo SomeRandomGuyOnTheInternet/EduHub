@@ -67,9 +67,10 @@
 </head>
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @include('layouts.left-nav-bar') <!-- Custom navigation bar -->
-
-        @include('layouts.navigation') <!-- Breeze navigation -->
+        @unless (Route::currentRouteName() === 'modules.student.quizzes.show')
+            @include('layouts.left-nav-bar') <!-- Custom navigation bar -->
+            @include('layouts.navigation') <!-- Breeze navigation -->
+        @endunless
 
         <!-- Page Heading -->
         @isset($header)
