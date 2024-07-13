@@ -15,6 +15,11 @@
         <div class="pdf-viewer">
             <embed src="{{ route('modules.professor.content.view', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}" width="100%" height="1200px" type="application/pdf">
         </div>
+        @elseif(strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) == 'MP4')
+        <video width="100%" height="500px" controls>
+            <source src="{{ Storage::url($content->file_path) }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         @endif
         <p><strong>Type:</strong> {{ strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) }}</p>
         <p><strong>Time Uploaded:</strong> {{ $content->created_at->format('h:iA, d M Y') }}</p>
