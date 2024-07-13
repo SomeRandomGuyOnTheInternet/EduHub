@@ -20,40 +20,56 @@
             </div>
             <br>
             <div class="row">
-                @foreach($events as $event)
+                {{-- Sort events by days left ascending --}}
                 @php
-                    $eventStartDate = \Carbon\Carbon::parse($event->start);
-                    $today = \Carbon\Carbon::today();
+                    $sortedEvents = $events->sortBy(function ($event) {
+                        $eventStartDate = \Carbon\Carbon::parse($event->start);
+                        $today = \Carbon\Carbon::today();
+                        return $today->diffInDays($eventStartDate);
+                    });
                 @endphp
-                @if ($eventStartDate->isFuture())
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    @if($event->type === 'meeting')
-                                        Meeting
-                                    @else
-                                        {{ $event->title }}
+
+                {{-- Iterate over sorted events --}}
+                @foreach($sortedEvents as $event)
+                    @php
+                        $eventStartDate = \Carbon\Carbon::parse($event->start);
+                        $today = \Carbon\Carbon::today();
+                        $daysUntilEvent = $today->diffInDays($eventStartDate);
+                        $eventIsToday = $eventStartDate->isSameDay($today);
+                    @endphp
+                    @if ($eventStartDate->isToday() || ($eventStartDate->isFuture() && $daysUntilEvent <= 7))
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        @if($event->type === 'meeting')
+                                            Meeting
+                                        @else
+                                            {{ $event->title }}
+                                        @endif
+                                    </h5>
+                                    <p class="card-text">Module: {{ $event->module_name }}</p>
+                                    <p class="card-text">Start Date: {{ $event->start }}</p>
+                                    @if($event->type === 'assignment')
+                                        <span class="badge bg-warning text-dark">Assignment</span>
+                                    @elseif($event->type === 'quiz')
+                                        <span class="badge bg-info text-dark">Quiz</span>
+                                    @elseif($event->type === 'meeting')
+                                        <p class="card-text">Professor: {{ $event->professor_name }}</p>
+                                        <p class="card-text">Timeslot: {{ $event->timeslot }}</p>
+                                        <span class="badge bg-success text-dark">Meeting</span>
                                     @endif
-                                </h5>
-                                <p class="card-text">Module: {{ $event->module_name }}</p>
-                                <p class="card-text">Start Date: {{ $event->start }}</p>
-                                @if($event->type === 'assignment')
-                                    <span class="badge bg-warning text-dark">Assignment</span>
-                                    <br><br><br>
-                                @elseif($event->type === 'quiz')
-                                    <span class="badge bg-info text-dark">Quiz</span>
-                                    <br><br><br>
-                                @elseif($event->type === 'meeting')
-                                    <p class="card-text">Professor: {{ $event->professor_name }}</p>
-                                    <p class="card-text">Timeslot: {{ $event->timeslot }}</p>
-                                    <span class="badge bg-success text-dark">Meeting</span>
-                                @endif
+
+                                    @if ($eventIsToday)
+                                        <p class="card-text"><strong>TODAY</strong></p>
+                                    @else
+                                        <p class="card-text">{{ $daysUntilEvent }} day{{ $daysUntilEvent != 1 ? 's' : '' }} until event</p>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
-            @endforeach
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>
