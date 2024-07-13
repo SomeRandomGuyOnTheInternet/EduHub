@@ -1,6 +1,5 @@
 <div class="nav-bar">
-    <h2>This is the left nav bar bro</h2>
-    <h2>Modules:</h2>
+    <h2>Your Modules</h2>
     <ul>
         @foreach($userModules as $module)
             <li>

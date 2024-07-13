@@ -90,7 +90,6 @@ class ProfessorQuizController extends Controller
         return view('professor.quizzes.show', compact('quiz', 'module')); // Returns the 'show' view for quizzes, passing the quiz and module data.
     }
 
-    // Update an existing quiz for the professor.
     public function update(Request $request, $module_id, $id)
     {
         // Log the incoming request data
@@ -99,8 +98,8 @@ class ProfessorQuizController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'datetime' => 'required|date', 
-            'duration' => 'required|integer', 
+            'datetime' => 'required|date',
+            'duration' => 'required|integer',
             'questions.*' => 'required|string',
             'options.*.*' => 'required|string',
             'correct_options.*' => 'required|string',
@@ -119,23 +118,26 @@ class ProfessorQuizController extends Controller
             $quiz->update([
                 'quiz_title' => $validated['title'],
                 'quiz_description' => $validated['description'],
-                'quiz_date' => $validated['datetime'], // Use the correct field name
+                'quiz_date' => $validated['datetime'],
+                'duration' => $validated['duration'],
             ]);
 
             // Log the quiz data after updating
             Log::info('Quiz after update: ', $quiz->toArray());
 
+            // Remove existing questions and their options
             QuizQuestion::where('quiz_id', $quiz->quiz_id)->delete();
 
+            // Add updated questions
             foreach ($request->questions as $index => $question) {
-                QuizQuestion::create([
+                $quizQuestion = QuizQuestion::create([
                     'quiz_id' => $quiz->quiz_id,
                     'question' => $question,
                     'option_a' => $request->options[$index][0],
                     'option_b' => $request->options[$index][1],
                     'option_c' => $request->options[$index][2],
                     'option_d' => $request->options[$index][3],
-                    'correct_option' => substr($request->correct_options[$index], -1),
+                    'correct_option' => $request->correct_options[$index],
                     'marks' => $request->marks[$index],
                 ]);
             }
@@ -151,6 +153,8 @@ class ProfessorQuizController extends Controller
                 ->setStatusCode(500);
         }
     }
+
+
 
 
     // Delete a quiz for the professor.
@@ -196,5 +200,4 @@ class ProfessorQuizController extends Controller
             return 'F';
         }
     }
-
 }
