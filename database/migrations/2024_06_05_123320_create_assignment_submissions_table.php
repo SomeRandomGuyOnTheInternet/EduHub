@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('assignment_id');
             $table->unsignedBigInteger('user_id');
             $table->string('submission_description', 500)->nullable();
-            $table->string('submission_file', 100);
+            $table->json('submission_files'); 
             $table->timestamp('submission_date')->useCurrent();
             $table->timestamps();
 

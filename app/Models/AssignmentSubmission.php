@@ -2,14 +2,27 @@
 
 namespace App\Models;
 
-use App\Models\Assignment;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class AssignmentSubmission extends Model
 {
-    protected $table = 'assignment_submissions';
+    use HasFactory;
+
     protected $primaryKey = 'assignment_submission_id';
-    protected $fillable = ['assignment_id', 'user_id', 'submission_description', 'submission_file', 'submission_date'];
+    protected $fillable = [
+        'assignment_id',
+        'user_id',
+        'submission_description',
+        'submission_files',
+        'submission_date',
+        'grade',
+        'feedback'
+    ];
+
+    protected $casts = [
+        'submission_files' => 'array',
+    ];
 
     public function assignment()
     {

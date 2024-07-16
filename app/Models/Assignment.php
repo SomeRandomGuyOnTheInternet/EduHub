@@ -10,7 +10,7 @@ class Assignment extends Model
     use HasFactory;
 
     protected $primaryKey = 'assignment_id';
-    protected $fillable = ['module_id', 'title', 'weightage', 'description', 'due_date'];
+    protected $fillable = ['module_id', 'title', 'weightage', 'description', 'due_date', 'file_path'];
 
     public function module()
     {
@@ -20,10 +20,5 @@ class Assignment extends Model
     public function submissions()
     {
         return $this->hasMany(AssignmentSubmission::class, 'assignment_id');
-    }
-
-    public function grades()
-    {
-        return $this->hasMany(Grade::class, 'assignment_id');
     }
 }

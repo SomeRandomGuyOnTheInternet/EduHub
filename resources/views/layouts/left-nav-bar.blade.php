@@ -14,6 +14,7 @@
                         <li><a href="{{ route('modules.professor.meetings.index', ['module_id' => $module->module_id]) }}">Meetings</a></li>
                     @elseif(Auth::user()->user_type == 'student')
                         <li><a href="{{ route('modules.student.content.index', ['module_id' => $module->module_id]) }}">Content</a></li>
+                        <li><a href="{{ route('modules.student.assignments.index', ['module_id' => $module->module_id]) }}">Assignments</a></li>
                         <li><a href="{{ route('modules.student.news.index', ['module_id' => $module->module_id]) }}">News</a></li>
                         <li><a href="{{ route('modules.student.quizzes.index', ['module_id' => $module->module_id]) }}">Quizzes</a></li>
                         <li><a href="{{ route('modules.student.meetings.index', ['module_id' => $module->module_id]) }}">Meetings</a></li>

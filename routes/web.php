@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Student\StudentModuleHomeController;
 use App\Http\Controllers\Professor\ProfessorMeetingController;
 use App\Http\Controllers\Student\StudentModuleContentController;
+use App\Http\Controllers\Student\StudentAssignmentController;
 use App\Http\Controllers\Professor\ProfessorAssignmentController;
 use App\Http\Controllers\Professor\ProfessorModuleHomeController;
 use App\Http\Controllers\Professor\ProfessorModuleFolderController;
@@ -63,7 +64,6 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
 
     //Assignment Routes
     Route::resource('assignments', ProfessorAssignmentController::class);
-
 });
 
 // Grouping routes for modules with student role-based access
@@ -87,7 +87,10 @@ Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/
     Route::resource('meetings', StudentMeetingController::class);
     Route::patch('meetings/{meeting}/update-booking', [StudentMeetingController::class, 'updateBooking'])->name('meetings.updateBooking');
 
-
+    //Assignment Routes
+    Route::resource('assignments', StudentAssignmentController::class);
+    Route::get('assignments/{assignment_id}/download', [StudentAssignmentController::class, 'download'])->name('assignments.download'); 
+    Route::post('assignments/{assignment_id}/submit', [StudentAssignmentController::class, 'submit'])->name('assignments.submit'); 
 });
 
 
