@@ -64,6 +64,8 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
 
     //Assignment Routes
     Route::resource('assignments', ProfessorAssignmentController::class);
+    Route::post('assignments/{assignment_id}/submissions/{submission_id}/grade', [ProfessorAssignmentController::class, 'gradeSubmission'])->name('assignments.gradeSubmission');
+
 });
 
 // Grouping routes for modules with student role-based access
@@ -91,6 +93,7 @@ Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/
     Route::resource('assignments', StudentAssignmentController::class);
     Route::get('assignments/{assignment_id}/download', [StudentAssignmentController::class, 'download'])->name('assignments.download'); 
     Route::post('assignments/{assignment_id}/submit', [StudentAssignmentController::class, 'submit'])->name('assignments.submit'); 
+    
 });
 
 

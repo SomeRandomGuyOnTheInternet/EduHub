@@ -11,7 +11,6 @@
 
     <div class="container mt-5">
         <h1>Assignments</h1>
-        <a href="{{ route('modules.professor.assignments.create', $module_id) }}" class="btn btn-primary">Create Assignment</a>
         <table class="table table-striped mt-4">
             <thead>
                 <tr>
@@ -28,12 +27,8 @@
                         <td>{{ $assignment->weightage }}</td>
                         <td>{{ $assignment->due_date }}</td>
                         <td>
-                            <a href="{{ route('modules.professor.assignments.show', [$module_id, $assignment->assignment_id]) }}" class="btn btn-info">View</a>
-                            <form action="{{ route('modules.professor.assignments.destroy', [$module_id, $assignment->assignment_id]) }}" method="POST" style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                            </form>
+                            <a href="{{ route('modules.student.assignments.show', [$module_id, $assignment->assignment_id]) }}" class="btn btn-info">View</a>
+                            <a href="{{ route('modules.student.assignments.download', [$module_id, $assignment->assignment_id]) }}" class="btn btn-success">Download Brief</a>
                         </td>
                     </tr>
                 @endforeach

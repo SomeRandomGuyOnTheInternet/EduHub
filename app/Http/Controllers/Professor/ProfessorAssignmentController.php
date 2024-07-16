@@ -86,7 +86,7 @@ class ProfessorAssignmentController extends Controller
     public function gradeSubmission(Request $request, $module_id, $assignment_id, $submission_id)
     {
         $request->validate([
-            'grade' => 'required|numeric|min:0|max:100',
+            'grade' => 'required|string|max:10',
             'feedback' => 'nullable|string',
         ]);
 
@@ -95,7 +95,7 @@ class ProfessorAssignmentController extends Controller
         $submission->feedback = $request->feedback;
         $submission->save();
 
-        return redirect()->route('modules.professor.assignments.submissions', [$module_id, $assignment_id])
+        return redirect()->route('modules.professor.assignments.show', [$module_id, $assignment_id])
                          ->with('success', 'Grade and feedback submitted successfully.');
     }
 }

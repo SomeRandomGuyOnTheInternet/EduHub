@@ -21,7 +21,17 @@ class StudentAssignmentController extends Controller
     }
     public function show($module_id, $assignment_id)
     {
+        Log::info('Accessing show method in StudentAssignmentController');
+        Log::info('Module ID: ' . $module_id);
+        Log::info('Assignment ID: ' . $assignment_id);
+    
         $assignment = Assignment::findOrFail($assignment_id);
+    
+        if ($assignment->module_id != $module_id) {
+            Log::error('Module ID mismatch. Redirecting to dashboard.');
+            return redirect()->route('student.dashboard')->with('error', 'Invalid module assignment access.');
+        }
+    
         return view('student.assignment.show', compact('assignment', 'module_id'));
     }
     

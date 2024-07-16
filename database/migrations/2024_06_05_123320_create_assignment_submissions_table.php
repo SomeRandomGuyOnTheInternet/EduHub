@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('submission_description', 500)->nullable();
             $table->json('submission_files'); 
             $table->timestamp('submission_date')->useCurrent();
+            $table->string('grade')->nullable();
+            $table->text('feedback')->nullable();
             $table->timestamps();
 
             $table->foreign('assignment_id')->references('assignment_id')->on('assignments')->onDelete('cascade');
