@@ -43,7 +43,7 @@
                             <td>{{ $quiz->quiz_description }}</td>
                             <td>{{ $quiz->quiz_date }}</td>
                             <td>
-                                <a href="{{ route('modules.student.quizzes.show', ['module_id' => $module->module_id, 'quiz' => $quiz->quiz_id]) }}" class="btn btn-info btn-sm">Start</a>
+                                <a href="{{ route('modules.student.quizzes.show', ['module_id' => $module->module_id, 'quiz' => $quiz->quiz_id]) }}" class="btn btn-info btn-sm start-button" data-quiz-date="{{ $quiz->quiz_date }}">Start</a>
                             </td>
                         </tr>
                     @endforeach
@@ -79,4 +79,36 @@
         @endif
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const startButtons = document.querySelectorAll('.start-button');
+            startButtons.forEach(button => {
+                const quizDate = new Date(button.getAttribute('data-quiz-date'));
+                const now = new Date();
+                
+                if (now < quizDate) {
+                    button.classList.add('disabled');
+                    button.setAttribute('disabled', 'true');
+                    button.textContent = 'Starts at ' + quizDate.toLocaleString();
+                } else {
+                    button.classList.remove('disabled');
+                    button.removeAttribute('disabled');
+                }
+            });
+
+            setInterval(() => {
+                startButtons.forEach(button => {
+                    const quizDate = new Date(button.getAttribute('data-quiz-date'));
+                    const now = new Date();
+                    
+                    if (now >= quizDate && button.hasAttribute('disabled')) {
+                        button.classList.remove('disabled');
+                        button.removeAttribute('disabled');
+                        button.textContent = 'Start';
+                    }
+                });
+            }, 1000); // Check every second to update the buttons
+        });
+    </script>
 </x-app-layout>
