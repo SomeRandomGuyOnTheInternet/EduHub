@@ -21,7 +21,7 @@
 
 
     <div class="container mt-5">
-        <h1>{{ $assignment->title }}</h1>
+        <strong>{{ $assignment->title }}</strong>
         <p>{{ $assignment->description }}</p>
         <p><strong>Due Date:</strong> {{ $assignment->due_date }}</p>
 
@@ -37,7 +37,6 @@
             </div>
         @endif
 
-        <h2>Submit Your Work</h2>
         <form action="{{ route('modules.student.assignments.submit', [$module_id, $assignment->assignment_id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">

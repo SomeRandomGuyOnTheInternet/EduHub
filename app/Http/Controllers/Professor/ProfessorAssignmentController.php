@@ -66,6 +66,47 @@ class ProfessorAssignmentController extends Controller
         return view('professor.assignment.show', compact('assignment', 'module_id', 'fileName', 'submissions'));
     }
 
+    public function edit($module_id, $assignment_id)
+    {
+        $assignment = Assignment::findOrFail($assignment_id);
+        return view('professor.assignment.edit', compact('assignment', 'module_id'));
+    }
+
+    public function update(Request $request, $module_id, $assignment_id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'weightage' => 'required|numeric',
+            'description' => 'required|string',
+            'due_date' => 'required|date',
+            'file' => 'nullable|file|max:2048',
+        ]);
+
+        $assignment = Assignment::findOrFail($assignment_id);
+
+        if ($request->hasFile('file')) {
+            // Delete old file if exists
+            if ($assignment->file_path) {
+                Storage::disk('public')->delete($assignment->file_path);
+            }
+            // Store new file
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $filePath = $file->storeAs('assignments', $fileName, 'public');
+            $assignment->file_path = $filePath;
+        }
+
+        $assignment->update([
+            'title' => $request->title,
+            'weightage' => $request->weightage,
+            'description' => $request->description,
+            'due_date' => $request->due_date,
+        ]);
+
+        return redirect()->route('modules.professor.assignments.index', $module_id)
+                         ->with('success', 'Assignment updated successfully.');
+    }
+
 
     public function destroy($module_id, $assignment_id)
     {
