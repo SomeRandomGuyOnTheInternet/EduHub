@@ -46,6 +46,8 @@
                         <th>Description</th>
                         <th>Files</th>
                         <th>Submission Date</th>
+                        <th>Grade</th>
+                        <th>Feedback</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,6 +61,8 @@
                                 @endforeach
                             </td>
                             <td>{{ $submission->submission_date }}</td>
+                            <td>{{ $submission->grade }}</td>
+                            <td>{{ $submission->feedback }}</td>
                         </tr>
                     @endforeach
                 </tbody>
