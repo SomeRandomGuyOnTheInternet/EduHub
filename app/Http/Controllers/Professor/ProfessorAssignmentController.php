@@ -48,8 +48,8 @@ class ProfessorAssignmentController extends Controller
 
         $assignment->save();
 
-        // Debugging statement to check assignment data
-        logger()->info('Assignment Data:', $assignment->toArray());
+        // // Debugging statement to check assignment data
+        // logger()->info('Assignment Data:', $assignment->toArray());
 
         return redirect()->route('modules.professor.assignments.index', $module_id)
             ->with('success', 'Assignment created successfully.');
@@ -58,11 +58,12 @@ class ProfessorAssignmentController extends Controller
     public function show($module_id, $assignment_id)
     {
         $assignment = Assignment::findOrFail($assignment_id);
+        $submissions = AssignmentSubmission::where('assignment_id', $assignment_id)->get();
 
         // Extract the file name from the file path
         $fileName = basename($assignment->file_path);
 
-        return view('professor.assignment.show', compact('assignment', 'module_id', 'fileName'));
+        return view('professor.assignment.show', compact('assignment', 'module_id', 'fileName', 'submissions'));
     }
 
 

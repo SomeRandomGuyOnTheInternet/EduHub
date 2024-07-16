@@ -11,6 +11,7 @@
 
     <div class="container mt-5">
         <h1>Assignments</h1>
+        <a href="{{ route('modules.professor.assignments.create', $module_id) }}" class="btn btn-primary">Create Assignment</a>
         <table class="table table-striped mt-4">
             <thead>
                 <tr>
@@ -27,12 +28,46 @@
                         <td>{{ $assignment->weightage }}</td>
                         <td>{{ $assignment->due_date }}</td>
                         <td>
-                            <a href="{{ route('modules.student.assignments.show', [$module_id, $assignment->assignment_id]) }}" class="btn btn-info">View</a>
-                            <a href="{{ route('modules.student.assignments.download', [$module_id, $assignment->assignment_id]) }}" class="btn btn-success">Download Brief</a>
+                            <a href="{{ route('modules.professor.assignments.show', [$module_id, $assignment->assignment_id]) }}" class="btn btn-info">View</a>
+                            <form action="{{ route('modules.professor.assignments.destroy', [$module_id, $assignment->assignment_id]) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
+        <h2>My Submissions</h2>
+        @if($submissions->isEmpty())
+            <p>No submissions found.</p>
+        @else
+            <table class="table table-striped mt-4">
+                <thead>
+                    <tr>
+                        <th>Assignment</th>
+                        <th>Description</th>
+                        <th>Files</th>
+                        <th>Submission Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($submissions as $submission)
+                        <tr>
+                            <td>{{ $submission->assignment->title }}</td>
+                            <td>{{ $submission->submission_description }}</td>
+                            <td>
+                                @foreach (json_decode($submission->submission_files) as $file)
+                                    <a href="{{ Storage::url($file) }}" target="_blank">{{ basename($file) }}</a><br>
+                                @endforeach
+                            </td>
+                            <td>{{ $submission->submission_date }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     </div>
 </x-app-layout>

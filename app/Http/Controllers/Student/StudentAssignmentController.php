@@ -15,9 +15,10 @@ class StudentAssignmentController extends Controller
     public function index($module_id)
     {
         $assignments = Assignment::where('module_id', $module_id)->get();
-        return view('student.assignment.index', compact('assignments', 'module_id'));
-    }
+        $submissions = AssignmentSubmission::where('user_id', Auth::id())->get();
 
+        return view('student.assignment.index', compact('assignments', 'submissions', 'module_id'));
+    }
     public function show($module_id, $assignment_id)
     {
         $assignment = Assignment::findOrFail($assignment_id);
