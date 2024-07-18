@@ -7,71 +7,73 @@
 
     <div class="container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "Dashboard"])
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-grey dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+        <div class="p-4">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-grey dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                    </div>
                 </div>
-            </div>
-            <br>
-            <div id="calendar" class="mb-4"></div>
-            <br>
-            <div class="bg-grey dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("Announcements") }}
+                <br>
+                <div id="calendar" class="mb-4"></div>
+                <br>
+                <div class="bg-grey dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        {{ __("Announcements") }}
+                    </div>
                 </div>
-            </div>
-            <br>
-            <div class="row">
-                {{-- Sort events by days left ascending --}}
-                @php
-                    $sortedEvents = $events->sortBy(function ($event) {
-                        $eventStartDate = \Carbon\Carbon::parse($event->start);
-                        $today = \Carbon\Carbon::today();
-                        return $today->diffInDays($eventStartDate);
-                    });
-                @endphp
-
-                {{-- Iterate over sorted events --}}
-                @foreach($sortedEvents as $event)
+                <br>
+                <div class="row">
+                    {{-- Sort events by days left ascending --}}
                     @php
-                        $eventStartDate = \Carbon\Carbon::parse($event->start);
-                        $today = \Carbon\Carbon::today();
-                        $daysUntilEvent = $today->diffInDays($eventStartDate);
-                        $eventIsToday = $eventStartDate->isSameDay($today);
+                        $sortedEvents = $events->sortBy(function ($event) {
+                            $eventStartDate = \Carbon\Carbon::parse($event->start);
+                            $today = \Carbon\Carbon::today();
+                            return $today->diffInDays($eventStartDate);
+                        });
                     @endphp
-                    @if ($eventStartDate->isToday() || ($eventStartDate->isFuture() && $daysUntilEvent <= 7))
-                        <div class="col-lg-4 col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        @if($event->type === 'meeting')
-                                            Meeting
-                                        @else
-                                            {{ $event->title }}
-                                        @endif
-                                    </h5>
-                                    <p class="card-text">Module: {{ $event->module_name }}</p>
-                                    <p class="card-text">Start Date: {{ $event->start }}</p>
-                                    @if($event->type === 'assignment')
-                                        <span class="badge bg-warning text-dark">Assignment</span>
-                                    @elseif($event->type === 'quiz')
-                                        <span class="badge bg-info text-dark">Quiz</span>
-                                    @elseif($event->type === 'meeting')
-                                        <p class="card-text">Professor: {{ $event->professor_name }}</p>
-                                        <p class="card-text">Timeslot: {{ $event->timeslot }}</p>
-                                        <span class="badge bg-success text-dark">Meeting</span>
-                                    @endif
 
-                                    @if ($eventIsToday)
-                                        <p class="card-text"><strong>TODAY</strong></p>
-                                    @else
-                                        <p class="card-text">{{ $daysUntilEvent }} day{{ $daysUntilEvent != 1 ? 's' : '' }} until event</p>
-                                    @endif
+                    {{-- Iterate over sorted events --}}
+                    @foreach($sortedEvents as $event)
+                        @php
+                            $eventStartDate = \Carbon\Carbon::parse($event->start);
+                            $today = \Carbon\Carbon::today();
+                            $daysUntilEvent = $today->diffInDays($eventStartDate);
+                            $eventIsToday = $eventStartDate->isSameDay($today);
+                        @endphp
+                        @if ($eventStartDate->isToday() || ($eventStartDate->isFuture() && $daysUntilEvent <= 7))
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            @if($event->type === 'meeting')
+                                                Meeting
+                                            @else
+                                                {{ $event->title }}
+                                            @endif
+                                        </h5>
+                                        <p class="card-text">Module: {{ $event->module_name }}</p>
+                                        <p class="card-text">Start Date: {{ $event->start }}</p>
+                                        @if($event->type === 'assignment')
+                                            <span class="badge bg-warning text-dark">Assignment</span>
+                                        @elseif($event->type === 'quiz')
+                                            <span class="badge bg-info text-dark">Quiz</span>
+                                        @elseif($event->type === 'meeting')
+                                            <p class="card-text">Professor: {{ $event->professor_name }}</p>
+                                            <p class="card-text">Timeslot: {{ $event->timeslot }}</p>
+                                            <span class="badge bg-success text-dark">Meeting</span>
+                                        @endif
+
+                                        @if ($eventIsToday)
+                                            <p class="card-text"><strong>TODAY</strong></p>
+                                        @else
+                                            <p class="card-text">{{ $daysUntilEvent }} day{{ $daysUntilEvent != 1 ? 's' : '' }} until event</p>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endif
-                @endforeach
+                        @endif
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
