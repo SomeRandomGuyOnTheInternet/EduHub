@@ -3,14 +3,10 @@
         {{ __('Assignments') }}
     </x-slot>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Assignments') }}
-        </h2>
-    </x-slot>
+    @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::ModuleAssignment, 'currentModule' => $module_id])
 
-    <div class="container mt-5">
-        <h1>Assignments</h1>
+    <div class="container-fluid p-0">
+        @livewire('student.module-header', ['currentPage' => "Assignments", 'currentModuleId' => $module_id])
         <table class="table table-striped mt-4">
             <thead>
                 <tr>
@@ -27,8 +23,8 @@
                         <td>{{ $assignment->weightage }}</td>
                         <td>{{ $assignment->due_date }}</td>
                         <td>
-                            <a href="{{ route('modules.student.assignments.show', [$module_id, $assignment->assignment_id]) }}" class="btn btn-info">View</a>
-                            <a href="{{ route('modules.student.assignments.download', [$module_id, $assignment->assignment_id]) }}" class="btn btn-success">Download Brief</a>
+                            <a href="{{ route('modules.student.assignment.show', [$module_id, $assignment->assignment_id]) }}" class="btn btn-info">View</a>
+                            {{-- <a href="{{ route('modules.student.assignment.download', [$module_id, $assignment->assignment_id]) }}" class="btn btn-success">Download Brief</a> --}}
                         </td>
                     </tr>
                 @endforeach

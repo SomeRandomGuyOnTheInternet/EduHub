@@ -1,15 +1,12 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         {{ __('News Details') }}
     </x-slot>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $module->module_name }} - {{ __('News Details') }}
-        </h2>
-    </x-slot>
+    @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::ModuleNews, 'currentModule' => $module_id])
 
-    <div class="container mt-5">
+    <div class="container-fluid p-0">
+        @livewire('student.module-header', ['currentPage' => "News", 'currentModuleId' => $module_id])
         <div class="card">
             <div class="card-header">
                 <h3>{{ $newsItem->news_title }}</h3>
@@ -29,4 +26,4 @@
         </div>
         <a href="{{ route('modules.student.news.index', ['module_id' => $module->module_id]) }}" class="btn btn-secondary mt-3">Back to News</a>
     </div>
-</x-app-layout>
+</x-layouts>

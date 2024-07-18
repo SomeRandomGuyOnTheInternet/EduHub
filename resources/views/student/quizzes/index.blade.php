@@ -1,15 +1,12 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         {{ __('Learning Content') }}
     </x-slot>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Quizzes for Module: ') }}{{ $module->module_name }}
-        </h2>
-    </x-slot>
+    @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::ModuleQuiz, 'currentModule' => $module_id])
 
-    <div class="container mt-5">
+    <div class="container-fluid p-0">
+        @livewire('student.module-header', ['currentPage' => "Quizzes", 'currentModuleId' => $module_id])
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -111,4 +108,4 @@
             }, 1000); // Check every second to update the buttons
         });
     </script>
-</x-app-layout>
+</x-layouts>

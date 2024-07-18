@@ -1,15 +1,12 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         {{ __('Learning Content') }}
     </x-slot>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $module->module_name }} - {{ __('Content') }}
-        </h2>
-    </x-slot>
+    @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::ModuleContent, 'currentModule' => $module_id])
 
-    <div class="container mt-5">
+    <div class="container-fluid p-0">
+        @livewire('student.module-header', ['currentPage' => "Content", 'currentModuleId' => $module_id])
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             @foreach ($folders as $folder)
                 <li class="nav-item" role="presentation">
@@ -92,4 +89,4 @@
             @endforeach
         });
     </script>
-</x-app-layout>
+</x-layouts>

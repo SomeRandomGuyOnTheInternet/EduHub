@@ -1,15 +1,10 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         Dashboard
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-grey dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
+    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleHome])
+    <div class="container-fluid p-0">
+        @livewire('professor.module-header', ['currentPage' => "Home", 'currentModuleId' => $module_id])
     </div>
-</x-app-layout>
+</x-layouts>

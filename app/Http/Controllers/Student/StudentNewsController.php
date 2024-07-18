@@ -13,14 +13,14 @@ class StudentNewsController extends Controller
     {
         $module = Module::findOrFail($module_id);
         $newsItems = News::where('module_id', $module_id)->get();
-        return view('student.news.index', compact('module', 'newsItems'));
+        return view('student.news.index', compact('module', 'newsItems', 'module_id'));
     }
 
     public function show($module_id, $news_id)
     {
         $module = Module::findOrFail($module_id);
         $newsItem = News::findOrFail($news_id);
-        return view('student.news.show', compact('module', 'newsItem'));
+        return view('student.news.show', compact('module', 'newsItem', 'module_id'));
     }
     
     // /* 

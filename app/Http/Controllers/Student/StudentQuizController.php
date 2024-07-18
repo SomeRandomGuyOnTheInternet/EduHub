@@ -33,7 +33,7 @@ class StudentQuizController extends Controller
             $attempt->grade = $this->calculateGrade(($attempt->total_marks / $totalMarks) * 100); // Sets the grade for the attempt.
         }
 
-        return view('student.quizzes.index', compact('module', 'quizzes', 'completedQuizzes')); // Returns the 'index' view for student quizzes, passing the module, quizzes, and completed attempts data.
+        return view('student.quizzes.index', compact('module', 'quizzes', 'completedQuizzes', 'module_id')); // Returns the 'index' view for student quizzes, passing the module, quizzes, and completed attempts data.
     }
 
     // Show a specific quiz for the student.
@@ -41,7 +41,7 @@ class StudentQuizController extends Controller
     {
         $module = Module::findOrFail($module_id); // Finds the module by its ID, or fails with a 404 error if not found.
         $quiz = Quiz::with('questions')->where('quiz_id', $id)->where('module_id', $module_id)->firstOrFail(); // Finds the quiz by its ID and module ID, including its questions.
-        return view('student.quizzes.show', compact('quiz', 'module')); // Returns the 'show' view for quizzes, passing the quiz and module data.
+        return view('student.quizzes.show', compact('quiz', 'module', 'module_id')); // Returns the 'show' view for quizzes, passing the quiz and module data.
     }
 
     // Helper method to calculate the total marks for a quiz.

@@ -1,15 +1,12 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         {{ __('Create Meeting Slot') }}
     </x-slot>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Meeting Slot for Module: ') }}{{ $module->module_name }}
-        </h2>
-    </x-slot>
+    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleMeetings, 'currentModule' => $module_id])
 
-    <div class="container mt-5">
+    <div class="container-fluid p-0">
+        @livewire('professor.module-header', ['currentPage' => "Create Meeting", 'currentModuleId' => $module_id])
         <form action="{{ route('modules.professor.meetings.store', ['module_id' => $module->module_id]) }}" method="POST">
             @csrf
             @method('post')
@@ -30,4 +27,4 @@
             <a href="{{ route('modules.professor.meetings.index', ['module_id' => $module->module_id]) }}" class="btn btn-secondary mt-3">Cancel</a>
         </form>
     </div>
-</x-app-layout>
+</x-layouts>

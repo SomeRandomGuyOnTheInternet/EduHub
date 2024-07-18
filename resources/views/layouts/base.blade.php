@@ -1,88 +1,38 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="robots" content="nofollow">
 
     <title>{{ config('app.name', 'EduHub') }}</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/images/logo.png" />
 
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="/css/font.css" rel="stylesheet" />
+    <link href="/bootstrap/bootstrap.css" rel="stylesheet" />
+    <script src="/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/bootstrap/masonry.pkgd.min.js"></script>
+    <script src="/bootstrap/bootstrap.bundle.js"></script>
 
-    <style>
-        /* Navigation Bar Styles */
-        .nav-bar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 200px;
-            height: 100%;
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-        .nav-bar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .nav-bar li {
-            padding: 8px;
-            background-color: #ffffff;
-            margin-bottom: 4px;
-            border-radius: 4px;
-        }
-        .nav-bar li a {
-            text-decoration: none;
-            color: #000;
-            display: block;
-        }
-        .sub-menu {
-            display: none;
-            padding-left: 20px;
-        }
-        .sub-menu li {
-            background-color: #e9ecef;
-        }
-
-        /* Content Styles */
-        .main-content {
-            margin-left: 220px;
-            padding: 20px;
-        }
-
-        /* Override any Tailwind CSS classes */
-        .bg-gray-100 {
-            background-color: #fff !important;
-        }
-        .dark\:bg-gray-900 {
-            background-color: #ffffff !important;
-        }
-    </style>
+    <link href="/css/app.css" rel="stylesheet" />
+    <script src="/js/app.js"></script>
 </head>
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @include('layouts.left-nav-bar') <!-- Custom navigation bar -->
-
-        @include('layouts.navigation') <!-- Breeze navigation -->
-
-        <!-- Page Heading -->
-        @isset($header)
-            <header class="bg-white dark:bg-gray-800 shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endisset
-
-        <!-- Page Content -->
-        <main class="main-content">
-            @yield('content')
-        </main>
-    </div>
+<body>
+    <div
+        id="alert-container"
+        class="toast-container position-absolute top-0 end-0 pt-5 p-4 d-flex justify-content-center align-items-center w-100"
+        aria-live="polite"
+        aria-atomic="true"
+    ></div>
+    {{ $slot }}
 </body>
+<script>
+    $(document).ready(function () {
+        $(".toast").toast("show");
+    });
+</script>
 </html>

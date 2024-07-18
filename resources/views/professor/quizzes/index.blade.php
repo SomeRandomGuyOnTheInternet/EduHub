@@ -1,7 +1,9 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         {{ __('Learning Content') }}
     </x-slot>
+    
+    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleQuiz, 'currentModule' => $module_id])
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -9,7 +11,8 @@
         </h2>
     </x-slot>
 
-    <div class="container mt-5">
+    <div class="container-fluid p-0">
+        @livewire('professor.module-header', ['currentPage' => "Quiz", 'currentModuleId' => $module_id])
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -57,4 +60,4 @@
             </table>
         @endif
     </div>
-</x-app-layout>
+</x-layouts>

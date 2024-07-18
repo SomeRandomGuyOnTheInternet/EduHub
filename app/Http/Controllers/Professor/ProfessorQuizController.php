@@ -5,12 +5,9 @@ namespace App\Http\Controllers\Professor;
 use App\Http\Controllers\Controller;
 use App\Models\Quiz;
 use App\Models\Module;
-use App\Models\QuizAttempt;
 use App\Models\QuizQuestion;
 use Illuminate\Http\Request;
-use App\Models\QuizSubmission;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
 
 class ProfessorQuizController extends Controller
 {
@@ -19,7 +16,7 @@ class ProfessorQuizController extends Controller
     {
         $module = Module::findOrFail($module_id); // Finds the module by its ID, or fails with a 404 error if not found.
         $quizzes = Quiz::where('module_id', $module_id)->get(); // Retrieves all quizzes associated with the module.
-        return view('professor.quizzes.index', compact('module', 'quizzes')); // Returns the 'index' view for quizzes, passing the module and quizzes data.
+        return view('professor.quizzes.index', compact('module', 'quizzes', 'module_id')); // Returns the 'index' view for quizzes, passing the module and quizzes data.
     }
 
     // Show the form to create a new quiz for the professor.
@@ -79,7 +76,7 @@ class ProfessorQuizController extends Controller
     {
         $module = Module::findOrFail($module_id); // Finds the module by its ID, or fails with a 404 error if not found.
         $quiz = Quiz::with('questions')->where('quiz_id', $id)->where('module_id', $module_id)->firstOrFail(); // Finds the quiz by its ID and module ID, including its questions.
-        return view('professor.quizzes.edit', compact('quiz', 'module')); // Returns the 'edit' view for quizzes, passing the quiz and module data.
+        return view('professor.quizzes.edit', compact('quiz', 'module', 'module_id')); // Returns the 'edit' view for quizzes, passing the quiz and module data.
     }
 
     // Show a specific quiz for the professor.
@@ -87,7 +84,7 @@ class ProfessorQuizController extends Controller
     {
         $module = Module::findOrFail($module_id); // Finds the module by its ID, or fails with a 404 error if not found.
         $quiz = Quiz::with('questions')->where('quiz_id', $id)->where('module_id', $module_id)->firstOrFail(); // Finds the quiz by its ID and module ID, including its questions.
-        return view('professor.quizzes.show', compact('quiz', 'module')); // Returns the 'show' view for quizzes, passing the quiz and module data.
+        return view('professor.quizzes.show', compact('quiz', 'module', 'module_id')); // Returns the 'show' view for quizzes, passing the quiz and module data.
     }
 
     public function update(Request $request, $module_id, $id)

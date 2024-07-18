@@ -1,4 +1,5 @@
-<x-guest-layout>
+<x-layouts>
+    <x-hero-card>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 
@@ -36,4 +37,5 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+    </x-hero-card>
+</x-layouts>

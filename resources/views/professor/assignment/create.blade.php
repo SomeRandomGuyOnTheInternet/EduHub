@@ -1,16 +1,12 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         {{ __('Create Assignment') }}
     </x-slot>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Assignment') }}
-        </h2>
-    </x-slot>
+    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleAssignment, 'currentModule' => $module_id])
 
-    <div class="container mt-5">
-        <h1>Create Assignment</h1>
+    <div class="container-fluid p-0">
+        @livewire('professor.module-header', ['currentPage' => "Create Assignment", 'currentModuleId' => $module_id])
         <form action="{{ route('modules.professor.assignments.store', $module_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
@@ -36,4 +32,4 @@
             <button type="submit" class="btn btn-primary">Create</button>
         </form>
     </div>
-</x-app-layout>
+</x-layouts>

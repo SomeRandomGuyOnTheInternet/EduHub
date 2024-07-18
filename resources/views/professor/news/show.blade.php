@@ -1,7 +1,9 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         {{ __('News Details') }}
     </x-slot>
+
+    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleNews, 'currentModule' => $module_id])
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -9,7 +11,8 @@
         </h2>
     </x-slot>
 
-    <div class="container mt-5">
+    <div class="container-fluid p-0">
+        @livewire('professor.module-header', ['currentPage' => "News", 'currentModuleId' => $module_id])
         <div class="card">
             <div class="card-header">
                 <h3>{{ $newsItem->news_title }}</h3>
@@ -29,4 +32,4 @@
         </div>
         <a href="{{ route('modules.professor.news.index', ['module_id' => $module->module_id]) }}" class="btn btn-secondary mt-3">Back to News</a>
     </div>
-</x-app-layout>
+</x-layouts>

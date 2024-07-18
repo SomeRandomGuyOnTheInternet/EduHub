@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Professor;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class ProfessorModuleHomeController extends Controller
 {
-    public function index()
+    public function index($module_id)
     {
         $user = auth()->user();
-        return view('professor.home.dashboard');
+        return view('professor.home.dashboard', compact('module_id'));
     }
 }

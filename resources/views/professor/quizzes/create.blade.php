@@ -1,15 +1,12 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         {{ __('Learning Content') }}
     </x-slot>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Quiz') }}
-        </h2>
-    </x-slot>
+    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleQuiz, 'currentModule' => $module_id])
 
-    <div class="container mt-5">
+    <div class="container-fluid p-0">
+        @livewire('professor.module-header', ['currentPage' => "Create Quizzes", 'currentModuleId' => $module_id])
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -118,4 +115,4 @@
             questionsContainer.appendChild(newQuestion);
         });
     </script>
-</x-app-layout>
+</x-layouts>

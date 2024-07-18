@@ -9,8 +9,6 @@ use App\Models\ModuleFolder;
 use Illuminate\Http\Request;
 use App\Models\ModuleContent;
 use App\Models\ModuleVisited;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +22,7 @@ class StudentModuleContentController extends Controller
         $module = Module::findOrFail($module_id);
         $folders = ModuleFolder::where('module_id', $module_id)->with('contents')->get();
         $favouriteContentIds = Favourite::where('user_id', Auth::id())->pluck('content_id')->toArray();
-        return view('student.content.index', compact('module', 'folders', 'favouriteContentIds'));
+        return view('student.content.index', compact('module', 'folders', 'favouriteContentIds', 'module_id'));
     }
 
 
@@ -121,7 +119,7 @@ class StudentModuleContentController extends Controller
         ]);
 
         // Return the view
-        return view('student.content.show', compact('module', 'content'));
+        return view('student.content.show', compact('module', 'content', 'module_id'));
     }
 
 

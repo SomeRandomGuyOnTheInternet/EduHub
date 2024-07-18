@@ -30,7 +30,7 @@ class ProfessorMeetingController extends Controller
             ->get();
 
         // dd($meetings);
-        return view('professor.meetings.index', compact('module', 'meetings'));
+        return view('professor.meetings.index', compact('module', 'meetings', 'module_id'));
     }
 
 
@@ -78,7 +78,7 @@ class ProfessorMeetingController extends Controller
         $module = Module::findOrFail($module_id);
         $times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '17:00'];
 
-        return view('professor.meetings.edit', compact('meeting', 'module', 'times'));
+        return view('professor.meetings.edit', compact('meeting', 'module', 'times', 'module_id'));
     }
 
 

@@ -21,14 +21,14 @@ class ProfessorModuleContentController extends Controller
     {
         $module = Module::findOrFail($module_id);
         $folders = ModuleFolder::where('module_id', $module_id)->with('contents')->get();
-        return view('professor.content.index', compact('module', 'folders'));
+        return view('professor.content.index', compact('module', 'folders', 'module_id'));
     }
 
     public function show($module_id, $content_id)
     {
         $module = Module::findOrFail($module_id);
         $content = ModuleContent::findOrFail($content_id);
-        return view('professor.content.show', compact('module', 'content'));
+        return view('professor.content.show', compact('module', 'content', 'module_id'));
     }
 
     // Method to show form to create new content
@@ -37,7 +37,7 @@ class ProfessorModuleContentController extends Controller
         Log::info("Creating content for module: $module_id");
         $module = Module::findOrFail($module_id);
         $folders = ModuleFolder::where('module_id', $module_id)->get();
-        return view('professor.content.create_content', compact('module', 'folders'));
+        return view('professor.content.create_content', compact('module', 'folders', 'module_id'));
     }
 
     public function store(Request $request, $module_id)
@@ -83,7 +83,7 @@ class ProfessorModuleContentController extends Controller
         $module = Module::findOrFail($module_id);
         $content = ModuleContent::findOrFail($content_id);
         $folders = ModuleFolder::where('module_id', $module_id)->get();
-        return view('professor.content.edit_content', compact('module', 'content', 'folders'));
+        return view('professor.content.edit_content', compact('module', 'content', 'folders', 'module_id'));
     }
 
     public function update(Request $request, $module_id, $content_id)

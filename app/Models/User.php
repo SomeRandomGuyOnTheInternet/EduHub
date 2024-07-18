@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     protected $primaryKey = 'user_id';
     protected $fillable = ['first_name', 'last_name', 'email', 'date_of_birth', 'password', 'user_type', 'profile_picture'];
@@ -45,5 +45,20 @@ class User extends Authenticatable
     public function users()
     {
         return $this->belongsToMany(User::class, 'enrollments', 'module_id', 'user_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->user_type === 'admin';
+    }
+
+    public function isProfessor()
+    {
+        return $this->user_type === 'professor';
+    }
+
+    public function isStudent()
+    {
+        return $this->user_type === 'student';
     }
 }

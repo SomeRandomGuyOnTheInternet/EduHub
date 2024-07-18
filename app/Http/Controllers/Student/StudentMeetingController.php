@@ -23,7 +23,7 @@ class StudentMeetingController extends Controller
         ->where('meetings.module_id', $module_id)
         ->get();
 
-    return view('student.meetings.index', compact('module', 'meetings'));
+    return view('student.meetings.index', compact('module', 'meetings', 'module_id'));
 }
 
 

@@ -1,15 +1,12 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         {{ __('Learning Content') }}
     </x-slot>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $module->module_name }} - {{ __('Content Details') }}
-        </h2>
-    </x-slot>
+    @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::ModuleContent, 'currentModule' => $module_id])
 
-    <div class="container mt-5">
+    <div class="container-fluid p-0">
+        @livewire('student.module-header', ['currentPage' => "Content", 'currentModuleId' => $module_id])
         <div class="card">
             <div class="card-header">
                 {{ $content->title }}
@@ -41,4 +38,4 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</x-app-layout>
+</x-layouts>

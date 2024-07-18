@@ -3,25 +3,18 @@
         {{ __('Assignment Details') }}
     </x-slot>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Assignment Details') }}
-        </h2>
-    </x-slot>
-
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-
-    <div class="container mt-5">
-        <strong>{{ $assignment->title }}</strong>
+    @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::ModuleAssignment, 'currentModule' => $module_id])
+    <div class="container-fluid p-0">
+        @livewire('student.module-header', ['currentPage' => $assignment->title, 'currentModuleId' => $module_id])
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <p>{{ $assignment->description }}</p>
         <p><strong>Due Date:</strong> {{ $assignment->due_date }}</p>
 
@@ -37,7 +30,7 @@
             </div>
         @endif
 
-        <form action="{{ route('modules.student.assignments.submit', [$module_id, $assignment->assignment_id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('modules.student.assignment.submit', [$module_id, $assignment->assignment_id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="description">Description</label>

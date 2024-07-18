@@ -14,20 +14,20 @@ class ProfessorNewsController extends Controller
     {
         $module = Module::findOrFail($module_id);
         $newsItems = News::where('module_id', $module_id)->get();
-        return view('professor.news.index', compact('module', 'newsItems'));
+        return view('professor.news.index', compact('module', 'newsItems', 'module_id'));
     }
 
     public function create($module_id)
     {
         $module = Module::findOrFail($module_id);
-        return view('professor.news.create', compact('module'));
+        return view('professor.news.create', compact('module', 'module_id'));
     }
 
     public function show($module_id, $news_id)
     {
         $module = Module::findOrFail($module_id);
         $newsItem = News::findOrFail($news_id);
-        return view('professor.news.show', compact('module', 'newsItem'));
+        return view('professor.news.show', compact('module', 'newsItem', 'module_id'));
     }
 
     public function store(Request $request)
@@ -52,7 +52,7 @@ class ProfessorNewsController extends Controller
     {
         $module = Module::findOrFail($module_id);
         $newsItem = News::findOrFail($news_id);
-        return view('professor.news.edit', compact('module', 'newsItem'));
+        return view('professor.news.edit', compact('module', 'newsItem', 'module_id'));
     }
 
     public function update(Request $request, $module_id, $news_id)

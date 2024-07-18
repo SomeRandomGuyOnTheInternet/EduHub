@@ -16,7 +16,7 @@ class ProfessorModuleFolderController extends Controller
     public function create($module_id)
     {
         $module = Module::findOrFail($module_id);
-        return view('professor.content.create_folder', compact('module'));
+        return view('professor.content.create_folder', compact('module', 'module_id'));
     }
 
     /**
@@ -44,7 +44,7 @@ class ProfessorModuleFolderController extends Controller
     {
         $module = Module::findOrFail($module_id);
         $folder = ModuleFolder::findOrFail($folder_id);
-        return view('professor.content.edit_folder', compact('module', 'folder'));
+        return view('professor.content.edit_folder', compact('module', 'folder', 'module_id'));
     }
 
     /**

@@ -1,15 +1,12 @@
-<x-app-layout>
+<x-layouts>
     <x-slot name="title">
         {{ __('Edit Content') }}
     </x-slot>
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Content for Module: ') }}{{ $module->module_name }}
-        </h2>
-    </x-slot>
+    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleContent, 'currentModule' => $module_id])
 
-    <div class="container mt-5">
+    <div class="container-fluid p-0">
+        @livewire('professor.module-header', ['currentPage' => "Edit Content", 'currentModuleId' => $module_id])
         <form action="{{ route('modules.professor.content.update', ['module_id' => $module->module_id, 'content' => $content->content_id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -38,4 +35,4 @@
             <button type="submit" class="btn btn-success">Update Content</button>
         </form>
     </div>
-</x-app-layout>
+</x-layouts>
