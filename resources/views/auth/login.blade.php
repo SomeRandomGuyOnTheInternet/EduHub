@@ -14,7 +14,7 @@
                 <a href="/">
                     <div class="center-logo mb-3">
                         <img id="logo-light" src="/images/logo-transparent-white.png" alt="Logo" width="350">
-                        <img id="logo-dark d-none" src="/images/logo-transparent-dark.png" alt="Logo" width="350">
+                        <img id="logo-dark" class="d-none" src="/images/logo-transparent-dark.png" alt="Logo" width="350">
                     </div>
                 </a>
             </div>
@@ -82,6 +82,7 @@
             logoLight?.classList.add('d-none');
             logoDark?.classList.remove('d-none');
         } else {
+            console.log(logoLight, logoDark);
             logoLight?.classList.remove('d-none');
             logoDark?.classList.add('d-none');
         }

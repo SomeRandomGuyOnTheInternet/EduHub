@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="light">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,6 +20,9 @@
 
     <link href="/css/app.css" rel="stylesheet" />
     <script src="/js/app.js"></script>
+    <script>
+        document.documentElement.setAttribute('data-bs-theme', localStorage.getItem('bsTheme') || 'light');
+    </script>
 </head>
 <body>
     <div

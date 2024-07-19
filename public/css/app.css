@@ -21,11 +21,6 @@ main {
     color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
 }
 
-.sidebar-active:hover {
-    --bs-text-opacity: 1;
-    color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
-}
-
 .flex-column {
     flex-direction: column !important;
 }

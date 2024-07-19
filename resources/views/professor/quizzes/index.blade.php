@@ -20,7 +20,7 @@
             </div>
         @endif
 
-        <a href="{{ route('modules.professor.quizzes.create', ['module_id' => $module->module_id]) }}" class="btn btn-primary">Create New Quiz</a>
+        <a href="{{ route('modules.professor.quizzes.create', ['module_id' => $module->module_id]) }}" class="btn btn-primary mb-4">Create New Quiz</a>
 
         @if($quizzes->isEmpty())
             <p>No quizzes found for this module.</p>
@@ -54,6 +54,5 @@
                 </tbody>
             </table>
         @endif
-        <
     </div>
 </x-layout>

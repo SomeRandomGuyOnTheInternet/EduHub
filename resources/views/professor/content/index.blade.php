@@ -8,10 +8,10 @@
     <div class="container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Content", 'currentModuleId' => $module_id])
         <div class="p-4">
-            <ul class="nav nav-tabs" id="contentTabs" role="tablist">
+            <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3" style="width: fit-content;" id="content-tab" role="tablist">
                 @foreach ($folders as $index => $folder)
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link @if($index == 0) active @endif" id="tab-{{ $folder->module_folder_id }}"
+                        <a class="nav-link rounded-5 @if($index == 0) active @endif" id="tab-{{ $folder->module_folder_id }}"
                             data-toggle="tab" href="#folder-{{ $folder->module_folder_id }}" role="tab"
                             aria-controls="folder-{{ $folder->module_folder_id }}"
                             aria-selected="true">{{ $folder->folder_name }}</a>
