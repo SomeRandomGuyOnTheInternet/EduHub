@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('Create Folder') }}
     </x-slot>
@@ -18,4 +18,4 @@
             </form>
         </div>
     </div>
-</x-layouts>
+</x-layout>

@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('Learning Content') }}
     </x-slot>
@@ -96,4 +96,4 @@
             localStorage.setItem('navigationFlag', 'false');
         });
     </script>
-</x-layouts>
+</x-layout>

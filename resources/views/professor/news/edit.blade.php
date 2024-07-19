@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('Edit News') }}
     </x-slot>
@@ -23,4 +23,4 @@
         </form>
         </div>
     </div>
-</x-layouts>
+</x-layout>

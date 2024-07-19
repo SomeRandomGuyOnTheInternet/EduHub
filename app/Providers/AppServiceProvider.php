@@ -23,7 +23,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Use NavBarComposer for views that include the navigation bar
-        View::composer('layouts.app', NavBarComposer::class);
     }
 }

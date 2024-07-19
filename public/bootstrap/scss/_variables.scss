@@ -511,6 +511,18 @@ $container-max-widths: (
 
 @include _assert-ascending($container-max-widths, "$container-max-widths");
 
+// scss-docs-start container-max-widths
+// $hero-container-max-widths: (
+//   sm: 400px,
+//   md: 400px,
+//   lg: 400px,
+//   xl: 400px,
+//   xxl: 400px
+// ) !default;
+// // scss-docs-end container-max-widths
+
+// @include _assert-ascending($hero-container-max-widths, "$hero-container-max-widths");
+
 
 // Grid columns
 //
@@ -523,6 +535,7 @@ $grid-row-columns:            6 !default;
 // Container padding
 
 $container-padding-x: $grid-gutter-width !default;
+$hero-container-padding-x: $grid-gutter-width !default;
 
 
 // Components

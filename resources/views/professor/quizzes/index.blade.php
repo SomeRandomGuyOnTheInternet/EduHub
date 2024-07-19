@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('Learning Content') }}
     </x-slot>
@@ -56,4 +56,4 @@
         @endif
         <
     </div>
-</x-layouts>
+</x-layout>

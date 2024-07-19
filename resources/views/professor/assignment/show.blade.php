@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('Assignment Details') }}
     </x-slot>
@@ -17,4 +17,4 @@
             @endif
         </div>
     </div>
-</x-layouts>
+</x-layout>

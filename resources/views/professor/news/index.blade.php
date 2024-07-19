@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('News') }}
     </x-slot>
@@ -53,4 +53,4 @@
             </table>
         </div>
     </div>
-</x-layouts>
+</x-layout>

@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('Meetings') }}
     </x-slot>
@@ -62,4 +62,4 @@
             </div>
         </div>
     </div>
-</x-layouts>
+</x-layout>

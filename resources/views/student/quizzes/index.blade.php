@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('Learning Content') }}
     </x-slot>
@@ -109,4 +109,4 @@
             }, 1000); // Check every second to update the buttons
         });
     </script>
-</x-layouts>
+</x-layout>

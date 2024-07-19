@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('Create Meeting Slot') }}
     </x-slot>
@@ -29,4 +29,4 @@
             </form>
         </div>
     </div>
-</x-layouts>
+</x-layout>

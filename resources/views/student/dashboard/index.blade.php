@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         Dashboard
     </x-slot>
@@ -164,4 +164,4 @@
             white-space: pre-line; /* Ensures line breaks are rendered */
         }
     </style>
-</x-layouts>
+</x-layout>

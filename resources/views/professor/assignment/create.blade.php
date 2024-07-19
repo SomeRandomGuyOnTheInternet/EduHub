@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('Create Assignment') }}
     </x-slot>
@@ -34,4 +34,4 @@
             </form>
         </div>
     </div>
-</x-layouts>
+</x-layout>

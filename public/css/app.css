@@ -1,16 +1,10 @@
-body {
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
-}
-
 main {
     display: flex;
     flex-wrap: nowrap;
-    height: 100vh;
-    height: -webkit-fill-available;
-    max-height: 100vh;
-    overflow-x: auto;
-    overflow-y: hidden;
+}
+
+.sidebar {
+    min-width: 300px;
 }
 
 .mb-auto {
@@ -63,6 +57,12 @@ main {
 .logo {
     max-width: 100px;
     height: auto;
+}
+
+.hero-container {
+    @media (max-width: 768) { 
+        
+     }
 }
 
 .shadow-box {

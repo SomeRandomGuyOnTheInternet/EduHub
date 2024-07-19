@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::Profile])
 
     <div class="container-fluid p-0">
@@ -17,4 +17,4 @@
             </div>
         </div>
     </div>
-</x-layouts>
+</x-layout>

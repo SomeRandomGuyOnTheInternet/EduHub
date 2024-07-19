@@ -21,9 +21,5 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('layouts.left-nav-bar', function ($view) {
-            $modules = Module::all();
-            $view->with('modules', $modules);
-        });
     }
 }

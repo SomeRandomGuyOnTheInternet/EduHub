@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-hero-card>
         <div class="text-center">
             <div class="container">
@@ -9,5 +9,6 @@
                 Take me back to safety.
             </a>
         </div>
+    </div>
     </x-hero-card>
-</x-layouts>
+</x-layout>

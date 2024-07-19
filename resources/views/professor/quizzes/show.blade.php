@@ -1,4 +1,4 @@
-<x-layouts>
+<x-layout>
     <x-slot name="title">
         {{ __('Learning Content') }}
     </x-slot>
@@ -30,4 +30,4 @@
         @endforeach
         </div>
     </div>
-</x-layouts>
+</x-layout>
