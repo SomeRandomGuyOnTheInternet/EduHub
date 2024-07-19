@@ -26,7 +26,7 @@ main {
     color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
 }
 
-.topic:hover {
+.btn-sidebar:hover {
     background-color: #f8f9fa;
 }
 

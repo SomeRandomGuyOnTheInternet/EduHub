@@ -1,4 +1,4 @@
-<div class="offcanvas-lg offcanvas-start bg-light" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="min-height: 100vh">
+<div class="sidebar offcanvas-lg offcanvas-start bg-light border-end" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="min-height: 100vh">
     <div class="">
         <a href="/" class="d-flex align-items-center py-4 px-3 link-dark text-decoration-none">
             <img src="{{ $logoUrl }}" alt="Logo" height="45">
@@ -8,7 +8,7 @@
         <ul class="list-unstyled flex-column overflow-auto mb-auto mt-4 px-3">
             <li class="mb-1">
                 <a href="{{ route('student.dashboard') }}"
-                    class="btn btn-lg fw-medium {{ $currentPage === StudentSidebarLink::Dashboard ? 'sidebar-active' : '' }} d-flex text-start">
+                    class="btn btn-lg btn-sidebar fw-medium {{ $currentPage === StudentSidebarLink::Dashboard ? 'sidebar-active' : '' }} d-flex text-start">
                     <i class="bi bi-house-door me-2"></i>
                     Dashboard
                 </a>
@@ -19,7 +19,7 @@
             @forelse($modules as $module)
                 <li class="mb-1 heading">
                     <button
-                        class="btn btn-lg btn-toggle fw-medium {{ $currentModule == $module->module_id ? '' : 'collapsed' }} d-flex text-start"
+                        class="btn btn-lg btn-toggle btn-sidebar fw-medium {{ $currentModule == $module->module_id ? '' : 'collapsed' }} d-flex text-start"
                         data-bs-toggle="collapse" data-bs-target="#collapse-{{ $loop->index }}"
                         aria-expanded="{{ $currentModule == $module->module_id ? 'true' : 'false' }}">
                         <i class="bi bi-chevron-down me-2"></i>
@@ -30,37 +30,37 @@
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li>
                                 <a href="{{ route('modules.student.home.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleHome && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleHome && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
                                     Home
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('modules.student.content.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleContent && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleContent && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
                                     Content
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('modules.student.assignment.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleAssignment && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleAssignment && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
                                     Assignments
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('modules.student.news.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleNews && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleNews && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
                                     News
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('modules.student.quizzes.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleQuiz && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleQuiz && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
                                     Quizzes
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('modules.student.meetings.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleMeetings && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleMeetings && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
                                     Meetings
                                 </a>
                             </li>
