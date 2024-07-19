@@ -6,8 +6,8 @@
             </button>
         </div>
         <div>
-            <h2>{{ $currentPage }}</h2>
-            <h6>{{ $moduleName }} - {{ $moduleCode }}</h6>    
+            <h2 id="header-main">{{ $currentPage }}</h2>
+            <h6 id="header-description">{{ $moduleName }} - {{ $moduleCode }}</h6>    
         </div>
     </div>
     <div class="">
