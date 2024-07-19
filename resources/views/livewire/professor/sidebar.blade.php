@@ -28,37 +28,37 @@
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                         <li>
                             <a href="{{ route('modules.professor.home.index', ['module_id' => $module->module_id]) }}"
-                                class="{{ $currentPage === ProfessorSidebarLink::ModuleHome ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                class="{{ $currentPage === ProfessorSidebarLink::ModuleHome && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
                                 Home
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('modules.professor.content.index', ['module_id' => $module->module_id]) }}"
-                                class="{{ $currentPage === ProfessorSidebarLink::ModuleContent ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                class="{{ $currentPage === ProfessorSidebarLink::ModuleContent && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
                                 Content
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('modules.professor.assignments.index', ['module_id' => $module->module_id]) }}"
-                                class="{{ $currentPage === ProfessorSidebarLink::ModuleAssignment ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                class="{{ $currentPage === ProfessorSidebarLink::ModuleAssignment && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
                                 Assignments
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('modules.professor.news.index', ['module_id' => $module->module_id]) }}"
-                                class="{{ $currentPage === ProfessorSidebarLink::ModuleNews ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                class="{{ $currentPage === ProfessorSidebarLink::ModuleNews && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
                                 News
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('modules.professor.quizzes.index', ['module_id' => $module->module_id]) }}"
-                                class="{{ $currentPage === ProfessorSidebarLink::ModuleQuiz ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                class="{{ $currentPage === ProfessorSidebarLink::ModuleQuiz && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
                                 Quizzes
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('modules.professor.meetings.index', ['module_id' => $module->module_id]) }}"
-                                class="{{ $currentPage === ProfessorSidebarLink::ModuleMeetings ? 'sidebar-active' : '' }} link-dark rounded topic">
+                                class="{{ $currentPage === ProfessorSidebarLink::ModuleMeetings && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded topic">
                                 Meetings
                             </a>
                         </li>

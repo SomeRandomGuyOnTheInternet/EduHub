@@ -5,14 +5,9 @@
 
     @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleQuiz, 'currentModule' => $module_id])
 
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Quiz: ') }}{{ $quiz->quiz_title }}
-        </h2>
-    </x-slot>
-
     <div class="container-fluid p-0">
-        @livewire('professor.module-header', ['currentPage' => "Quiz", 'currentModuleId' => $module_id])
+        @livewire('professor.module-header', ['currentPage' => $quiz->quiz_title, 'currentModuleId' => $module_id])
+        <div class="p-4">
         <p><strong>Module:</strong> {{ $module->module_name }}</p>
         <p><strong>Description:</strong> {{ $quiz->quiz_description }}</p>
         <p><strong>Date:</strong> {{ $quiz->quiz_date }}</p>
@@ -33,5 +28,6 @@
                 <p><strong>Marks:</strong> {{ $question->marks }}</p>
             </div>
         @endforeach
+        </div>
     </div>
 </x-layouts>

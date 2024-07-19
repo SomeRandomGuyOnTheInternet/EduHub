@@ -7,6 +7,7 @@
 
     <div class="container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "Content", 'currentModuleId' => $module_id])
+        <div class="p-4">
         <div class="card">
             <div class="card-header">
                 {{ $content->title }}
@@ -32,6 +33,7 @@
                     <button type="submit" class="btn btn-success">Download</button>
                 </form>
             </div>
+        </div>
         </div>
     </div>
 

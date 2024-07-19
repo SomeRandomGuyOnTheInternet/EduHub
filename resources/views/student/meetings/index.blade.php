@@ -7,6 +7,7 @@
 
     <div class="container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "Meetings", 'currentModuleId' => $module_id])
+        <div class="p-4">
         <div class="row">
             @foreach ($meetings as $meeting)
                 <div class="col-md-4 mb-4">
@@ -45,6 +46,7 @@
                     </div>
                 </div>
             @endforeach
+        </div>
         </div>
     </div>
 </x-layouts>

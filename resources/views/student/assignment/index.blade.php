@@ -7,6 +7,7 @@
 
     <div class="container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "Assignments", 'currentModuleId' => $module_id])
+        <div class="p-4">
         <table class="table table-striped mt-4">
             <thead>
                 <tr>
@@ -64,5 +65,6 @@
                 </tbody>
             </table>
         @endif
+        </div>
     </div>
 </x-app-layout>

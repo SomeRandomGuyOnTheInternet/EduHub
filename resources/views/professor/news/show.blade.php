@@ -13,6 +13,7 @@
 
     <div class="container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "News", 'currentModuleId' => $module_id])
+        <div class="p-4">
         <div class="card">
             <div class="card-header">
                 <h3>{{ $newsItem->news_title }}</h3>
@@ -31,5 +32,6 @@
             </div>
         </div>
         <a href="{{ route('modules.professor.news.index', ['module_id' => $module->module_id]) }}" class="btn btn-secondary mt-3">Back to News</a>
+        </div>
     </div>
 </x-layouts>

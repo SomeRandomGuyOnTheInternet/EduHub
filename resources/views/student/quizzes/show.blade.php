@@ -7,6 +7,7 @@
 
     <div class="container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "Quizzes", 'currentModuleId' => $module_id])
+        <div class="p-4">
         <div class="alert alert-info" role="alert">
             <strong>Time Remaining: <span id="timer"></span></strong>
         </div>
@@ -32,6 +33,7 @@
             @endforeach
             <button type="submit" class="btn btn-success">Submit Quiz</button>
         </form>
+        </div>
     </div>
 
     <script>

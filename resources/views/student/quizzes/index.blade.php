@@ -7,6 +7,7 @@
 
     <div class="container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "Quizzes", 'currentModuleId' => $module_id])
+        <div class="p-4">
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -74,7 +75,7 @@
                 </tbody>
             </table>
         @endif
-
+        </div>
     </div>
 
     <script>

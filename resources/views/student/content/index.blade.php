@@ -7,6 +7,7 @@
 
     <div class="container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "Content", 'currentModuleId' => $module_id])
+        <div class="p-4">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             @foreach ($folders as $folder)
                 <li class="nav-item" role="presentation">
@@ -69,6 +70,7 @@
                     </form>
                 </div>
             @endforeach
+        </div>
         </div>
     </div>
 

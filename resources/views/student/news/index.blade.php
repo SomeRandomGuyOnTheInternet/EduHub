@@ -7,6 +7,7 @@
 
     <div class="container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "News", 'currentModuleId' => $module_id])
+        <div class="p-4">
         <div class="tab-content" id="newsTabsContent">
             <div class="tab-pane fade show active" id="news" role="tabpanel">
                 <div class="mt-3">
@@ -36,6 +37,7 @@
                     </table>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 

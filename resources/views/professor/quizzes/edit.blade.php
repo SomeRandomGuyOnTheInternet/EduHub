@@ -13,6 +13,7 @@
 
     <div class="container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Edit Quiz", 'currentModuleId' => $module_id])
+        <div class="p-4">
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -81,6 +82,7 @@
             <button type="button" class="btn btn-primary" id="add-question">Add Question</button>
             <button type="submit" class="btn btn-success">Update Quiz</button>
         </form>
+        </div>
     </div>
 
     <script>

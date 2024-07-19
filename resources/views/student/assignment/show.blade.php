@@ -6,6 +6,7 @@
     @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::ModuleAssignment, 'currentModule' => $module_id])
     <div class="container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => $assignment->title, 'currentModuleId' => $module_id])
+        <div class="p-4">
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -42,5 +43,6 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        </div>
     </div>
 </x-app-layout>
