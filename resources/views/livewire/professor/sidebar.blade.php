@@ -30,12 +30,6 @@
                         id="collapse-{{ $loop->index }}">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li>
-                                <a href="{{ route('modules.professor.home.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === ProfessorSidebarLink::ModuleHome && $currentModule == $module->module_id ? 'sidebar-active' : '' }} text-body rounded topic">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
                                 <a href="{{ route('modules.professor.content.index', ['module_id' => $module->module_id]) }}"
                                     class="{{ $currentPage === ProfessorSidebarLink::ModuleContent && $currentModule == $module->module_id ? 'sidebar-active' : '' }} text-body rounded topic">
                                     Content

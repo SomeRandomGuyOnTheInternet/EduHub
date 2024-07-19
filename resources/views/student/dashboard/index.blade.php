@@ -46,7 +46,7 @@
                             @endphp
                             @if ($eventStartDate->isToday() || ($eventStartDate->isFuture() && $daysUntilEvent <= 7))
                                 <div class="col-lg-4 col-md-6 mb-4">
-                                    <div class="card">
+                                    <div class="card rounded shadow border">
                                         <div class="card-body">
                                             <h5 class="card-title">
                                                 @if ($event->type === 'meeting')
@@ -55,8 +55,8 @@
                                                     {{ $event->title }}
                                                 @endif
                                             </h5>
-                                            <p class="card-text">Module: {{ $event->module_name }}</p>
-                                            <p class="card-text">Start Date: {{ $event->start }}</p>
+                                            <p class="card-text">{{ $event->module_name }}</p>
+                                            <p class="card-text">{{ $event->start }}</p>
                                             @if ($event->type === 'assignment')
                                                 <span class="badge bg-warning text-dark">Assignment</span>
                                             @elseif($event->type === 'quiz')
@@ -126,7 +126,6 @@
                     right: 'dayGridMonth,dayGridWeek,dayGridDay'
                 },
                 navLinks: true,
-                selectable: true,
                 selectMirror: true,
                 editable: false,
                 dayMaxEvents: true,

@@ -8,69 +8,69 @@
     <div class="container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "Content", 'currentModuleId' => $module_id])
         <div class="p-4">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            @foreach ($folders as $folder)
-                <li class="nav-item" role="presentation">
-                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" id="tab-{{ $folder->module_folder_id }}"
-                        data-toggle="tab" href="#folder-{{ $folder->module_folder_id }}" role="tab"
-                        aria-controls="folder-{{ $folder->module_folder_id }}"
-                        aria-selected="{{ $loop->first ? 'true' : 'false' }}">{{ $folder->folder_name }}</a>
-                </li>
-            @endforeach
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            @foreach ($folders as $folder)
-                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
-                    id="folder-{{ $folder->module_folder_id }}" role="tabpanel"
-                    aria-labelledby="tab-{{ $folder->module_folder_id }}">
-                    <form
-                        action="{{ route('modules.student.content.toggle-favourite', ['module_id' => $module->module_id]) }}"
-                        method="POST">
-                        @csrf
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th><input type="checkbox" id="select-all-{{ $folder->module_folder_id }}"></th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Time Uploaded</th>
-                                    <th>Favourite</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($folder->contents as $content)
+            <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3" style="width: fit-content;" id="content-tab" role="tablist">
+                @foreach ($folders as $folder)
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link rounded-5 {{ $loop->first ? 'active' : '' }}" id="tab-{{ $folder->module_folder_id }}"
+                            data-toggle="tab" href="#folder-{{ $folder->module_folder_id }}" role="tab"
+                            aria-controls="folder-{{ $folder->module_folder_id }}"
+                            aria-selected="{{ $loop->first ? 'true' : 'false' }}">{{ $folder->folder_name }}</a>
+                    </li>
+                @endforeach
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                @foreach ($folders as $folder)
+                    <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
+                        id="folder-{{ $folder->module_folder_id }}" role="tabpanel"
+                        aria-labelledby="tab-{{ $folder->module_folder_id }}">
+                        <form
+                            action="{{ route('modules.student.content.toggle-favourite', ['module_id' => $module->module_id]) }}"
+                            method="POST">
+                            @csrf
+                            <table class="table table-bordered">
+                                <thead>
                                     <tr>
-                                        <td><input type="checkbox" name="content_ids[]" value="{{ $content->content_id }}"
-                                                class="content-checkbox-{{ $folder->module_folder_id }}"></td>
-
-                                        <td><a
-                                                href="{{ route('modules.student.content.show', ['module_id' => $module->module_id, 'content' => $content->content_id]) }}">{{ $content->title }}</a>
-                                        </td>
-
-                                        <td>{{ strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION))}}</td>
-                                        <td>{{ $content->created_at->format('h:iA, d M') }}</td>
-                                        <td>
-                                            @if ($content->is_favourited)
-                                                <span class="favourite-icon">★</span>
-                                            @else
-                                                <span class="favourite-icon">☆</span>
-                                            @endif
-                                        </td>
+                                        <th><input type="checkbox" id="select-all-{{ $folder->module_folder_id }}"></th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Time Uploaded</th>
+                                        <th>Favourite</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <button type="submit" class="btn btn-primary">Toggle Favourite</button>
-                    </form>
-                    <form action="{{ route('modules.student.content.download', ['module_id' => $module->module_id]) }}"
-                        method="POST">
-                        @csrf
-                        <input type="hidden" name="content_ids[]" class="download-content-ids">
-                        <button type="submit" class="btn btn-success mt-2">Download</button>
-                    </form>
-                </div>
-            @endforeach
-        </div>
+                                </thead>
+                                <tbody>
+                                    @foreach ($folder->contents as $content)
+                                        <tr>
+                                            <td><input type="checkbox" name="content_ids[]" value="{{ $content->content_id }}"
+                                                    class="content-checkbox-{{ $folder->module_folder_id }}"></td>
+
+                                            <td><a
+                                                    href="{{ route('modules.student.content.show', ['module_id' => $module->module_id, 'content' => $content->content_id]) }}">{{ $content->title }}</a>
+                                            </td>
+
+                                            <td>{{ strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION))}}</td>
+                                            <td>{{ $content->created_at->format('h:iA, d M') }}</td>
+                                            <td>
+                                                @if ($content->is_favourited)
+                                                    <span class="favourite-icon">★</span>
+                                                @else
+                                                    <span class="favourite-icon">☆</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-primary">Toggle Favourite</button>
+                        </form>
+                        <form action="{{ route('modules.student.content.download', ['module_id' => $module->module_id]) }}"
+                            method="POST">
+                            @csrf
+                            <input type="hidden" name="content_ids[]" class="download-content-ids">
+                            <button type="submit" class="btn btn-success mt-2">Download</button>
+                        </form>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 
