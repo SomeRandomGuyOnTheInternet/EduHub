@@ -89,7 +89,7 @@
         const headerDescription = document.getElementById('header-description');
 
         document.addEventListener('DOMContentLoaded', function() {
-
+            updateHeaderDescription("Calendar");
             var calendarEl = document.getElementById('calendar');
             var events = @json($events);
 
@@ -158,6 +158,14 @@
             });
 
             calendar.render();
+        });
+
+        $('#pills-calendar-tab').click(function() {
+            updateHeaderDescription('Calendar');
+        });
+
+        $('#pills-announcements-tab').click(function() {
+            updateHeaderDescription('Announcements');
         });
 
         function updateHeaderDescription(description) {
