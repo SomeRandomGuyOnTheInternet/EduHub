@@ -13,7 +13,8 @@
             <div>
                 <a href="/">
                     <div class="center-logo mb-3">
-                        <img src="/images/logo-transparent-white.png" alt="Logo" width="350">
+                        <img id="logo-light" src="/images/logo-transparent-white.png" alt="Logo" width="350">
+                        <img id="logo-dark d-none" src="/images/logo-transparent-dark.png" alt="Logo" width="350">
                     </div>
                 </a>
             </div>
@@ -70,3 +71,19 @@
         </div>
     </x-hero-card>
 </x-layout>
+
+<script>
+    const logoLight = document.getElementById('logo-light');
+    const logoDark = document.getElementById('logo-dark');
+
+    updateTheme = function() {
+        const theme = getTheme();
+        if (theme === 'dark') {
+            logoLight?.classList.add('d-none');
+            logoDark?.classList.remove('d-none');
+        } else {
+            logoLight?.classList.remove('d-none');
+            logoDark?.classList.add('d-none');
+        }
+    }
+</script>

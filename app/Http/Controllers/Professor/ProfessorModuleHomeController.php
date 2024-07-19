@@ -9,6 +9,6 @@ class ProfessorModuleHomeController extends Controller
     public function index($module_id)
     {
         $user = auth()->user();
-        return view('professor.home.dashboard', compact('module_id'));
+        return view('professor.home.index', compact('module_id'));
     }
 }

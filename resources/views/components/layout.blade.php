@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="light">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +13,7 @@
 
     <link href="/css/font.css" rel="stylesheet" />
     <link href="/bootstrap/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="/bootstrap/icons/bootstrap-icons.min.css" rel="stylesheet" >
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/masonry.pkgd.min.js"></script>
     <script src="/bootstrap/bootstrap.bundle.js"></script>
@@ -28,13 +28,14 @@
         aria-live="polite"
         aria-atomic="true"
     ></div>
-    <main class=" overflow-auto">
+    <main>
         {{ $slot }}
     </main>
 </body>
 <script>
     $(document).ready(function () {
         $(".toast").toast("show");
+        updateTheme();
     });
 </script>
 </html>

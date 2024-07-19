@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot name="title">
-        Dashboard
+        Home
     </x-slot>
 
     @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::ModuleHome, 'currentModule' => $module_id])

@@ -17,6 +17,6 @@ class StudentModuleHomeController extends Controller
     public function index($module_id)
     {
         $user = auth()->user();
-        return view('student.home.dashboard', compact('module_id'));
+        return view('student.home.index', compact('module_id'));
     }
 }

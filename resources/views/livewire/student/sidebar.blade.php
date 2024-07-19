@@ -1,7 +1,8 @@
-<div class="sidebar offcanvas-lg offcanvas-start bg-light border-end" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="min-height: 100vh">
+<div class="sidebar offcanvas-lg offcanvas-start bg-body-secondary border-end" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="min-height: 100vh">
     <div class="">
         <a href="/" class="d-flex align-items-center py-4 px-3 link-dark text-decoration-none">
-            <img src="{{ $logoUrl }}" alt="Logo" height="45">
+            <img id="logo-light" class="d-none" src="{{ $logoLightUrl }}" alt="Logo" height="45">
+            <img id="logo-dark" class="d-none" src="{{ $logoDarkUrl }}" alt="Logo" height="45">
         </a>
     </div>
     <div class="offcanvas-body">
@@ -14,7 +15,7 @@
                 </a>
             </li>
             <li class="mx-3 mt-3 mb-1">
-                <span class="text-secondary">Modules</span>
+                <span class="text-body-secondary">Modules</span>
             </li>
             @forelse($modules as $module)
                 <li class="mb-1 heading">
@@ -30,37 +31,37 @@
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                             <li>
                                 <a href="{{ route('modules.student.home.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleHome && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleHome && $currentModule == $module->module_id ? 'sidebar-active' : '' }} text-body rounded btn-sidebar">
                                     Home
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('modules.student.content.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleContent && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleContent && $currentModule == $module->module_id ? 'sidebar-active' : '' }} text-body rounded btn-sidebar">
                                     Content
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('modules.student.assignment.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleAssignment && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleAssignment && $currentModule == $module->module_id ? 'sidebar-active' : '' }} text-body rounded btn-sidebar">
                                     Assignments
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('modules.student.news.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleNews && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleNews && $currentModule == $module->module_id ? 'sidebar-active' : '' }} text-body rounded btn-sidebar">
                                     News
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('modules.student.quizzes.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleQuiz && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleQuiz && $currentModule == $module->module_id ? 'sidebar-active' : '' }} text-body rounded btn-sidebar">
                                     Quizzes
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ route('modules.student.meetings.index', ['module_id' => $module->module_id]) }}"
-                                    class="{{ $currentPage === StudentSidebarLink::ModuleMeetings && $currentModule == $module->module_id ? 'sidebar-active' : '' }} link-dark rounded btn-sidebar">
+                                    class="{{ $currentPage === StudentSidebarLink::ModuleMeetings && $currentModule == $module->module_id ? 'sidebar-active' : '' }} text-body rounded btn-sidebar">
                                     Meetings
                                 </a>
                             </li>
@@ -77,7 +78,7 @@
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                 id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{{ $userProfileUrl }}" alt="" width="32" height="32" class="rounded-circle me-2">
-                <span>{{ $userName }}</sppan>
+                <span class="text-body">{{ $userName }}</span>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item" href="/profile">Settings</a></li>
@@ -96,3 +97,18 @@
     </div>
 </div>
 
+<script>
+    const logoLight = document.getElementById('logo-light');
+    const logoDark = document.getElementById('logo-dark');
+
+    updateTheme = function() {
+        const theme = getTheme();
+        if (theme === 'dark') {
+            logoLight?.classList.add('d-none');
+            logoDark?.classList.remove('d-none');
+        } else {
+            logoLight?.classList.remove('d-none');
+            logoDark?.classList.add('d-none');
+        }
+    }
+</script>

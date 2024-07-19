@@ -12,7 +12,7 @@
     <div>
         <a href="/">
             <div class="center-logo mb-3">
-                <img src="/images/logo-transparent-white.png" alt="Logo" width="350">
+                <img class="logo" src="/images/logo-transparent-white.png" alt="Logo" width="350">
             </div>
         </a>
     </div>

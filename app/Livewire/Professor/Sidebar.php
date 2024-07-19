@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 class Sidebar extends Component
 {
-    public $logoUrl;
+    public $logoLightUrl;
+    public $logoDarkUrl;
     public $modules;
     public $userName;
     public $userProfileUrl;
@@ -19,7 +20,8 @@ class Sidebar extends Component
     {
         abort_if(!Auth::user()?->isProfessor(), 403);
 
-        $this->logoUrl = '/images/logo-transparent-white.png';
+        $this->logoLightUrl = '/images/logo-transparent-white.png';
+        $this->logoDarkUrl = '/images/logo-transparent-dark.png';
         $this->userName = Auth::user()->first_name;
         $this->modules = DB::table('modules')
             ->join('teaches', 'modules.module_id', '=', 'teaches.module_id')
@@ -35,7 +37,8 @@ class Sidebar extends Component
     public function render()
     {
         return view('livewire.professor.sidebar', [
-            'logoUrl' => $this->logoUrl,
+            'logoLightUrl' => $this->logoLightUrl,
+            'logoDarkUrl' => $this->logoDarkUrl,
             'modules' => $this->modules,
             'userProfileUrl' => $this->userProfileUrl,
             'userName' => $this->userName,

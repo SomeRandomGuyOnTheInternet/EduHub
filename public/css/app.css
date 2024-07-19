@@ -26,10 +26,6 @@ main {
     color: rgba(var(--bs-white-rgb), var(--bs-text-opacity)) !important;
 }
 
-.btn-sidebar:hover {
-    background-color: #f8f9fa;
-}
-
 .flex-column {
     flex-direction: column !important;
 }
