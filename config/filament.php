@@ -46,9 +46,9 @@ return [
             //'login' => \Filament\Pages\Auth\Login::class,  //removed because i want to use breeze's login page instead of filament's
             'login' => \App\Http\Controllers\Auth\AuthenticatedSessionController::class,
         ],
-        'user' => [
-            'name' => fn ($user) => $user->name, 
-        ],
+        // 'user' => [
+        //     'name' => fn ($user) => $user->name, 
+        // ],
     ],
     'layout' => [
         'base' => 'layouts.app',

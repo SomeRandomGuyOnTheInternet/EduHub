@@ -104,6 +104,7 @@ Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/
     Route::patch('meetings/{meeting}/update-booking', [StudentMeetingController::class, 'updateBooking'])->name('meetings.updateBooking');
 
     Route::resource('assignment', StudentAssignmentController::class);
+    Route::post('assignment/submit/{assignment_id}', [StudentAssignmentController::class, 'submit'])->name('assignment.submit');
 });
 
 

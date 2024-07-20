@@ -39,7 +39,7 @@
                                     <td>{{ $assignment->due_date }}</td>
                                     <td>
                                         <a href="{{ route('modules.student.assignment.show', [$module_id, $assignment->assignment_id]) }}" class="btn btn-info">View</a>
-                                        {{-- <a href="{{ route('modules.student.assignment.download', [$module_id, $assignment->assignment_id]) }}" class="btn btn-success">Download Brief</a> --}}
+                                        {{-- <a href="{{ route('modules.student.assignments.download', [$module_id, $assignment->assignment_id]) }}" class="btn btn-success">Download Brief</a> --}}
                                     </td>
                                 </tr>
                             @endforeach

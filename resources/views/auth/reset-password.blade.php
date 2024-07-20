@@ -22,7 +22,7 @@
             <form method="POST" action="{{ route('password.store') }}" style="min-width: 400px;">
                 @csrf
 
-                <!-- Password Reset Token -->
+                {{-- <!-- Password Reset Token -->
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
                 <!-- Email Address -->
@@ -54,14 +54,14 @@
                     <x-primary-button>
                         {{ __('Reset Password') }}
                     </x-primary-button>
-                </div>
+                </div> --}}
             </form>
         </div>
     </div>
     </x-hero-card>
 </x-layout>
 
-<x-layout>
+{{-- <x-layout>
     <x-hero-card>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -130,4 +130,4 @@
             </div>
         </div>
     </x-hero-card>
-</x-layout>
+</x-layout> --}}
