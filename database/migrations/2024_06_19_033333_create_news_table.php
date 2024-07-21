@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('news_id');
             $table->unsignedBigInteger('module_id');
-            $table->string('news_title', 50);
+            $table->string('news_title', 255);
             $table->text('news_description');
             $table->timestamps();
 
