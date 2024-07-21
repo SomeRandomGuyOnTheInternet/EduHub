@@ -91,8 +91,8 @@ class StudentQuizController extends Controller
             'total_marks' => 0, // Initializes the total marks.
         ]);
 
-        foreach ($quiz->questions as $index => $question) { // Iterates over each question in the quiz.
-            $submittedAnswer = $request->answers[$index] ?? null; // Retrieves the submitted answer or null if not provided.
+        foreach ($quiz->questions as $question) { // Iterates over each question in the quiz.
+            $submittedAnswer = $request->input('answers.' . $question->quiz_questions_id, ''); // Retrieves the submitted answer or empty string if not provided.
             $correctAnswer = $question->correct_option; // Retrieves the correct answer.
 
             $isCorrect = $submittedAnswer === $correctAnswer; // Checks if the answer is correct.
@@ -102,7 +102,7 @@ class StudentQuizController extends Controller
             QuizSubmission::create([ // Creates a new quiz submission.
                 'quiz_questions_id' => $question->quiz_questions_id, // Sets the question ID.
                 'user_id' => $user->user_id, // Sets the user ID.
-                'submission_answer' => $submittedAnswer ?? '', // Sets the submitted answer, or empty string if not provided.
+                'submission_answer' => $submittedAnswer, // Sets the submitted answer.
                 'is_correct' => $isCorrect, // Sets whether the answer is correct.
                 'marks' => $marksObtained, // Sets the marks obtained.
             ]);

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('enrollment_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('module_id');
-            $table->date('enrollment_date');
+            $table->date('enrollment_date')->default(now());
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');

@@ -6,18 +6,19 @@ use App\Models\Assignment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AssignmentSubmission;
+use Illuminate\Support\Facades\Storage;
 
 class ProfessorAssignmentController extends Controller
 {
     public function index($module_id)
     {
         $assignments = Assignment::where('module_id', $module_id)->get();
-        return view('professor.assignment.index', compact('assignments', 'module_id'));
+        return view('professor.assignments.index', compact('assignments', 'module_id'));
     }
 
     public function create($module_id)
     {
-        return view('professor.assignment.create', compact('module_id'));
+        return view('professor.assignments.create', compact('module_id'));
     }
 
     public function store(Request $request, $module_id)
@@ -63,13 +64,13 @@ class ProfessorAssignmentController extends Controller
         // Extract the file name from the file path
         $fileName = basename($assignment->file_path);
 
-        return view('professor.assignment.show', compact('assignment', 'module_id', 'fileName', 'submissions'));
+        return view('professor.assignments.show', compact('assignment', 'module_id', 'fileName', 'submissions'));
     }
 
     public function edit($module_id, $assignment_id)
     {
         $assignment = Assignment::findOrFail($assignment_id);
-        return view('professor.assignment.edit', compact('assignment', 'module_id'));
+        return view('professor.assignments.edit', compact('assignment', 'module_id'));
     }
 
     public function update(Request $request, $module_id, $assignment_id)
@@ -121,7 +122,7 @@ class ProfessorAssignmentController extends Controller
     {
         $assignment = Assignment::findOrFail($assignment_id);
         $submissions = $assignment->submissions()->with('user')->get();
-        return view('professor.assignment.submissions', compact('assignment', 'submissions', 'module_id'));
+        return view('professor.assignments.submissions', compact('assignment', 'submissions', 'module_id'));
     }
 
     public function gradeSubmission(Request $request, $module_id, $assignment_id, $submission_id)

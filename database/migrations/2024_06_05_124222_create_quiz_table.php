@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('quiz', function (Blueprint $table) {
             $table->bigIncrements('quiz_id');
             $table->unsignedBigInteger('module_id');
-            $table->string('quiz_title', 50);
+            $table->string('quiz_title', 255);
             $table->text('quiz_description')->nullable();
             $table->timestamp('quiz_date');
             $table->integer('duration')->default(60); // Duration in minutes

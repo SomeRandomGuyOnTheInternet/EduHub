@@ -26,6 +26,7 @@
                             <td>{{ $assignment->due_date }}</td>
                             <td>
                                 <a href="{{ route('modules.professor.assignments.show', [$module_id, $assignment->assignment_id]) }}" class="btn btn-info">View</a>
+                                <a href="{{ route('modules.professor.assignments.edit', [$module_id, $assignment->assignment_id]) }}" class="btn btn-warning">Edit</a>
                                 <form action="{{ route('modules.professor.assignments.destroy', [$module_id, $assignment->assignment_id]) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
