@@ -4,33 +4,29 @@ namespace App\Livewire\Student;
 
 use Livewire\Component;
 use App\Models\Favourite;
+use App\Models\ModuleContent;
 use App\Models\ModuleFolder;
-use Livewire\WithPagination;
 use Livewire\Attributes\Renderless;
 use Illuminate\Support\Facades\Auth;
 
+// TODO: lazy load, spinner,  search, filter, download all
+
 class ContentTable extends Component
 {
-    use WithPagination;
-
     public $module_id;
+    public $folders;
     public $currentFolder;
-    public $currentPage;
     public $selectedContentIds;
-    public $query;
-    protected $paginationTheme = 'bootstrap';
+    public $search = '';
+    public $sort = 'latest';
+    public $sortColumn = 'upload_date';
+    public $sortOrder = 'desc';
 
     public function mount($module_id)
     {
         $this->module_id = $module_id;    
         $this->currentFolder = 0;
-        $this->currentPage = 1;
         $this->selectedContentIds = [];
-    }
-
-    public function loadMore()
-    {
-        $this->currentPage++;
     }
 
     public function favourite($content_id)
@@ -61,11 +57,62 @@ class ContentTable extends Component
         }
     }
 
+    public function toggleSelectAllContentId($module_folder_id)
+    {
+        foreach ($this->folders as $folder) {
+            if ($folder->module_folder_id == $module_folder_id) {
+                foreach ($folder->contents as $content) {
+                    if (in_array($content->content_id, $this->selectedContentIds)) {
+                        $this->selectedContentIds = array_diff($this->selectedContentIds, [$content->content_id]);
+                    } else {
+                        $this->selectedContentIds[] = $content->content_id;
+                    }
+                }
+            }
+        }
+    }
+
+    public function updateSort($sort)
+    {
+        switch ($sort) {
+            case 'title_asc':
+                $this->sortColumn = 'title';
+                $this->sortOrder = 'asc';
+                $this->sort = 'title_desc';
+                break;
+            case 'title_desc':
+                $this->sortColumn = 'title';
+                $this->sortOrder = 'desc';
+                $this->sort = 'title_asc';
+                break;
+            case 'earliest':
+                $this->sortColumn = 'upload_date';
+                $this->sortOrder = 'asc';
+                $this->sort = 'latest';
+                break;
+            case 'latest':
+                $this->sortColumn = 'upload_date';
+                $this->sortOrder = 'desc';
+                $this->sort = 'earliest';
+                break;
+            default:
+                $this->sortColumn = 'upload_date';
+                $this->sortOrder = 'desc';
+                $this->sort = 'latest';
+        }
+    }
+
     public function render()
     {
-        $folders = ModuleFolder::where('module_id', $this->module_id)->get();
+        $this->folders = ModuleFolder::where('module_id', $this->module_id)
+            ->with([
+                'contents' => fn ($query) => $query
+                    ->orderBy($this->sortColumn, $this->sortOrder)
+                    ->where('title', 'like', '%'.$this->search.'%')
+            ])
+            ->get();
         return view('livewire.student.content-table', [
-            'folders' => $folders
+            'folders' => $this->folders
         ]);
     }
 }
