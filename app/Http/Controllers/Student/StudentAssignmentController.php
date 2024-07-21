@@ -17,7 +17,7 @@ class StudentAssignmentController extends Controller
         $assignments = Assignment::where('module_id', $module_id)->get();
         $submissions = AssignmentSubmission::where('user_id', Auth::id())->get();
 
-        return view('student.assignment.index', compact('assignments', 'submissions', 'module_id'));
+        return view('student.assignments.index', compact('assignments', 'submissions', 'module_id'));
     }
     public function show($module_id, $assignment_id)
     {
@@ -32,7 +32,7 @@ class StudentAssignmentController extends Controller
             return redirect()->route('student.dashboard')->with('error', 'Invalid module assignment access.');
         }
     
-        return view('student.assignment.show', compact('assignment', 'module_id'));
+        return view('student.assignments.show', compact('assignment', 'module_id'));
     }
     
     public function submit(Request $request, $module_id, $assignment_id)
@@ -62,7 +62,7 @@ class StudentAssignmentController extends Controller
             'submission_date' => now(),
         ]);
 
-        return redirect()->route('modules.student.assignment.index', [$module_id, $assignment_id])
+        return redirect()->route('modules.student.assignments.index', [$module_id, $assignment_id])
             ->with('success', 'Assignment submitted successfully.');
     }
     

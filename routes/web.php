@@ -78,6 +78,7 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
 
     //Assignment Routes
     Route::resource('assignments', ProfessorAssignmentController::class);
+    Route::post('assignments/{assignment_id}/submissions/{submission_id}/grade', [ProfessorAssignmentController::class, 'gradeSubmission'])->name('assignments.gradeSubmission');
 
 });
 
@@ -103,8 +104,9 @@ Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/
     Route::resource('meetings', StudentMeetingController::class);
     Route::patch('meetings/{meeting}/update-booking', [StudentMeetingController::class, 'updateBooking'])->name('meetings.updateBooking');
 
-    Route::resource('assignment', StudentAssignmentController::class);
-    Route::post('assignment/submit/{assignment_id}', [StudentAssignmentController::class, 'submit'])->name('assignment.submit');
+    Route::resource('assignments', StudentAssignmentController::class);
+    Route::post('assignments/{assignment_id}/submit', [StudentAssignmentController::class, 'submit'])->name('assignments.submit'); 
+    Route::get('assignments/{assignment_id}/download', [StudentAssignmentController::class, 'download'])->name('assignments.download'); 
 });
 
 
