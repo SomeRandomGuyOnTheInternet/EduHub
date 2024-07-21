@@ -31,7 +31,7 @@ class CheckModuleOwnership
 
         if (!$isStudentEnrolled && !$isProfessorTeaching) {
             // Redirect or abort with a 403 forbidden response if the user is neither a student nor a professor of the module
-            return redirect()->route('dashboard')->with('error', 'You do not have access to this module.');
+            return redirect(Auth::user()->user_type . '.dashboard')->with('error', 'You do not have access to this module.');
         }
 
         return $next($request);
