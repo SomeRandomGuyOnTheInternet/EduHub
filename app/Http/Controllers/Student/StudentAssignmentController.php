@@ -62,7 +62,7 @@ class StudentAssignmentController extends Controller
             'submission_date' => now(),
         ]);
 
-        return redirect()->route('modules.student.assignment.index', [$module_id, $assignment_id])
+        return redirect()->route('modules.student.assignments.index', [$module_id, $assignment_id])
             ->with('success', 'Assignment submitted successfully.');
     }
     
