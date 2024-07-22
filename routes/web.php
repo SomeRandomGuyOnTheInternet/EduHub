@@ -90,7 +90,7 @@ Route::middleware(['auth', 'student', 'checkModuleOwnership'])->prefix('student/
     Route::resource('content', StudentModuleContentController::class)->only(['index', 'show']);
     Route::get('content/{content_id}/view', [StudentModuleContentController::class, 'viewContent'])->name('content.view');
     Route::post('content/toggle-favourite', [StudentModuleContentController::class, 'toggleFavouriteContent'])->name('content.toggle-favourite');
-    Route::post('content/download', [StudentModuleContentController::class, 'downloadContent'])->name('content.download');
+    Route::post('content/download', [StudentModuleContentController::class, 'downloadSelectedContent'])->name('content.download');
     Route::post('content/download/{content_id}', [StudentModuleContentController::class, 'downloadSingleContent'])->name('content.downloadSingle');
 
     // News Routes

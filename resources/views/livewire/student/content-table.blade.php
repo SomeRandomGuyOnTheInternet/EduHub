@@ -28,7 +28,7 @@
         </div>
         <div class="me-3">
             <button id="download-btn" class="btn btn-primary {{ count($selectedContentIds) > 0 ? '' : 'd-none' }}"
-                wire:click="downloadSelectedContent">Download</button>
+                wire:click="downloadSelectedContent()">Download</button>
         </div>
         <div class="row g-3">
             <div class="col-auto ">

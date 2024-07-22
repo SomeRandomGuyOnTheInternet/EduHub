@@ -4,10 +4,11 @@ namespace App\Livewire\Student;
 
 use Livewire\Component;
 use App\Models\Favourite;
-use App\Models\ModuleContent;
 use App\Models\ModuleFolder;
+use App\Models\ModuleContent;
 use Livewire\Attributes\Renderless;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 // TODO: lazy load, spinner,  search, filter, download all
 
@@ -74,6 +75,27 @@ class ContentTable extends Component
                 }
             }
         }
+    }
+
+    public function downloadSelectedContent()
+    {
+    
+        $zip = new \ZipArchive;
+        $fileName = 'content.zip';
+    
+        if ($zip->open(public_path($fileName), \ZipArchive::CREATE) === TRUE) {
+            foreach ($this->selectedContentIds as $content_id) {
+                $content = ModuleContent::find($content_id);
+                if ($content && $content->file_path) {
+                    $fileContents = Storage::get($content->file_path);
+                    $relativeNameInZipFile = basename($content->file_path);
+                    $zip->addFromString($relativeNameInZipFile, $fileContents);
+                }
+            }
+            $zip->close();
+        }
+    
+        return response()->download(public_path($fileName))->deleteFileAfterSend(true);
     }
 
     public function updateSort($sort)

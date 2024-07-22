@@ -1,10 +1,8 @@
 TODO: 
-student meeting not implemented
-student attend quiz not implemented
-student view assignments not working
+quiz UI
+quiz,meetings,new,content,assignments make UI nicer when there is nothing
 create professor dashboard 
 make announcements clickable
-make file types show up in content
 make batch download work
 
 auth inputs

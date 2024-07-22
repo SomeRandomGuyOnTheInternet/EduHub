@@ -55,26 +55,7 @@ class StudentModuleContentController extends Controller
             ->with('success', 'Content favourite status toggled successfully.');
     }
 
-
-    public function downloadContent(Request $request)
-    {
-        $zip = new \ZipArchive;
-        $fileName = 'content.zip';
-
-        if ($zip->open(public_path($fileName), \ZipArchive::CREATE) === TRUE) {
-            foreach ($request->content_ids as $content_id) {
-                $content = ModuleContent::find($content_id);
-                if ($content && $content->file_path) {
-                    $fileContents = Storage::get($content->file_path);
-                    $relativeNameInZipFile = basename($content->file_path);
-                    $zip->addFromString($relativeNameInZipFile, $fileContents);
-                }
-            }
-            $zip->close();
-        }
-
-        return response()->download(public_path($fileName))->deleteFileAfterSend(true);
-    }
+    
 
     public function downloadSingleContent($module_id, $content_id)
     {
