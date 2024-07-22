@@ -8,16 +8,20 @@
                     id="content-tab" role="tablist">
                     @foreach ($folders as $folder)
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link rounded-5 {{ $loop->first ? 'active' : '' }}"
+                            <a class="nav-link rounded-5 {{ $currentFolder == $folder->module_folder_id ? 'active' : '' }}"
                                 id="tab-{{ $folder->module_folder_id }}" data-bs-toggle="tab"
                                 href="#folder-{{ $folder->module_folder_id }}" role="tab"
                                 aria-controls="folder-{{ $folder->module_folder_id }}"
-                                aria-selected="{{ $loop->first ? 'true' : 'false' }}">{{ $folder->folder_name }}</a>
+                                aria-selected="{{ $currentFolder == $folder->module_folder_id ? 'true' : 'false' }}"
+                                wire:click="updateCurrentFolder({{ $folder->module_folder_id}})">{{ $folder->folder_name }}</a>
                         </li>
                     @endforeach
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link rounded-5" id="tab-favourites" data-bs-toggle="tab" href="#folder-favourites"
-                            role="tab" aria-controls="folder-favourites" aria-selected="favourites">Favourites</a>
+                        <a id="tab-favourites" class="nav-link rounded-5 {{ $currentFolder == 'fav' ? 'active' : '' }}"
+                            data-bs-toggle="tab" href="#folder-favourites" role="tab"
+                            aria-controls="folder-favourites"
+                            aria-selected="{{ $currentFolder == 'fav' ? 'true' : 'false' }}"
+                            wire:click="updateCurrentFolder('fav')">Favourites</a>
                     </li>
                 </ul>
             @endif
@@ -35,7 +39,7 @@
     </div>
     <div class="tab-content" id="folderTab">
         @foreach ($folders as $folder)
-            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
+            <div class="tab-pane fade {{ $currentFolder == $folder->module_folder_id ? 'show active' : '' }}"
                 id="folder-{{ $folder->module_folder_id }}" role="tabpanel"
                 aria-labelledby="tab-{{ $folder->module_folder_id }}">
                 @if ($folder->contents->isEmpty())
@@ -59,7 +63,7 @@
                                     @endif
                                 </th>
                                 <th scope="col"
-                                    wire:click="updateSort('{{ $sortColumn != 'upload_date' ? 'title_desc' : $sort }}')"
+                                    wire:click="updateSort('{{ $sortColumn != 'upload_date' ? 'latest' : $sort }}')"
                                     role="button">
                                     Time Uploaded
                                     @if ($sort == 'earliest')
@@ -100,7 +104,7 @@
                 @endif
             </div>
         @endforeach
-        <div class="tab-pane fade" id="folder-favourites" role="tabpanel" aria-labelledby="tab-favourites">
+        <div class="tab-pane fade {{ $currentFolder == 'fav' ? 'show active' : '' }}" id="folder-favourites" role="tabpanel" aria-labelledby="tab-favourites">
             <table class="table">
                 <thead>
                     <tr>

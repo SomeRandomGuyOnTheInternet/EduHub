@@ -32,7 +32,7 @@
         @endif
 
         {{-- {{route('modules.student.assignment.submit')}} --}}
-        <form action="{{ route('modules.student.assignments.submit', [$module_id, $assignment->assignment_id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('modules.student.assignment.submit', [$module_id, $assignment->assignment_id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="description">Description</label>

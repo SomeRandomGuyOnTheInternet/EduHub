@@ -36,7 +36,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('modules.student.assignments.index', ['module_id' => $module->module_id]) }}"
+                                <a href="{{ route('modules.student.assignment.index', ['module_id' => $module->module_id]) }}"
                                     class="{{ $currentPage === StudentSidebarLink::ModuleAssignment && $currentModule == $module->module_id ? 'sidebar-active' : '' }} text-body rounded btn-sidebar">
                                     Assignments
                                 </a>

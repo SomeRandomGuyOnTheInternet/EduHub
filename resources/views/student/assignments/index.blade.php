@@ -38,9 +38,9 @@
                                     <td>{{ $assignment->weightage }}</td>
                                     <td>{{ $assignment->due_date }}</td>
                                     <td>
-                                        <a href="{{ route('modules.student.assignments.show', [$module_id, $assignment->assignment_id]) }}" class="btn btn-info">View</a>
+                                        <a href="{{ route('modules.student.assignment.show', [$module_id, $assignment->assignment_id]) }}" class="btn btn-info">View</a>
                                         @if ($assignment->file_path)
-                                            <a href="{{ route('modules.student.assignments.download', [$module_id, $assignment->assignment_id]) }}" class="btn btn-success">Download Brief</a>
+                                            <a href="{{ route('modules.student.assignment.download', [$module_id, $assignment->assignment_id]) }}" class="btn btn-success">Download Brief</a>
                                         @endif
                                     </td>
                                 </tr>
