@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use Filament\Panel;
+use App\Models\Module;
+use App\Models\Teaches;
+use App\Models\Enrollment;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable, HasRoles;
 
@@ -17,6 +22,10 @@ class User extends Authenticatable
     protected $hidden = ['password', 'remember_token'];
     protected $appends = ['name'];
 
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return str_ends_with($this->email, '@example.com') && $this->hasVerifiedEmail();
+    }
     public function getNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
