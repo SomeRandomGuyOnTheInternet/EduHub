@@ -1,4 +1,4 @@
-<div class="sidebar offcanvas-lg offcanvas-start bg-body-secondary border-end" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="min-height: 100vh">
+<div class="viewport-container sidebar offcanvas-lg offcanvas-start bg-body-secondary border-end" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="min-height: 100vh">
     <div class="">
         <a href="/" class="d-flex align-items-center py-4 px-3 link-dark text-decoration-none">
             <img id="logo-light" class="d-none" src="{{ $logoLightUrl }}" alt="Logo" height="45">
@@ -76,7 +76,6 @@
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                 <li><a class="dropdown-item" href="/profile">Settings</a></li>
-                <li><a class="dropdown-item" href="/profile">Profile</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>

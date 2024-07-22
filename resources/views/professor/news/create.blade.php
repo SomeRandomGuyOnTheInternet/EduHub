@@ -5,7 +5,7 @@
 
     @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleNews, 'currentModule' => $module_id])
 
-    <div class="container-fluid p-0">
+    <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Create News Item", 'currentModuleId' => $module_id])
         <div class="p-4">
             <form action="{{ route('modules.professor.news.store', ['module_id' => $module->module_id]) }}" method="POST">

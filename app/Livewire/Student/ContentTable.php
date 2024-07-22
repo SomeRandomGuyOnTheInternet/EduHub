@@ -10,7 +10,7 @@ use Livewire\Attributes\Renderless;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-// TODO: lazy load, spinner,  search, filter, download all
+// TODO: lazy load, spinner, download all
 
 class ContentTable extends Component
 {

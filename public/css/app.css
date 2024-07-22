@@ -3,6 +3,11 @@ main {
     flex-wrap: nowrap;
 }
 
+.viewport-container {
+    height: 100vh !important;
+    overflow-y: scroll !important;
+}
+
 .sidebar {
     min-width: 300px;
 }

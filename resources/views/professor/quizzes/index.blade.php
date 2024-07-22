@@ -5,7 +5,7 @@
     
     @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleQuiz, 'currentModule' => $module_id])
 
-    <div class="container-fluid p-0">
+    <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Quizzes", 'currentModuleId' => $module_id])
         <div class="p-4">
         @if (session('success'))

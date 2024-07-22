@@ -1,7 +1,7 @@
 <x-layout>
     @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleMeetings, 'currentModule' => $module_id])
     
-    <div class="container-fluid p-0">
+    <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Edit Meeting", 'currentModuleId' => $module_id])
         <div class="p-4">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

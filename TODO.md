@@ -5,9 +5,10 @@ create professor dashboard
 make announcements clickable
 make batch download work
 
+student meeting ui
 auth inputs
 update profile inputs
-filter, sort, and search on tables
+change to bg-body
 toasts
 notifications
 clean up tables and such
