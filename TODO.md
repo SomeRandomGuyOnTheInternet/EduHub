@@ -1,15 +1,13 @@
 TODO: 
-student meeting not implemented
-student attend quiz not implemented
-student view assignments not working
+student attend quiz not implemented fully proper
 create professor dashboard 
 make announcements clickable
-make file types show up in content
 make batch download work
 
+student meeting ui
 auth inputs
 update profile inputs
-filter, sort, and search on tables
+change to bg-body
 toasts
 notifications
 clean up tables and such

@@ -5,7 +5,7 @@
 
     @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleMeetings, 'currentModule' => $module_id])
 
-    <div class="container-fluid p-0">
+    <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Meetings", 'currentModuleId' => $module_id])
         <div class="p-4">
             <a href="{{ route('modules.professor.meetings.create', ['module_id' => $module->module_id]) }}"

@@ -16,7 +16,7 @@
     <link href="/bootstrap/icons/bootstrap-icons.min.css" rel="stylesheet" >
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/masonry.pkgd.min.js"></script>
-    {{-- <script src="/bootstrap/popper.min.js"></script> --}}
+    <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
 
     <link href="/css/app.css" rel="stylesheet" />

@@ -5,7 +5,7 @@
 
     @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::ModuleAssignment, 'currentModule' => $module_id])
 
-    <div class="container-fluid p-0">
+    <div class="viewport-container container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "Assignments", 'currentModuleId' => $module_id])
         <div class="p-4">
             <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3" style="width: fit-content;" id="dashboard-tab" role="tablist">

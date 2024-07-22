@@ -11,7 +11,7 @@
         </h2>
     </x-slot>
 
-    <div class="container-fluid p-0">
+    <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "News", 'currentModuleId' => $module_id])
         <div class="p-4">
             <a href="{{ route('modules.professor.news.create', ['module_id' => $module->module_id]) }}" class="btn btn-primary mb-4">Create News</a>

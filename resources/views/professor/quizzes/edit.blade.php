@@ -11,7 +11,7 @@
         </h2>
     </x-slot>
 
-    <div class="container-fluid p-0">
+    <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Edit Quiz", 'currentModuleId' => $module_id])
         <div class="p-4">
         @if (session('success'))

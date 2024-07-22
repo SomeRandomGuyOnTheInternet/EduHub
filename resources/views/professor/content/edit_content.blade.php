@@ -5,7 +5,7 @@
 
     @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleContent, 'currentModule' => $module_id])
 
-    <div class="container-fluid p-0">
+    <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Edit Content", 'currentModuleId' => $module_id])
         <div class="p-4">
             <form action="{{ route('modules.professor.content.update', ['module_id' => $module->module_id, 'content' => $content->content_id]) }}" method="POST" enctype="multipart/form-data">
