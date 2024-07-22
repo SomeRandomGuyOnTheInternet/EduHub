@@ -27,7 +27,7 @@
             @endif
         </div>
         <div class="me-3">
-            <button id="download-btn" class="btn btn-primary {{ count($selectedContentIds) > 0 ? '' : 'd-none' }}"
+            <button id="download-btn" class="btn btn-primary d-none"
                 wire:click="downloadSelectedContent()">Download</button>
         </div>
         <div class="row g-3">
@@ -80,6 +80,7 @@
                                 <tr>
                                     <th scope="row">
                                         <input class="form-check-input content-check" type="checkbox" value=""
+                                            data-file-path="{{ $content->file_path ? 'true' : 'false' }}"
                                             wire:click="toggleSelectContentId({{ $content->content_id }})"
                                             {{ in_array($content->content_id, $selectedContentIds) ? 'checked' : '' }}>
                                     </th>
@@ -149,11 +150,12 @@
         const checkboxes = document.querySelectorAll('.content-check');
         const actionButton = document.getElementById('download-btn');
 
-        // Function to check if any checkbox is checked
+        // Function to check if any checkbox is checked and has a file path
         function updateButtonVisibility(e) {
-            const isAnyCheckboxChecked = Array.from(document.querySelectorAll('.content-check')).some(
-                checkbox => checkbox.checked);
-            if (isAnyCheckboxChecked) {
+            const isAnyCheckboxCheckedWithFilePath = Array.from(checkboxes).some(
+                checkbox => checkbox.checked && checkbox.dataset.filePath === 'true'
+            );
+            if (isAnyCheckboxCheckedWithFilePath) {
                 actionButton.classList.remove('d-none');
             } else {
                 actionButton.classList.add('d-none');
