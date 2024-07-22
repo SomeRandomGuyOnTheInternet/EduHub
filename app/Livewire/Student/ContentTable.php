@@ -15,7 +15,7 @@ class ContentTable extends Component
 {
     public $module_id;
     public $folders;
-    public $currentFolder = -1;
+    public $currentFolder = null;
     public $selectedContentIds = [];
     public $search = '';
     public $sort = 'latest';
@@ -116,8 +116,8 @@ class ContentTable extends Component
             ])
             ->get();
         if ($this->folders->isEmpty()) {
-            $this->currentFolder = 'fav';
-        } else if ($this->currentFolder == -1) {
+            $this->currentFolder = 'favourites';
+        } else if ($this->currentFolder == null) {
             $this->currentFolder = $this->folders->first()->module_folder_id;
         }
         return view('livewire.student.content-table', [

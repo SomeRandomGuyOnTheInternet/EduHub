@@ -17,11 +17,11 @@
                         </li>
                     @endforeach
                     <li class="nav-item" role="presentation">
-                        <a id="tab-favourites" class="nav-link rounded-5 {{ $currentFolder == 'fav' ? 'active' : '' }}"
+                        <a id="tab-favourites" class="nav-link rounded-5 {{ $currentFolder == 'favourites' ? 'active' : '' }}"
                             data-bs-toggle="tab" href="#folder-favourites" role="tab"
                             aria-controls="folder-favourites"
-                            aria-selected="{{ $currentFolder == 'fav' ? 'true' : 'false' }}"
-                            wire:click="updateCurrentFolder('fav')">Favourites</a>
+                            aria-selected="{{ $currentFolder == 'favourites' ? 'true' : 'false' }}"
+                            wire:click="updateCurrentFolder('favourites')">Favourites</a>
                     </li>
                 </ul>
             @endif
@@ -104,7 +104,7 @@
                 @endif
             </div>
         @endforeach
-        <div class="tab-pane fade {{ $currentFolder == 'fav' ? 'show active' : '' }}" id="folder-favourites" role="tabpanel" aria-labelledby="tab-favourites">
+        <div class="tab-pane fade {{ $currentFolder == 'favourites' ? 'show active' : '' }}" id="folder-favourites" role="tabpanel" aria-labelledby="tab-favourites">
             <table class="table">
                 <thead>
                     <tr>
