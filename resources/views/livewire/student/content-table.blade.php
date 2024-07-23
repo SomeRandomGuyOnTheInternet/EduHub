@@ -4,11 +4,11 @@
             @if ($folders->isEmpty())
                 <p class="p-3">No content found.</p>
             @else
-                <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded mb-3 me-3" style="width: fit-content;"
+                <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" style="width: fit-content;"
                     id="content-tab" role="tablist">
                     @foreach ($folders as $folder)
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link rounded {{ $currentFolder == $folder->module_folder_id ? 'active' : '' }}"
+                            <a class="nav-link rounded-5 {{ $currentFolder == $folder->module_folder_id ? 'active' : '' }}"
                                 id="tab-{{ $folder->module_folder_id }}" data-bs-toggle="tab"
                                 href="#folder-{{ $folder->module_folder_id }}" role="tab"
                                 aria-controls="folder-{{ $folder->module_folder_id }}"
@@ -28,7 +28,7 @@
             @endif
         </div>
         <div class="me-3" wire:loading>
-            <x-loading />
+            <x-spinner />
         </div>
         @if (count($selectedContentIds) > 0)
             <div class="me-3">
@@ -81,7 +81,7 @@
                         </thead>
                         <tbody>
                             @forelse ($folder->contents as $content)
-                                <tr>
+                                <tr class="">
                                     <th scope="row">
                                         <input class="form-check-input content-check" type="checkbox" value=""
                                             data-file-path="{{ $content->file_path ? 'true' : 'false' }}"

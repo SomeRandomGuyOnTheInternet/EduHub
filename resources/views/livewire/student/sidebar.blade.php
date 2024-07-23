@@ -1,4 +1,5 @@
-<div class="viewport-container sidebar offcanvas-lg offcanvas-start bg-body-secondary border-end" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="min-height: 100vh">
+<div class="viewport-container sidebar offcanvas-lg offcanvas-start bg-body-secondary border-end" tabindex="-1"
+    id="sidebar" aria-labelledby="sidebarLabel" style="min-height: 100vh">
     <div class="">
         <a href="/" class="d-flex align-items-center py-4 px-3 link-dark text-decoration-none">
             <img id="logo-light" class="d-none" src="{{ $logoLightUrl }}" alt="Logo" height="45">
@@ -17,7 +18,7 @@
             <li class="mx-3 mt-3 mb-1">
                 <span class="text-body-secondary">Modules</span>
             </li>
-            
+
             @forelse($modules as $module)
                 <li class="mb-1 heading">
                     <button
@@ -72,7 +73,8 @@
         <div class="dropdown border-top p-4 mt-4 w-100">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                 id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{ $userProfileUrl }}" alt="" width="32" height="32" class="rounded-circle me-2">
+                <img src="{{ $userProfileUrl }}" alt="" width="32" height="32"
+                    class="rounded-circle me-2">
                 <span class="text-body">{{ $userName }}</span>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">

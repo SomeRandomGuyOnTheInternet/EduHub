@@ -17,7 +17,7 @@
                             <br>
                             Meeting Time: {{ $meeting->timeslot }}
                             <br>
-                            Meeting held by : Prof {{ $meeting->first_name }} {{ $meeting->last_name }}
+                            Meeting held by: Prof {{ $meeting->first_name }} {{ $meeting->last_name }}
                         </div>
                         <div class="card-body">
                             <p class="card-text">Status: <strong>{{ $meeting->status }}</strong></p>
