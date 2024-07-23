@@ -26,9 +26,7 @@
                 </div>
                 <div class="tab-pane fade" id="pills-announcements" role="tabpanel" aria-labelledby="pills-announcements-tab"
                     tabindex="0">
-                    <div class="row">
-
-                        {{-- Sort events by days left ascending --}}
+                    <div class="row g-4">
                         @php
                             $sortedEvents = $events->sortBy(function ($event) {
                                 $eventStartDate = \Carbon\Carbon::parse($event->start);
@@ -36,8 +34,7 @@
                                 return $today->diffInDays($eventStartDate);
                             });
                         @endphp
-    
-                        {{-- Iterate over sorted events --}}
+
                         @foreach ($sortedEvents as $event)
                             @php
                                 $eventStartDate = \Carbon\Carbon::parse($event->start);
@@ -50,8 +47,8 @@
                                     @if ($event->type === 'assignment')
                                         <a href="{{ route('modules.student.assignments.show', [$event->module_id, $event->id]) }}" class="text-decoration-none">
                                     @endif
-                                    <div class="card rounded shadow border">
-                                        <div class="card-body">
+                                    <div class="card rounded shadow border h-100">
+                                        <div class="card-body d-flex flex-column">
                                             <h5 class="card-title">
                                                 @if ($event->type === 'meeting')
                                                     Meeting
@@ -62,23 +59,26 @@
                                             <p class="card-text">{{ $event->module_name }}</p>
                                             <p class="card-text">{{ $event->start }}</p>
                                             @if ($event->type === 'assignment')
-                                                <span class="badge bg-warning text-dark">Assignment</span>
+                                                <span class="badge bg-warning text-dark mt-auto">Assignment</span>
                                             @elseif($event->type === 'quiz')
-                                                <span class="badge bg-info text-dark">Quiz</span>
+                                                <span class="badge bg-info text-dark mt-auto">Quiz</span>
                                             @elseif($event->type === 'meeting')
                                                 <p class="card-text">Professor: {{ $event->professor_name }}</p>
                                                 <p class="card-text">Timeslot: {{ $event->timeslot }}</p>
-                                                <span class="badge bg-success text-dark">Meeting</span>
+                                                <span class="badge bg-success text-dark mt-auto">Meeting</span>
                                             @endif
     
                                             @if ($eventIsToday)
-                                                <p class="card-text"><strong>TODAY</strong></p>
+                                                <p class="card-text mt-2"><strong>TODAY</strong></p>
                                             @else
-                                                <p class="card-text">{{ $daysUntilEvent }}
+                                                <p class="card-text mt-2">{{ $daysUntilEvent }}
                                                     day{{ $daysUntilEvent != 1 ? 's' : '' }} until event</p>
                                             @endif
                                         </div>
                                     </div>
+                                    @if ($event->type === 'assignment')
+                                        </a>
+                                    @endif
                                 </div>
                             @endif
                         @endforeach
@@ -195,6 +195,11 @@
         .fc-event-main {
             white-space: pre-line;
             /* Ensures line breaks are rendered */
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </x-layout>
