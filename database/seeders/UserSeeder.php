@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             ['first_name' => 'Abdul', 'last_name' => 'Hakam', 'email' => 'abdul.hakam@eduhub.com', 'date_of_birth' => '1985-10-15', 'password' => Hash::make('password'), 'user_type' => 'professor', 'profile_picture' => '/images/default-profiles/a.png'],
             ['first_name' => 'Chris', 'last_name' => 'Kalendario', 'email' => 'chris.kalendario@eduhub.com', 'date_of_birth' => '1990-12-12', 'password' => Hash::make('password'), 'user_type' => 'student', 'profile_picture' => '/images/default-profiles/c.png'],
             ['first_name' => 'Nelson', 'last_name' => 'Mandela', 'email' => 'nelson.mandela@eduhub.com', 'date_of_birth' => '1998-07-18', 'password' => Hash::make('password'), 'user_type' => 'professor', 'profile_picture' => '/images/default-profiles/n.png'],
-            ['first_name' => 'Zuhairi', 'last_name' => 'Mommy', 'email' => 'zuhairi.mommy@eduhub.com', 'date_of_birth' => '1992-06-21', 'password' => Hash::make('password'), 'user_type' => 'student', 'profile_picture' => '/images/default-profiles/z.png']
+            ['first_name' => 'Zuhairi', 'last_name' => 'Hamzah', 'email' => 'zuhairi.hamzah@eduhub.com', 'date_of_birth' => '1992-06-21', 'password' => Hash::make('password'), 'user_type' => 'student', 'profile_picture' => '/images/default-profiles/z.png']
         ];
 
         foreach ($users as $user) {
