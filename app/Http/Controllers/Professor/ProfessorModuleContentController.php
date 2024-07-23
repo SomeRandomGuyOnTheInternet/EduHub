@@ -59,7 +59,7 @@ class ProfessorModuleContentController extends Controller
             $originalFileName = $request->file('file_path')->getClientOriginalName();
 
             // Store the file with the original name in the 'contents' directory
-            $filePath = $request->file('file_path')->storeAs('contents', $originalFileName);
+            $filePath = $request->file('file_path')->storeAs('contents', $originalFileName, 'public');
         }
 
         // Create a new ModuleContent record in the database
@@ -113,7 +113,7 @@ class ProfessorModuleContentController extends Controller
     
             // Store the new file with its original name
             $originalFileName = $request->file('file_path')->getClientOriginalName();
-            $data['file_path'] = $request->file('file_path')->storeAs('contents', time() . '_' . $originalFileName);
+            $data['file_path'] = $request->file('file_path')->storeAs('contents', time() . '_' . $originalFileName, 'public');
         }
     
         // Update the content record in the database

@@ -3,7 +3,7 @@
         {{ __('Edit Folder') }}
     </x-slot>
 
-    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleContent, 'currentModule' => $module_id])
+    <livewire:professor.sidebar :currentPage=ProfessorSidebarLink::ModuleContent :currentModule=$module_id>
 
     <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Edit Folder", 'currentModuleId' => $module_id])

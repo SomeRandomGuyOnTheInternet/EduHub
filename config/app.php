@@ -220,5 +220,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'ProfessorSidebarLink' => App\Constants\ProfessorSidebarLink::class,
         'StudentSidebarLink' => App\Constants\StudentSidebarLink::class,
+        'PreviewFileTypes' => App\Constants\PreviewFileTypes::class,
     ],
 ];

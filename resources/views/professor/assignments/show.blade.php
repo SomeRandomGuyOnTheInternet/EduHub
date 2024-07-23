@@ -3,7 +3,7 @@
         {{ __('Assignment Details') }}
     </x-slot>
 
-    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleAssignment, 'currentModule' => $module_id])
+    <livewire:professor.sidebar :currentPage=ProfessorSidebarLink::ModuleAssignment :currentModule=$module_id>
 
 <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => $assignment->title, 'currentModuleId' => $module_id])
@@ -13,6 +13,7 @@
             <p><strong>Weightage:</strong> {{ $assignment->weightage }}</p>
             <p><strong>Due Date:</strong> {{ $assignment->due_date }}</p>
             @if($assignment->file_path)
+            {{$assignment->file_path}}
                 <p><strong>File:</strong> <a href="{{ Storage::url($assignment->file_path) }}" target="_blank">{{ $fileName }}</a></p>
             @endif
             <h2>Student Submissions</h2>

@@ -3,43 +3,31 @@
         {{ __('Learning Content') }}
     </x-slot>
 
-    @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::ModuleContent, 'currentModule' => $module_id])
+    <livewire:student.sidebar :currentPage=StudentSidebarLink::ModuleContent :currentModule=$module_id>
 
-    <div class="viewport-container container-fluid p-0">
+    <div class="viewport-container container-fluid p-0" style="overflow-x: auto;">
         @livewire('student.module-header', ['currentPage' => "Content", 'currentModuleId' => $module_id])
         <div class="p-4">
-            <div class="card">
-                <div class="card-header">
-                    {{ $content->title }}
+            <div class="d-flex">
+                <div class="me-auto">
+                    <div>
+                        <h3>{{ $content->title }}</h3>
+                    </div>
+                    <div class="mt-3">
+                        <p>{{ $content->description }}</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p>{{ $content->description }}</p>
-                    @if(strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) == 'PDF')
-                        <div class="pdf-viewer">
-                            <embed src="{{ route('modules.student.content.view', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}" width="100%" height="1200px" type="application/pdf">
-                        </div>
-                    @endif
-                    <p><strong>File Type:</strong> {{ strtoupper(pathinfo($content->file_path, PATHINFO_EXTENSION)) }}</p>
-                    <p><strong>Uploaded On:</strong> {{ $content->created_at->format('h:iA, d M Y') }}</p>
-                    <form action="{{ route('modules.student.content.toggle-favourite', ['module_id' => $module->module_id]) }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="content_ids[]" value="{{ $content->content_id }}">
-                        <button type="submit" class="btn btn-primary">
-                            {{ $content->is_favourited ? 'Unfavourite' : 'Favourite' }}
-                        </button>
-                    </form>
-                    @if ($content->file_path)
-                        <form action="{{ route('modules.student.content.downloadSingle', ['module_id' => $module->module_id, 'content_id' => $content->content_id]) }}" method="POST" class="mt-2">
-                            @csrf
-                            <button type="submit" class="btn btn-success">Download</button>
-                        </form>
-                    @endif
+                <div class="m-4 d-md-block"></div>
+                <p class="text-end text-muted">Published <br> {{ $content->created_at->format('h:iA, d M Y') }}</p>
+            </div>
+            @if ($content->file_path)
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-6 col-md-8 text-md-center">
+                    <h5 class="mb-3">Uploaded File</h5>
+                    <livewire:content-preview :fileUrl='$content->file_path' lazy />
                 </div>
             </div>
-        </div>
+            @endif
+        </div>   
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </x-layout>

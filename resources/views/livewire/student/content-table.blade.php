@@ -4,20 +4,21 @@
             @if ($folders->isEmpty())
                 <p class="p-3">No content found.</p>
             @else
-                <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3" style="width: fit-content;"
+                <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded mb-3 me-3" style="width: fit-content;"
                     id="content-tab" role="tablist">
                     @foreach ($folders as $folder)
                         <li class="nav-item" role="presentation">
-                            <a class="nav-link rounded-5 {{ $currentFolder == $folder->module_folder_id ? 'active' : '' }}"
+                            <a class="nav-link rounded {{ $currentFolder == $folder->module_folder_id ? 'active' : '' }}"
                                 id="tab-{{ $folder->module_folder_id }}" data-bs-toggle="tab"
                                 href="#folder-{{ $folder->module_folder_id }}" role="tab"
                                 aria-controls="folder-{{ $folder->module_folder_id }}"
                                 aria-selected="{{ $currentFolder == $folder->module_folder_id ? 'true' : 'false' }}"
-                                wire:click="updateCurrentFolder({{ $folder->module_folder_id}})">{{ $folder->folder_name }}</a>
+                                wire:click="updateCurrentFolder({{ $folder->module_folder_id }})">{{ $folder->folder_name }}</a>
                         </li>
                     @endforeach
                     <li class="nav-item" role="presentation">
-                        <a id="tab-favourites" class="nav-link rounded-5 {{ $currentFolder == 'favourites' ? 'active' : '' }}"
+                        <a id="tab-favourites"
+                            class="nav-link rounded-5 {{ $currentFolder == 'favourites' ? 'active' : '' }}"
                             data-bs-toggle="tab" href="#folder-favourites" role="tab"
                             aria-controls="folder-favourites"
                             aria-selected="{{ $currentFolder == 'favourites' ? 'true' : 'false' }}"
@@ -26,10 +27,15 @@
                 </ul>
             @endif
         </div>
-        <div class="me-3">
-            <button id="download-btn" class="btn btn-primary d-none"
-                wire:click="downloadSelectedContent()">Download</button>
+        <div class="me-3" wire:loading>
+            <x-loading />
         </div>
+        @if (count($selectedContentIds) > 0)
+            <div class="me-3">
+                <button id="download-btn" class="btn btn-primary"
+                    wire:click="downloadSelectedContent()">Download</button>
+            </div>
+        @endif
         <div class="row g-3">
             <div class="col-auto ">
                 <input type="text" id="search-input" class="form-control" aria-describedby="search-input"
@@ -49,8 +55,6 @@
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    <input class="form-check-input content-check" type="checkbox" value=""
-                                        wire:click="toggleSelectAllContentId({{ $folder->module_folder_id }})">
                                 </th>
                                 <th scope="col"
                                     wire:click="updateSort('{{ $sortColumn != 'title' ? 'title_desc' : $sort }}')"
@@ -105,7 +109,8 @@
                 @endif
             </div>
         @endforeach
-        <div class="tab-pane fade {{ $currentFolder == 'favourites' ? 'show active' : '' }}" id="folder-favourites" role="tabpanel" aria-labelledby="tab-favourites">
+        <div class="tab-pane fade {{ $currentFolder == 'favourites' ? 'show active' : '' }}" id="folder-favourites"
+            role="tabpanel" aria-labelledby="tab-favourites">
             <table class="table">
                 <thead>
                     <tr>
@@ -143,29 +148,3 @@
         {{-- {{ $folders->links() }} --}}
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Select all checkboxes with the class 'content-check'
-        const checkboxes = document.querySelectorAll('.content-check');
-        const actionButton = document.getElementById('download-btn');
-
-        // Function to check if any checkbox is checked and has a file path
-        function updateButtonVisibility(e) {
-            const isAnyCheckboxCheckedWithFilePath = Array.from(checkboxes).some(
-                checkbox => checkbox.checked && checkbox.dataset.filePath === 'true'
-            );
-            if (isAnyCheckboxCheckedWithFilePath) {
-                actionButton.classList.remove('d-none');
-            } else {
-                actionButton.classList.add('d-none');
-            }
-        }
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', updateButtonVisibility);
-        });
-
-        // Initial check in case some checkboxes are pre-checked
-        updateButtonVisibility();
-    });
-</script>

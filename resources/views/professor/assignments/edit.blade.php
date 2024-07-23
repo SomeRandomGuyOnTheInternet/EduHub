@@ -3,7 +3,7 @@
         {{ __('Edit Assignments') }}
     </x-slot>
 
-    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleAssignment, 'currentModule' => $module_id])
+    <livewire:professor.sidebar :currentPage=ProfessorSidebarLink::ModuleAssignment :currentModule=$module_id>
 
     <div class="container mt-5">
         @livewire('professor.module-header', ['currentPage' => $assignment->title, 'currentModuleId' => $module_id])

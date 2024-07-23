@@ -1,5 +1,5 @@
 <x-layout>
-    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleMeetings, 'currentModule' => $module_id])
+    <livewire:professor.sidebar :currentPage=ProfessorSidebarLink::ModuleMeetings :currentModule=$module_id>
     
     <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Edit Meeting", 'currentModuleId' => $module_id])

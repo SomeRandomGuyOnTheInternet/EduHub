@@ -28,6 +28,11 @@ class ContentTable extends Component
         $this->module_id = $module_id;
     }
 
+    public function placeholder()
+    {
+        return view('components.spinner');
+    }
+
     #[Renderless] 
     public function updateCurrentFolder($folder_id)
     { 
@@ -52,7 +57,6 @@ class ContentTable extends Component
         }
     }
 
-    #[Renderless] 
     public function toggleSelectContentId($content_id)
     { 
         if (in_array($content_id, $this->selectedContentIds)) {
@@ -62,24 +66,8 @@ class ContentTable extends Component
         }
     }
 
-    public function toggleSelectAllContentId($module_folder_id)
-    {
-        foreach ($this->folders as $folder) {
-            if ($folder->module_folder_id == $module_folder_id) {
-                foreach ($folder->contents as $content) {
-                    if (in_array($content->content_id, $this->selectedContentIds)) {
-                        $this->selectedContentIds = array_diff($this->selectedContentIds, [$content->content_id]);
-                    } else {
-                        $this->selectedContentIds[] = $content->content_id;
-                    }
-                }
-            }
-        }
-    }
-
     public function downloadSelectedContent()
     {
-    
         $zip = new \ZipArchive;
         $fileName = 'content.zip';
     
@@ -87,6 +75,7 @@ class ContentTable extends Component
             foreach ($this->selectedContentIds as $content_id) {
                 $content = ModuleContent::find($content_id);
                 if ($content && $content->file_path) {
+                    dd($content->file_path);
                     $fileContents = Storage::get($content->file_path);
                     $relativeNameInZipFile = basename($content->file_path);
                     $zip->addFromString($relativeNameInZipFile, $fileContents);

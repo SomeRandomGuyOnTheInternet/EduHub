@@ -3,10 +3,10 @@
         {{ __('Create Assignment') }}
     </x-slot>
 
-    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleAssignment, 'currentModule' => $module_id])
+    <livewire:professor.sidebar :currentPage=ProfessorSidebarLink::ModuleAssignment :currentModule=$module_id>
 
     <div class="viewport-container container-fluid p-0">
-        @livewire('professor.module-header', ['currentPage' => "Create Assignment", 'currentModuleId' => $module_id])
+        @livewire('professor.module-header', ['currentPage' => "Create Assignment", 'currentModule' => $module_id])
         <div class="p-4">
             <form action="{{ route('modules.professor.assignments.store', $module_id) }}" method="POST" enctype="multipart/form-data">
                 @csrf

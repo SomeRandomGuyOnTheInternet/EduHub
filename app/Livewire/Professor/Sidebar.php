@@ -34,6 +34,11 @@ class Sidebar extends Component
         $this->currentModule = $currentModule;
     }
 
+    public function placeholder()
+    {
+        return view('components.spinner');
+    }
+
     public function render()
     {
         return view('livewire.professor.sidebar', [

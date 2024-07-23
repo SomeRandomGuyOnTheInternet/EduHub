@@ -3,7 +3,7 @@
         {{ __('Create News') }}
     </x-slot>
 
-    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleNews, 'currentModule' => $module_id])
+    <livewire:professor.sidebar :currentPage=ProfessorSidebarLink::ModuleNews :currentModule=$module_id>
 
     <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Create News Item", 'currentModuleId' => $module_id])

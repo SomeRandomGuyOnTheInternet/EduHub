@@ -33,17 +33,14 @@ class Sidebar extends Component
         $this->currentPage = $currentPage;
         $this->currentModule = $currentModule;
     }
+
+    public function placeholder()
+    {
+        return view('components.spinner');
+    }
     
     public function render()
     {
-        return view('livewire.student.sidebar', [
-            'logoLightUrl' => $this->logoLightUrl,
-            'logoDarkUrl' => $this->logoDarkUrl,
-            'modules' => $this->modules,
-            'userProfileUrl' => $this->userProfileUrl,
-            'userName' => $this->userName,
-            'currentPage' => $this->currentPage,
-            'currentModule' => $this->currentModule,
-        ]);
+        return view('livewire.student.sidebar');
     }
 }

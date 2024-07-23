@@ -3,8 +3,8 @@
         Dashboard
     </x-slot>
 
-    @livewire('student.sidebar', ['currentPage' => StudentSidebarLink::Dashboard])
-
+    <livewire:student.sidebar :currentPage=StudentSidebarLink::Dashboard>
+        
     <div class="viewport-container container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => 'Dashboard'])
         <div class="p-4">

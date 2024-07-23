@@ -3,7 +3,7 @@
         {{ __('Create Meeting Slot') }}
     </x-slot>
 
-    @livewire('professor.sidebar', ['currentPage' => ProfessorSidebarLink::ModuleMeetings, 'currentModule' => $module_id])
+    <livewire:professor.sidebar :currentPage=ProfessorSidebarLink::ModuleMeetings :currentModule=$module_id>
 
     <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => "Create Meeting", 'currentModuleId' => $module_id])
