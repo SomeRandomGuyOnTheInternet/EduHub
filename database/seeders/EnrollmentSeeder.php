@@ -13,26 +13,33 @@ class EnrollmentSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
+        // Hardcoded assignments of module IDs to student user IDs
+        // Replace these IDs with the actual student IDs from your screenshot
+        $enrollments = [
+            1 => [1, 2, 4, 8], // Assuming user_id 1 is a student
+            4 => [2, 3, 9, 10], // Assuming user_id 2 is a student
+            5 => [6, 7, 9, 8, 10],
+            7 => [3, 5, 6, 7], // Assuming user_id 3 is a student
+            11 => [6, 7, 9, 8, 10],
+        ];
 
-        // Retrieve all students
-        $studentIds = DB::table('users')->where('user_type', 'student')->pluck('user_id');
-        // Fetch actual module IDs from the modules table
-        $moduleIds = DB::table('modules')->pluck('module_id')->toArray();
+        // Retrieve only the student IDs from the database to confirm they are students
+        $studentIds = DB::table('users')->where('user_type', 'student')->pluck('user_id')->toArray();
 
-        foreach ($studentIds as $studentId) {
-            // Shuffle module IDs to get random modules for each student
-            shuffle($moduleIds);
-            // Select the first three module IDs for enrollment
-            $selectedModules = array_slice($moduleIds, 0, 3);
-            
-            foreach ($selectedModules as $moduleId) {
-                // Insert the enrollment record
-                DB::table('enrollments')->insert([
-                    'user_id' => $studentId,
-                    'module_id' => $moduleId,
-                    'enrollment_date' => $faker->date('Y-m-d', 'now'),
-                ]);
+        foreach ($enrollments as $studentId => $modules) {
+            if (in_array($studentId, $studentIds)) {
+                foreach ($modules as $moduleId) {
+                    // Check if the module ID exists to avoid foreign key constraint errors
+                    if (DB::table('modules')->where('module_id', $moduleId)->exists()) {
+                        DB::table('enrollments')->insert([
+                            'user_id' => $studentId,
+                            'module_id' => $moduleId,
+                            'enrollment_date' => now(),
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+                    }
+                }
             }
         }
     }
