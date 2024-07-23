@@ -36,3 +36,14 @@ Run the following code.
 ## If you have already set it up and there were migration changes
 1. Run php artisan migrate:fresh --seed in terminal if you want to delete all records and seed with default records
 2. Run php artisan db:seed if you want to seed with default records but not lose previous records (might have conflicts)
+
+## Login Information
+1. Admin
+- Username: admin@eduhub.com
+- Password: password
+2. Professor
+- Username: binder@eduhub.com
+- Password: password
+3. Student
+- Username: abdul.hakam@eduhub.com
+- Password: password
