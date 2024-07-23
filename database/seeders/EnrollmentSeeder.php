@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\Enrollment;
+use Faker\Factory as Faker;
 
 class EnrollmentSeeder extends Seeder
 {
@@ -14,31 +13,27 @@ class EnrollmentSeeder extends Seeder
      */
     public function run(): void
     {
-        $enrollments = [
-            ['user_id' => 1, 'module_id' => 3, 'enrollment_date' => '2024-06-03'],
-            ['user_id' => 1, 'module_id' => 4, 'enrollment_date' => '2024-06-03'],
-            ['user_id' => 4, 'module_id' => 1, 'enrollment_date' => '2024-06-04'],
-            ['user_id' => 4, 'module_id' => 2, 'enrollment_date' => '2024-06-04'],
-            ['user_id' => 5, 'module_id' => 3, 'enrollment_date' => '2024-06-04'],
-            ['user_id' => 4, 'module_id' => 4, 'enrollment_date' => '2024-06-04'],
-            ['user_id' => 5, 'module_id' => 5, 'enrollment_date' => '2024-06-05'],
-            ['user_id' => 6, 'module_id' => 6, 'enrollment_date' => '2024-06-05'],
-            ['user_id' => 4, 'module_id' => 7, 'enrollment_date' => '2024-06-05'],
-            ['user_id' => 6, 'module_id' => 8, 'enrollment_date' => '2024-06-05'],
-            ['user_id' => 6, 'module_id' => 9, 'enrollment_date' => '2024-06-06'],
-            ['user_id' => 6, 'module_id' => 10, 'enrollment_date' => '2024-06-06'],
-            ['user_id' => 1, 'module_id' => 2, 'enrollment_date' => '2024-06-06'],
-            ['user_id' => 4, 'module_id' => 3, 'enrollment_date' => '2024-06-06'],
-            ['user_id' => 5, 'module_id' => 4, 'enrollment_date' => '2024-06-07'],
-            ['user_id' => 4, 'module_id' => 5, 'enrollment_date' => '2024-06-07'],
-            ['user_id' => 5, 'module_id' => 6, 'enrollment_date' => '2024-06-07'],
-            ['user_id' => 6, 'module_id' => 7, 'enrollment_date' => '2024-06-07'],
-            ['user_id' => 6, 'module_id' => 8, 'enrollment_date' => '2024-06-08'],
-            ['user_id' => 6, 'module_id' => 9, 'enrollment_date' => '2024-06-08'],
-        ];
+        $faker = Faker::create();
 
-        foreach ($enrollments as $enrollment) {
-            DB::table('enrollments')->insert($enrollment);
+        // Retrieve all students
+        $studentIds = DB::table('users')->where('user_type', 'student')->pluck('user_id');
+        // Fetch actual module IDs from the modules table
+        $moduleIds = DB::table('modules')->pluck('module_id')->toArray();
+
+        foreach ($studentIds as $studentId) {
+            // Shuffle module IDs to get random modules for each student
+            shuffle($moduleIds);
+            // Select the first three module IDs for enrollment
+            $selectedModules = array_slice($moduleIds, 0, 3);
+            
+            foreach ($selectedModules as $moduleId) {
+                // Insert the enrollment record
+                DB::table('enrollments')->insert([
+                    'user_id' => $studentId,
+                    'module_id' => $moduleId,
+                    'enrollment_date' => $faker->date('Y-m-d', 'now'),
+                ]);
+            }
         }
     }
 }
