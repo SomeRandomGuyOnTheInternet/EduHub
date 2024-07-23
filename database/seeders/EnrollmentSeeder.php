@@ -13,13 +13,12 @@ class EnrollmentSeeder extends Seeder
      */
     public function run(): void
     {
-        // Hardcoded assignments of module IDs to student user IDs
-        // Replace these IDs with the actual student IDs from your screenshot
+       
         $enrollments = [
-            1 => [1, 2, 4, 8], // Assuming user_id 1 is a student
-            4 => [2, 3, 9, 10], // Assuming user_id 2 is a student
+            1 => [1, 2, 4, 8], 
+            4 => [2, 3, 9, 10], 
             5 => [6, 7, 9, 8, 10],
-            7 => [3, 5, 6, 7], // Assuming user_id 3 is a student
+            7 => [3, 5, 6, 7], 
             11 => [6, 7, 9, 8, 10],
         ];
 
