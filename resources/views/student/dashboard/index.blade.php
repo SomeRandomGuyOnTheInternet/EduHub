@@ -27,6 +27,7 @@
                 <div class="tab-pane fade" id="pills-announcements" role="tabpanel" aria-labelledby="pills-announcements-tab"
                     tabindex="0">
                     <div class="row">
+
                         {{-- Sort events by days left ascending --}}
                         @php
                             $sortedEvents = $events->sortBy(function ($event) {
@@ -46,6 +47,9 @@
                             @endphp
                             @if ($eventStartDate->isToday() || ($eventStartDate->isFuture() && $daysUntilEvent <= 7))
                                 <div class="col-lg-4 col-md-6 mb-4">
+                                    @if ($event->type === 'assignment')
+                                        <a href="{{ route('modules.student.assignments.show', [$event->module_id, $event->id]) }}" class="text-decoration-none">
+                                    @endif
                                     <div class="card rounded shadow border">
                                         <div class="card-body">
                                             <h5 class="card-title">
