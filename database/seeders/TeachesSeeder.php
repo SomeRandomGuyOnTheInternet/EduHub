@@ -8,25 +8,58 @@ use Faker\Factory as Faker;
 
 class TeachesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    // /**
+    //  * Run the database seeds.
+    //  */
+    // public function run(): void
+    // {
+    //     $faker = Faker::create();
+
+    //     // Get professor user IDs and module IDs
+    //     $professorIds = DB::table('users')->where('user_type', 'professor')->pluck('user_id');
+    //     $moduleIds = DB::table('modules')->pluck('module_id');
+
+    //     foreach ($professorIds as $professorId) {
+    //         for ($i = 0; $i < 2; $i++) { // Assign each professor to 2 random modules
+    //             DB::table('teaches')->insert([
+    //                 'user_id' => $professorId,
+    //                 'module_id' => $faker->randomElement($moduleIds),
+    //                 'created_at' => now(),
+    //                 'updated_at' => now(),
+    //             ]);
+    //         }
+    //     }
+    // }
+
     public function run(): void
     {
-        $faker = Faker::create();
+        // Define professor-to-module assignments
+        $assignments = [
+            'caoqi@eduhub.com' => [1, 2, 4, 5], 
+            'binder@eduhub.com' => [7, 6, 9], 
+            'nelson.mandela@eduhub.com' => [5, 6, 3,8], // Module IDs that Nelson Mandela teaches
+            'vignesh.bala@eduhub.com' => [3, 7,10],
+            'abdul.hakam@eduhub.com' => [6, 8, 9],
+        ];
 
-        // Get professor user IDs and module IDs
-        $professorIds = DB::table('users')->where('user_type', 'professor')->pluck('user_id');
-        $moduleIds = DB::table('modules')->pluck('module_id');
+        // Get professor user IDs with email as a key
+        $professorEmails = DB::table('users')
+                             ->where('user_type', 'professor')
+                             ->pluck('user_id', 'email');
 
-        foreach ($professorIds as $professorId) {
-            for ($i = 0; $i < 2; $i++) { // Assign each professor to 2 random modules
-                DB::table('teaches')->insert([
-                    'user_id' => $professorId,
-                    'module_id' => $faker->randomElement($moduleIds),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
+        // Iterate over each assignment and insert into the database
+        foreach ($assignments as $email => $modules) {
+            $professorId = $professorEmails[$email] ?? null;
+            if ($professorId) {
+
+                foreach ($modules as $moduleId) {
+                    DB::table('teaches')->insert([
+                        'user_id' => $professorId,
+                        'module_id' => $moduleId,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
             }
         }
     }
