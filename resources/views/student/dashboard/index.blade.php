@@ -12,7 +12,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active rounded-5" id="pills-calendar-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-calendar" type="button" role="tab" aria-controls="pills-calendar"
-                        aria-selected="false">Kalendar</button>
+                        aria-selected="false">Calendar</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link rounded-5" id="pills-announcements-tab" data-bs-toggle="pill" data-bs-target="#pills-announcements"
@@ -46,6 +46,10 @@
                                 <div class="col-lg-4 col-md-6 mb-4">
                                     @if ($event->type === 'assignment')
                                         <a href="{{ route('modules.student.assignments.show', [$event->module_id, $event->id]) }}" class="text-decoration-none">
+                                    @elseif ($event->type === 'quiz')
+                                        <a href="{{ route('modules.student.quizzes.index', [$event->module_id]) }}" class="text-decoration-none">
+                                    @elseif ($event->type === 'meeting')
+                                        <a href="{{ route('modules.student.meetings.index', [$event->module_id]) }}" class="text-decoration-none">
                                     @endif
                                     <div class="card rounded shadow border h-100">
                                         <div class="card-body d-flex flex-column">
@@ -76,7 +80,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    @if ($event->type === 'assignment')
+                                    @if ($event->type === 'assignment' || $event->type === 'quiz' || $event->type === 'meeting')
                                         </a>
                                     @endif
                                 </div>
