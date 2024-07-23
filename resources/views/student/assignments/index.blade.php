@@ -35,7 +35,7 @@
                             @foreach ($assignments as $assignment)
                                 <tr>
                                     <td>{{ $assignment->title }}</td>
-                                    <td>{{ $assignment->weightage }}</td>
+                                    <td>{{ $assignment->weightage }}%</td>
                                     <td>{{ $assignment->due_date }}</td>
                                     <td>
                                         @php

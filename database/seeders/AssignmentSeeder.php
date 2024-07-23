@@ -12,7 +12,7 @@ class AssignmentSeeder extends Seeder
     {
         $moduleIds = [1, 2, 3];
         $titles = ['Assignment 1', 'Assignment 2', 'Assignment 3'];
-        $weightages = ['10%', '20%', '30%'];
+        $weightages = ['10', '20', '30'];
         $dueDates = [
             Carbon::create(2024, 7, 20),
             Carbon::create(2024, 7, 22),
