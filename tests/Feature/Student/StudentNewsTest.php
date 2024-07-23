@@ -16,7 +16,6 @@ class StudentNewsTest extends TestCase
         $student = User::factory()->create(['user_type' => 'student']);
         $module = Module::factory()->create();
         
-        // Ensure the student is enrolled in the module with the enrollment_date
         $student->enrollments()->create([
             'module_id' => $module->module_id,
             'enrollment_date' => now()
@@ -36,7 +35,6 @@ class StudentNewsTest extends TestCase
         $student = User::factory()->create(['user_type' => 'student']);
         $module = Module::factory()->create();
     
-        // Ensure the student is enrolled in the module with the enrollment_date
         $student->enrollments()->create([
             'module_id' => $module->module_id,
             'enrollment_date' => now()

@@ -39,7 +39,7 @@ class ModuleTest extends TestCase
             ->set('data.logo', $moduleData['logo'])
             ->call('create');
 
-        // Verify the module was added to the database
+        // Verify if the module was added to the database
         $this->assertDatabaseHas('modules', $moduleData);
     }
 }

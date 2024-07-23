@@ -64,11 +64,11 @@ class ProfessorModuleContentController extends Controller
 
         // Create a new ModuleContent record in the database
         ModuleContent::create([
-            'module_folder_id' => $request->module_folder_id, // Ensure this matches the column name in your database
+            'module_folder_id' => $request->module_folder_id, 
             'title' => $request->title,
             'description' => $request->description,
             'file_path' => $filePath,
-            'upload_date' => now(), // This assumes you have an 'upload_date' column in your module_contents table
+            'upload_date' => now(), 
         ]);
 
         // Redirect to the module content index page with a success message

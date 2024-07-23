@@ -58,7 +58,7 @@ class StudentAssignmentController extends Controller
             'assignment_id' => $assignment_id,
             'user_id' => Auth::id(),
             'submission_description' => $request->description,
-            'submission_files' => json_encode($filePaths), // Ensure the file paths are stored correctly
+            'submission_files' => json_encode($filePaths),
             'submission_date' => now(),
         ]);
 

@@ -29,7 +29,6 @@ class StudentMeetingController extends Controller
 
     public function update(Request $request, $module_id, $meeting_id)
     {
-        // Assuming Meeting is your Eloquent model and is set up correctly
         $meeting = Meeting::where('meeting_id', $meeting_id)->firstOrFail();
 
         // $meeting->is_booked = true;  // timeslot 
@@ -44,7 +43,6 @@ class StudentMeetingController extends Controller
 
     public function updateBooking(Request $request, $module_id, $meeting_id)
     {
-        // Assuming Meeting is your Eloquent model and is set up correctly
         $meeting = Meeting::where('meeting_id', $meeting_id)->firstOrFail();
 
         // $meeting->is_booked = true;  // timeslot 
