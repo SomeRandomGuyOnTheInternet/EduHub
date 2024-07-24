@@ -4,35 +4,31 @@ namespace App\Http\Controllers\Student;
 
 use App\Models\Assignment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Models\AssignmentSubmission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
 
 class StudentAssignmentController extends Controller
 {
     public function index($module_id)
     {
-        $assignments = Assignment::where('module_id', $module_id)->get();
-        $submissions = AssignmentSubmission::where('user_id', Auth::id())->get();
-
-        return view('student.assignments.index', compact('assignments', 'submissions', 'module_id'));
+        return view('student.assignments.index', compact('module_id'));
     }
     public function show($module_id, $assignment_id)
     {
-        Log::info('Accessing show method in StudentAssignmentController');
-        Log::info('Module ID: ' . $module_id);
-        Log::info('Assignment ID: ' . $assignment_id);
-    
         $assignment = Assignment::findOrFail($assignment_id);
+        $submitted = Assignment::where('assignment_id', $assignment_id)
+            ->with([
+                'submissions' => fn ($query) => $query
+                    ->where('user_id', '=', Auth::user()->user_id)
+            ])
+            ->get();
     
-        if ($assignment->module_id != $module_id) {
-            Log::error('Module ID mismatch. Redirecting to dashboard.');
-            return redirect()->route('student.dashboard')->with('error', 'Invalid module assignment access.');
-        }
+        abort_if($assignment->module_id != $module_id, 403);
     
-        return view('student.assignments.show', compact('assignment', 'module_id'));
+        return view('student.assignments.show', compact('assignment', 'module_id', 'submitted'));
     }
     
     public function submit(Request $request, $module_id, $assignment_id)
@@ -62,8 +58,7 @@ class StudentAssignmentController extends Controller
             'submission_date' => now(),
         ]);
 
-        return redirect()->route('modules.student.assignments.index', [$module_id, $assignment_id])
-            ->with('success', 'Assignment submitted successfully.');
+        return redirect()->route('modules.student.assignments.index', [$module_id, $assignment_id]);
     }
     
     public function download($module_id, $assignment_id)

@@ -3,8 +3,8 @@
 namespace App\Livewire\Professor;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class Sidebar extends Component
 {

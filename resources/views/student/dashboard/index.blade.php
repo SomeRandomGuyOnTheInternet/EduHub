@@ -12,7 +12,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active rounded-5" id="pills-calendar-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-calendar" type="button" role="tab" aria-controls="pills-calendar"
-                        aria-selected="false">Kalendar</button>
+                        aria-selected="false">Calendar</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link rounded-5" id="pills-announcements-tab" data-bs-toggle="pill" data-bs-target="#pills-announcements"
