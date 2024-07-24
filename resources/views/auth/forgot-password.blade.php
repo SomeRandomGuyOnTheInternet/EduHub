@@ -14,8 +14,11 @@
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
             <div class="">
-                <p class="text-lg font-semibold mb-4">
-                    {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                <h5 class="mb-1">
+                    {{ __('Forgot your password?') }}
+                </h5>
+                <p>
+                    {{ __('No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
                 </p>
             </div>
 
