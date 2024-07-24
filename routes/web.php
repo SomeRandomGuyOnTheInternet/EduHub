@@ -40,16 +40,16 @@ Route::get('/', function () {
 Route::middleware(['auth', 'student'])->group(function () {
     Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
 
-    Route::get('/profile', [StudentProfileController::class, 'edit'])->name('student.profile.edit');
-    Route::patch('/profile', [StudentProfileController::class, 'update'])->name('student.profile.update');
+    Route::get('/student/profile', [StudentProfileController::class, 'edit'])->name('student.profile.edit');
+    Route::patch('/student/profile', [StudentProfileController::class, 'update'])->name('student.profile.update');
 });
 
 //only for professor to go to dashbaord
 Route::middleware(['auth', 'professor'])->group(function () {
     Route::get('/professor/dashboard', [ProfessorDashboardController::class, 'index'])->name('professor.dashboard');
 
-    Route::get('/profile', [ProfessorProfileController::class, 'edit'])->name('professor.profile.edit');
-    Route::patch('/profile', [ProfessorProfileController::class, 'update'])->name('professor.profile.update');
+    Route::get('/professor/profile', [ProfessorProfileController::class, 'edit'])->name('professor.profile.edit');
+    Route::patch('/professor/profile', [ProfessorProfileController::class, 'update'])->name('professor.profile.update');
 });
 
 //only for admin routing
