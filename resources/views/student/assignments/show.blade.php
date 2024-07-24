@@ -67,6 +67,7 @@
                                                 <h5 class="mb-1">No feedback provided</h5>
                                             @endif
                                         </div>
+                                        <h6 class="mb-1">Submitted Description</h6>
                                         <p>{{ $submission->submission_description }}</p>
                                     </div>
                                     <div class="m-4 d-md-block"></div>

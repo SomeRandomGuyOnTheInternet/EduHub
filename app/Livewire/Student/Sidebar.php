@@ -3,8 +3,9 @@
 namespace App\Livewire\Student;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Sidebar extends Component
 {
@@ -29,7 +30,7 @@ class Sidebar extends Component
             ->get();
         $this->userName = Auth::user()->first_name;
         $nameFirstChar = strtolower($this->userName[0]);
-        $this->userProfileUrl = Auth::user()->profile_picture ?? "/images/default-profiles/{$nameFirstChar}.png";
+        $this->userProfileUrl = Storage::url(Auth::user()->profile_picture) ?? "/images/default-profiles/{$nameFirstChar}.png";
         $this->currentPage = $currentPage;
         $this->currentModule = $currentModule;
     }

@@ -12,14 +12,3 @@
         </div>
     </div>
 </x-app-layout>
-
-<td>{{ $submission->assignment->title }}</td>
-                                    <td>{{ $submission->submission_description }}</td>
-                                    <td>
-                                        @foreach (json_decode($submission->submission_files) as $file)
-                                            <a href="{{ Storage::url($file) }}" target="_blank">{{ basename($file) }}</a><br>
-                                        @endforeach
-                                    </td>
-                                    <td>{{ $submission->submission_date }}</td>
-                                    <td>{{ $submission->grade }}</td>
-                                    <td>{{ $submission->feedback }}</td>

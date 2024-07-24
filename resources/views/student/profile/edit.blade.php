@@ -1,18 +1,34 @@
 <x-layout>
-    <livewire:professor.sidebar :currentPage=ProfessorSidebarLink::ModuleMeetings>
-
+    <livewire:student.sidebar :currentPage=StudentSidebarLink::Profile>
     <div class="viewport-container container-fluid p-0">
-        @livewire('professor.module-header', ['currentPage' => "Profile"])
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
+        @livewire('student.module-header', ['currentPage' => 'Profile'])
+
+        <div class="p-4">
+            <div class="d-flex">
+                <div class="me-auto">
+                    <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" id="profile-tab"
+                        role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a id="tab-profile" class="nav-link rounded-5 active" data-bs-toggle="tab"
+                                href="#folder-profile" role="tab" aria-controls="folder-profile"
+                                aria-selected="true">Profile</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a id="tab-password" class="nav-link rounded-5" data-bs-toggle="tab"
+                                href="#folder-password" role="tab" aria-controls="folder-password"
+                                aria-selected="false">Password</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
+            <div class="tab-content" id="folderTab">
+                <div class="tab-pane fade show active" id="folder-profile"
+                    role="tabpanel" aria-labelledby="tab-profile">
+                    @include('student.profile.partials.update-profile-information-form')
+                </div>
+                <div class="tab-pane fade" id="folder-password"
+                    role="tabpanel" aria-labelledby="tab-password">
+                    @include('student.profile.partials.update-password-form')
                 </div>
             </div>
         </div>

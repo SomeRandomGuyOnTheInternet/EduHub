@@ -1,27 +1,48 @@
 <x-layout>
     <x-hero-card>
-    <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-    </div>
+        <!-- Session Status -->
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('password.email') }}">
-        @csrf
-
-        {{-- <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <div class="mb-4">
+            <a href="/">
+                <div class="center-logo mb-3">
+                    <img class="logo-light" src="/images/logo-transparent-white.png" alt="Logo" width="350">
+                    <img class="logo-dark" src="/images/logo-transparent-dark.png" alt="Logo" width="350">
+                </div>
+            </a>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
-        </div> --}}
-    </form>
+        <form method="POST" action="{{ route('password.email') }}">
+            @csrf
+            <div class="">
+                <p class="text-lg font-semibold mb-4">
+                    {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+                </p>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">{{ __('Email') }}</label>
+                <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}"
+                    required autofocus autocomplete="username">
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-outline-secondary me-2" href="/">Back</a>
+                <button type="submit" class="btn btn-primary">
+                    {{ __('Send Password Reset Link') }}
+                </button>
+            </div>
+        </form>
     </x-hero-card>
 </x-layout>
+
+<script>
+    let logoLight = document.querySelectorAll('.logo-light');
+    let logoDark = document.querySelectorAll('.logo-dark');
+
+    updateTheme = function() {
+        const theme = getTheme();
+
+        logoDark.forEach((e) => e.style.display = (theme === 'dark') ? 'block' : 'none'); // elements
+        logoLight.forEach((e) => e.style.display = (theme === 'light') ? 'block' : 'none'); 
+    }
+</script>

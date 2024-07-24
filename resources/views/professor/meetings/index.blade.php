@@ -11,7 +11,7 @@
             <a href="{{ route('modules.professor.meetings.create', ['module_id' => $module->module_id]) }}"
                 class="btn btn-primary mb-3">Create Meeting Slot</a>
             <div class="row">
-                @foreach ($meetings as $meeting)
+                @forelse ($meetings as $meeting)
                     <div class="col-md-4 mb-4">
                         <div class="card">
                             <div class="card-header">
@@ -58,7 +58,9 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <p class="p-3">No meeting slots created.</p>
+                @endforelse
             </div>
         </div>
     </div>

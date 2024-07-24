@@ -4,17 +4,11 @@
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')" />
 
-            @if (session('status'))
-                <div class="alert alert-success mb-4">
-                    {{ session('status') }}
-                </div>
-            @endif
-
-            <div>
+            <div class="mb-4">
                 <a href="/">
                     <div class="center-logo mb-3">
-                        <img id="logo-light" src="/images/logo-transparent-white.png" alt="Logo" width="350">
-                        <img id="logo-dark" class="d-none" src="/images/logo-transparent-dark.png" alt="Logo" width="350">
+                        <img class="logo-light" src="/images/logo-transparent-white.png" alt="Logo" width="350">
+                        <img class="logo-dark" src="/images/logo-transparent-dark.png" alt="Logo" width="350">
                     </div>
                 </a>
             </div>
@@ -48,11 +42,11 @@
                             @endif
                         </div>
         
-                    {{-- <!-- Remember Me -->
+                    <!-- Remember Me -->
                     <div class="form-check mb-3">
                         <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
                         <label for="remember_me" class="form-check-label">{{ __('Remember me') }}</label>
-                    </div> --}}
+                    </div>
         
                         <div class="d-flex justify-content-end">
                             @if (Route::has('password.request'))
@@ -73,18 +67,13 @@
 </x-layout>
 
 <script>
-    const logoLight = document.getElementById('logo-light');
-    const logoDark = document.getElementById('logo-dark');
+    let logoLight = document.querySelectorAll('.logo-light');
+    let logoDark = document.querySelectorAll('.logo-dark');
 
     updateTheme = function() {
         const theme = getTheme();
-        if (theme === 'dark') {
-            logoLight?.classList.add('d-none');
-            logoDark?.classList.remove('d-none');
-        } else {
-            console.log(logoLight, logoDark);
-            logoLight?.classList.remove('d-none');
-            logoDark?.classList.add('d-none');
-        }
+
+        logoDark.forEach((e) => e.style.display = (theme === 'dark') ? 'block' : 'none'); // elements
+        logoLight.forEach((e) => e.style.display = (theme === 'light') ? 'block' : 'none'); 
     }
 </script>

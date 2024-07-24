@@ -75,7 +75,6 @@ class ContentTable extends Component
             foreach ($this->selectedContentIds as $content_id) {
                 $content = ModuleContent::find($content_id);
                 if ($content && $content->file_path) {
-                    dd($content->file_path);
                     $fileContents = Storage::get($content->file_path);
                     $relativeNameInZipFile = basename($content->file_path);
                     $zip->addFromString($relativeNameInZipFile, $fileContents);

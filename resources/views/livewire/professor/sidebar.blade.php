@@ -5,7 +5,7 @@
             <img id="logo-dark" class="d-none" src="{{ $logoDarkUrl }}" alt="Logo" height="45">
         </a>
     </div>
-    <div class="offcanvas-body">
+    <div class="offcanvas-body" style="flex-grow: 1;">
         <ul class="list-unstyled flex-column overflow-auto mb-auto mt-4 px-3">
             <li class="mb-1">
                 <a href="{{ route('student.dashboard') }}"
@@ -75,7 +75,7 @@
                 <span class="text-body">{{ $userName }}</span>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                <li><a class="dropdown-item" href="/profile">Settings</a></li>
+                <li><a class="dropdown-item" href="{{ route('professor.profile.edit') }}">Settings</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>

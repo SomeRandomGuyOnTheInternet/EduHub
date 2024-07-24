@@ -78,7 +78,7 @@
                 <span class="text-body">{{ $userName }}</span>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                <li><a class="dropdown-item" href="/profile">Settings</a></li>
+                <li><a class="dropdown-item" href="{{ route('student.profile.edit') }}">Settings</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>

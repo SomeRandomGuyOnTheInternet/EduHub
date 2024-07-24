@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Student;
 
-use App\Models\Module;
+use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\ProfileUpdateRequest;
 
-class ProfileController extends Controller
+class StudentProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        return view('student.profile.edit', [
             'user' => $request->user(),
         ]);
     }
@@ -40,14 +39,14 @@ class ProfileController extends Controller
             list($type, $data) = explode(';', $data);
             list(, $data) = explode(',', $data);
             $data = base64_decode($data);
-            $imageName = 'profile_pictures/' . uniqid() . '.png';
+            $imageName = '/images/default-profiles/' . uniqid() . '.png';
             Storage::put('public/' . $imageName, $data);
             $user->profile_picture = $imageName;
         } elseif ($request->hasFile('profile_picture')) {
-            if ($user->profile_picture && $user->profile_picture !== 'profile_pictures/profile-picture-placeholder.jpg') {
+            if ($user->profile_picture && $user->profile_picture !== '/images/default-profiles/placeholder.jpg') {
                 Storage::delete('public/' . $user->profile_picture);
             }
-            $profilePicturePath = $request->file('profile_picture')->store('public/profile_pictures');
+            $profilePicturePath = $request->file('profile_picture')->store('public/images/default-profiles');
             $user->profile_picture = str_replace('public/', '', $profilePicturePath);
         }
 

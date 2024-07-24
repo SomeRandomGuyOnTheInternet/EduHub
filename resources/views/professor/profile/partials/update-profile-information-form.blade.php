@@ -1,44 +1,38 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Profile Information') }}
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Update your account's profile picture.") }}
+        <p class="text-muted">
+            {{ __('Update your account\'s profile picture.') }}
         </p>
     </header>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
+    <form method="post" action="{{ route('professor.profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
-        <div>
-            <x-input-label for="profile_picture" :value="__('Profile Picture')" />
+        <div class="mb-4">
             <div class="mb-3">
-                <img id="profilePicturePreview" src="{{ $user->profile_picture ? Storage::url($user->profile_picture) : Storage::url('profile_pictures/placeholder.jpg') }}" alt="{{ $user->name }}" class="rounded-full h-20 w-20 object-cover">
+                <img id="profilePicturePreview" src="{{ $user->profile_picture ? Storage::url($user->profile_picture) : '/images/default-profiles/placeholder.jpg' }}" alt="{{ $user->name }}" class="rounded border">
             </div>
 
             <div class="mb-3">
-                <video id="video" width="320" height="240" autoplay class="hidden"></video>
-                <canvas id="canvas" width="320" height="240" class="hidden"></canvas>
-                <button type="button" id="start-camera" class="btn btn-primary">Start Camera</button>
-                <button type="button" id="snap" class="btn btn-secondary hidden">Take Photo</button>
-                <button type="button" id="use-photo" class="btn btn-success hidden">Use Photo</button>
+                <button type="button" id="start-camera" class="btn btn-outline-primary">Start Camera</button>
+                <div>
+                    <video id="video" width="320" height="240" autoplay class="hidden rounded border"></video>
+                    <canvas id="canvas" width="320" height="240" class="hidden rounded border"></canvas>
+                </div>
+                
+                <button type="button" id="snap" class="btn btn-outline-secondary hidden">Take Photo</button>
+                <button type="button" id="use-photo" class="btn btn-outline-success hidden">Use Photo</button>
             </div>
             
-            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" capture="user" class="hidden" onchange="loadFile(event)" />
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*" capture="user" class="hidden form-control" onchange="loadFile(event)" />
             <input type="hidden" id="profile_picture_data" name="profile_picture_data">
-
-            <x-input-error class="mt-2" :messages="$errors->get('profile_picture')" />
         </div>
 
-        <div class="flex items-center gap-4">
-            {{-- <x-primary-button>{{ __('Save') }}</x-primary-button> --}}
-
-            @if (session('status') === 'profile-updated')
-                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)" class="text-sm text-gray-600 dark:text-gray-400">{{ __('Saved.') }}</p>
-            @endif
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary">
+                {{ __('Save') }}
+            </button>
         </div>
     </form>
 </section>

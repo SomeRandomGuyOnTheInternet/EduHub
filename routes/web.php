@@ -1,23 +1,24 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Student\StudentNewsController;
 use App\Http\Controllers\Student\StudentQuizController;
 use App\Http\Controllers\Student\StudentMeetingController;
+use App\Http\Controllers\Student\StudentProfileController;
 use App\Http\Controllers\Professor\ProfessorNewsController;
 use App\Http\Controllers\Professor\ProfessorQuizController;
 use App\Http\Controllers\Student\StudentDashboardController;
-use App\Http\Controllers\Professor\ProfessorDashboardController;
-use App\Http\Controllers\Professor\ProfessorMeetingController;
-use App\Http\Controllers\Student\StudentModuleContentController;
 use App\Http\Controllers\Student\StudentAssignmentController;
+use App\Http\Controllers\Student\StudentModuleHomeController;
+use App\Http\Controllers\Professor\ProfessorMeetingController;
+use App\Http\Controllers\Professor\ProfessorProfileController;
+use App\Http\Controllers\Professor\ProfessorDashboardController;
+use App\Http\Controllers\Student\StudentModuleContentController;
 use App\Http\Controllers\Professor\ProfessorAssignmentController;
 use App\Http\Controllers\Professor\ProfessorModuleHomeController;
 use App\Http\Controllers\Professor\ProfessorModuleFolderController;
 use App\Http\Controllers\Professor\ProfessorModuleContentController;
-use App\Http\Controllers\Student\StudentModuleHomeController;
-use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     $user = Auth::user(); // Define the $user variable
@@ -35,20 +36,20 @@ Route::get('/', function () {
     }
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
 //only for student to go to dashboard
 Route::middleware(['auth', 'student'])->group(function () {
     Route::get('/student/dashboard', [StudentDashboardController::class, 'index'])->name('student.dashboard');
+
+    Route::get('/profile', [StudentProfileController::class, 'edit'])->name('student.profile.edit');
+    Route::patch('/profile', [StudentProfileController::class, 'update'])->name('student.profile.update');
 });
 
 //only for professor to go to dashbaord
 Route::middleware(['auth', 'professor'])->group(function () {
     Route::get('/professor/dashboard', [ProfessorDashboardController::class, 'index'])->name('professor.dashboard');
+
+    Route::get('/profile', [ProfessorProfileController::class, 'edit'])->name('professor.profile.edit');
+    Route::patch('/profile', [ProfessorProfileController::class, 'update'])->name('professor.profile.update');
 });
 
 //only for admin routing
@@ -79,7 +80,6 @@ Route::middleware(['auth', 'professor', 'checkModuleOwnership'])->prefix('profes
     //Assignment Routes
     Route::resource('assignments', ProfessorAssignmentController::class);
     Route::post('assignments/{assignment_id}/submissions/{submission_id}/grade', [ProfessorAssignmentController::class, 'gradeSubmission'])->name('assignments.gradeSubmission');
-
 });
 
 // Grouping routes for modules with student role-based access
