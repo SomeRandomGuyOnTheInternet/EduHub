@@ -36,7 +36,6 @@ class ProfessorMeetingController extends Controller
 
     public function create($module_id)
     {
-        // Fetch meetings where status is not booked (assuming 0 means not booked)
         $availableMeetings = Meeting::where('status', 0)->get();
         $times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '17:00'];
         $module = Module::findOrFail($module_id);

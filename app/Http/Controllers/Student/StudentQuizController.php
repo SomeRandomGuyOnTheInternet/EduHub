@@ -21,7 +21,7 @@ class StudentQuizController extends Controller
         $quizzes = Quiz::where('module_id', $module_id)->get(); // Retrieves all quizzes associated with the module.
         $completedQuizzes = QuizAttempt::where('user_id', Auth::id()) // Retrieves all quiz attempts by the authenticated user.
             ->whereHas('quiz', function ($query) use ($module_id) {
-                $query->where('module_id', $module_id); // Ensures the quiz is within the specified module.
+                $query->where('module_id', $module_id); 
             })
             ->with('quiz') // Includes the quiz details with the attempt.
             ->orderBy('created_at', 'desc') // Orders the attempts by creation date, descending.

@@ -2,7 +2,6 @@ TODO:
 quiz UI
 quiz,meetings,new,content,assignments make UI nicer when there is nothing
 create professor dashboard 
-make announcements clickable
 
 student meeting ui
 auth inputs
