@@ -25,12 +25,12 @@ class StudentAssignmentController extends Controller
                     ->where('user_id', '=', Auth::user()->user_id)
             ])
             ->get();
-    
+
         abort_if($assignment->module_id != $module_id, 403);
-    
+
         return view('student.assignments.show', compact('assignment', 'module_id', 'submitted'));
     }
-    
+
     public function submit(Request $request, $module_id, $assignment_id)
     {
         // Log the request data for debugging
@@ -58,9 +58,9 @@ class StudentAssignmentController extends Controller
             'submission_date' => now(),
         ]);
 
-        return redirect()->route('modules.student.assignments.index', [$module_id, $assignment_id]);
+        return redirect()->route('modules.student.assignments.index', [$module_id, $assignment_id])->with('success', 'Assignment submitted successfully.');;
     }
-    
+
     public function download($module_id, $assignment_id)
     {
         $assignment = Assignment::findOrFail($assignment_id);
@@ -71,5 +71,4 @@ class StudentAssignmentController extends Controller
 
         return Storage::disk('public')->download($assignment->file_path);
     }
-
 }

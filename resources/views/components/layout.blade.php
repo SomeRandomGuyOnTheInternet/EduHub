@@ -26,12 +26,7 @@
     </script>
 </head>
 <body>
-    <div
-        id="alert-container"
-        class="toast-container position-absolute top-0 end-0 pt-5 p-4 d-flex justify-content-center align-items-center w-100"
-        aria-live="polite"
-        aria-atomic="true"
-    ></div>
+    <x-toast />
     <main>
         {{ $slot }}
     </main>

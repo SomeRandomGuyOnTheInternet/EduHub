@@ -1,8 +1,8 @@
 <div id="assignment-table">
     <div class="d-flex">
         <div class="me-auto">
-            <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" 
-                id="content-tab" role="tablist">
+            <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" id="content-tab"
+                role="tablist">
                 <li class="nav-item" role="presentation">
                     <a id="tab-pending" class="nav-link rounded-5 {{ $currentFolder == 0 ? 'active' : '' }}"
                         data-bs-toggle="tab" href="#folder-pending" role="tab" aria-controls="folder-pending"
@@ -102,15 +102,8 @@
                                     <i class="bi bi-arrow-up"></i>
                                 @endif
                             </th>
-                            <th scope="col"
-                                wire:click="updateSort('{{ $sortColumn != 'due_date' ? 'latest' : $sort }}')"
-                                role="button">
-                                Due Date
-                                @if ($sort == 'earliest')
-                                    <i class="bi bi-arrow-down"></i>
-                                @elseif ($sort == 'latest')
-                                    <i class="bi bi-arrow-up"></i>
-                                @endif
+                            <th scope="col" role="button">
+                                Submission Date
                             </th>
                             <th scope="col">
                                 Weightage
@@ -120,29 +113,33 @@
                     </thead>
                     <tbody>
                         @forelse ($submitted as $assignment)
-                            <tr class="">
-                                <th scope="row">
-                                    <a href="{{ route('modules.student.assignments.show', [$module_id, $assignment->assignment_id]) }}"
-                                        class="no-text-decoration">
-                                        {{ $assignment->title }}
-                                    </a>
-                                </th>
-                                <td>
-                                    {{ $assignment->due_date }}
-                                </td>
-                                <td>
-                                    {{ $assignment->weightage }}
-                                </td>
-                                <td>
-                                    @if ($assignment->grade)
-                                        {{ $assignment->grade }}
-                                    @else
-                                        <span class="text-muted"></span>Not graded</span>
-                                    @endif
-                                </td>
-                            </tr>
+                            @forelse ($assignment->submissions as $submission)
+                                <tr class="">
+                                    <th scope="row">
+                                        <a href="{{ route('modules.student.assignments.show', [$module_id, $assignment->assignment_id]) }}"
+                                            class="no-text-decoration">
+                                            {{ $assignment->title }}
+                                        </a>
+                                    </th>
+                                    <td>
+                                        {{ $submission->submission_date }}
+                                    </td>
+                                    <td>
+                                        {{ $assignment->weightage }}
+                                    </td>
+                                    <td>
+                                        @if ($submission->grade)
+                                            {{ $submission->grade }}
+                                        @else
+                                            <span class="text-muted"></span>Not graded</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <p class="p-3">No submissions found.</p>
+                            @endforelse
                         @empty
-                            <p class="p-3">No content found.</p>
+                            <p class="p-3">No submissions found.</p>
                         @endforelse
                     </tbody>
                 </table>

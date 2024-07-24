@@ -14,7 +14,7 @@
         @elseif ($fileType === PreviewFileTypes::Image)
             <img src="{{ $fileUrl }}" alt="Image Preview" style="max-width: 100%; height: auto;" class="border rounded">
         @else
-            <p>Unsupported file type</p>
+            <p>Unable to preview.</p>
         @endif
         <div>
             @if ($fileType !== PreviewFileTypes::NotAFile)
