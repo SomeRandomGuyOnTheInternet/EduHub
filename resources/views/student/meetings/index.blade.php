@@ -8,16 +8,15 @@
     <div class="viewport-container container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => "Meetings", 'currentModuleId' => $module_id])
         <div class="p-4">
+            <h4 class="mb-4">Available Meetings</h4>
         <div class="row">
-            @foreach ($meetings as $meeting)
+            @forelse ($meetings as $meeting)
                 <div class="col-md-4 mb-4">
-                    <div class="card">
+                    <div class="card border shadow {{ $meeting->status == 'booked' && $meeting->booked_by_user_id != auth()->id() ? 'opacity-25' : '' }}">
                         <div class="card-header">
-                            Meeting Date: {{ $meeting->meeting_date }}
-                            <br>
-                            Meeting Time: {{ $meeting->timeslot }}
-                            <br>
-                            Meeting held by: Prof {{ $meeting->first_name }} {{ $meeting->last_name }}
+                            Prof {{ $meeting->first_name }} {{ $meeting->last_name }}<br>
+                            <span class="h6">Conducted at <strong>{{ $meeting->timeslot }}</strong></span>
+                            
                         </div>
                         <div class="card-body">
                             <p class="card-text">Status: <strong>{{ $meeting->status }}</strong></p>
@@ -45,7 +44,9 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <p class="p-3">No meetings available.</p>
+            @endforelse
         </div>
         </div>
     </div>

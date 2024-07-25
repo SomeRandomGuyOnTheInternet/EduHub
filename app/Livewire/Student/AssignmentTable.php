@@ -77,10 +77,9 @@ class AssignmentTable extends Component
 
         $this->submitted = Assignment::where('module_id', $this->module_id)
             ->where('title', 'like', '%'.$this->search.'%')
-            ->with([
-                'submissions' => fn ($query) => $query
-                    ->where('user_id', '=', Auth::user()->user_id)
-            ])
+            ->whereHas('submissions', function($query) {
+                $query->where('user_id', '=', Auth::user()->user_id);
+            })
             ->orderBy($this->sortColumn, $this->sortOrder)
             ->get();
         

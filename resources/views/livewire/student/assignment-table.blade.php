@@ -89,6 +89,7 @@
             @if ($submitted->isEmpty())
                 <p class="p-3">No submitted assignments found.</p>
             @else
+            {{-- {{dd($submitted);}} --}}
                 <table class="table">
                     <thead>
                         <tr>
@@ -112,8 +113,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($submitted as $assignment)
-                            @forelse ($assignment->submissions as $submission)
+                        @foreach ($submitted as $assignment)
+                            {{dd($assignment);}}
+                            @foreach ($assignment->submissions as $submission)
                                 <tr class="">
                                     <th scope="row">
                                         <a href="{{ route('modules.student.assignments.show', [$module_id, $assignment->assignment_id]) }}"
@@ -135,12 +137,8 @@
                                         @endif
                                     </td>
                                 </tr>
-                            @empty
-                                <p class="p-3">No submissions found.</p>
-                            @endforelse
-                        @empty
-                            <p class="p-3">No submissions found.</p>
-                        @endforelse
+                            @endforeach
+                        @endforeach
                     </tbody>
                 </table>
             @endif
