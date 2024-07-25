@@ -9,6 +9,9 @@ Subject to change, still need install stuff for database.
 - Install Node and NPM
 - Install MySQL
 
+## Deployment
+Deployed on Azure: http://eduhub-web.azurewebsites.net
+
 ## Run
 **Note:** A .env file is needed to run the app. Contact admin for more details.<br>
 Run the following code.

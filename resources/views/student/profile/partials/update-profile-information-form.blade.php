@@ -5,7 +5,7 @@
         </p>
     </header>
 
-    <form method="post" action="{{ route('student.profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
+    <form method="post" action="{{ route('student.profile.update.picture') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
@@ -47,11 +47,16 @@
     const profilePictureData = document.getElementById('profile_picture_data');
 
     startCameraButton.addEventListener('click', async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = stream;
-        video.classList.remove('hidden');
-        snapButton.classList.remove('hidden');
-        startCameraButton.classList.add('hidden');
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            video.classList.remove('hidden');
+            snapButton.classList.remove('hidden');
+            startCameraButton.classList.add('hidden');
+        } catch (error) {
+            console.error('Error accessing the camera', error);
+            alert('Could not access the camera. Please ensure you have given permission and are using HTTPS.');
+        }
     });
 
     snapButton.addEventListener('click', () => {

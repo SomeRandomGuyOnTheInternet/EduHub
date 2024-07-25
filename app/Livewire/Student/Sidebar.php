@@ -34,7 +34,7 @@ class Sidebar extends Component
             ->get();
         $this->userName = Auth::user()->first_name;
         $nameFirstChar = strtolower($this->userName[0]);
-        $this->userProfileUrl = Storage::url(Auth::user()->profile_picture) ?? "/images/default-profiles/{$nameFirstChar}.png";
+        $this->userProfileUrl = Storage::url(Auth::user()->profile_picture) ?? "images/default-profiles/{$nameFirstChar}.png";
         $this->currentPage = $currentPage;
         $this->currentModule = $currentModule;
     }

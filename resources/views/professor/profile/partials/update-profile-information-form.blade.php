@@ -5,13 +5,13 @@
         </p>
     </header>
 
-    <form method="post" action="{{ route('professor.profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
+    <form method="post" action="{{ route('professor.profile.update.picture') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
         <div class="mb-4">
             <div class="mb-3">
-                <img id="profilePicturePreview" src="{{ $user->profile_picture ? Storage::url($user->profile_picture) : '/images/default-profiles/placeholder.jpg' }}" alt="{{ $user->name }}" class="rounded border">
+                <img id="profilePicturePreview" src="{{ $user->profile_picture ? Storage::url($user->profile_picture) : '/images/default-profiles/placeholder.jpg' }}" alt="{{ $user->name }}" class="rounded-full h-20 w-20 object-cover">
             </div>
 
             <div class="mb-3">
@@ -47,11 +47,16 @@
     const profilePictureData = document.getElementById('profile_picture_data');
 
     startCameraButton.addEventListener('click', async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = stream;
-        video.classList.remove('hidden');
-        snapButton.classList.remove('hidden');
-        startCameraButton.classList.add('hidden');
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+            video.classList.remove('hidden');
+            snapButton.classList.remove('hidden');
+            startCameraButton.classList.add('hidden');
+        } catch (error) {
+            console.error('Error accessing the camera', error);
+            alert('Could not access the camera. Please ensure you have given permission and are using HTTPS.');
+        }
     });
 
     snapButton.addEventListener('click', () => {
