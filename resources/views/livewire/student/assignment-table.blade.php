@@ -89,7 +89,7 @@
             @if ($submitted->isEmpty())
                 <p class="p-3">No submitted assignments found.</p>
             @else
-            {{-- {{dd($submitted);}} --}}
+            
                 <table class="table">
                     <thead>
                         <tr>
@@ -114,7 +114,7 @@
                     </thead>
                     <tbody>
                         @foreach ($submitted as $assignment)
-                            {{dd($assignment);}}
+                    
                             @foreach ($assignment->submissions as $submission)
                                 <tr class="">
                                     <th scope="row">
