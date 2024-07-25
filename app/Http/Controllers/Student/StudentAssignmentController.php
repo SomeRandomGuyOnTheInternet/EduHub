@@ -38,7 +38,7 @@ class StudentAssignmentController extends Controller
 
         $request->validate([
             'description' => 'required|string',
-            'files.*' => 'required|file|max:10240',
+            'files.*' => 'required|file|max:999999',
         ]);
 
         $filePaths = [];

@@ -3,6 +3,9 @@
         <a href="/" class="d-flex align-items-center py-4 px-3 link-dark text-decoration-none">
             <img id="logo-light" class="" src="{{ $logoLightUrl }}" alt="Logo" height="45">
             <img id="logo-dark" class="d-none" src="{{ $logoDarkUrl }}" alt="Logo" height="45">
+            <span>
+                {{ $universityName }}
+            </span>
         </a>
     </div>
     <div class="offcanvas-body" style="flex-grow: 1;">

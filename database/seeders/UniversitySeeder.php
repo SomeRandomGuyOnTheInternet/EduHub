@@ -15,7 +15,7 @@ class UniversitySeeder extends Seeder
         DB::table('universities')->insert([
             'university_name' => 'Singapore Institute of Technology',
             'domain' => 'https://www.singaporetech.edu.sg/',
-            'logo' => 'sit_logo.png', // Use a placeholder or actual logo path
+            'logo' => '/seeder-media/university-logos/sit-light-logo.png',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

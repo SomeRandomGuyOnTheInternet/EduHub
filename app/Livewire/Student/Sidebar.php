@@ -3,12 +3,14 @@
 namespace App\Livewire\Student;
 
 use Livewire\Component;
+use App\Models\University;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class Sidebar extends Component
 {
+    public $universityName;
     public $logoLightUrl;
     public $logoDarkUrl;
     public $modules;
@@ -21,8 +23,10 @@ class Sidebar extends Component
     {
         abort_if(!Auth::user()?->isStudent(), 403);
 
-        $this->logoLightUrl = '/images/logo-transparent-white.png';
-        $this->logoDarkUrl = '/images/logo-transparent-dark.png';
+        $university = University::firstOrFail();
+        $this->universityName = $university->university_name ? $university->university_name : 'EduHub';
+        $this->logoLightUrl = $university->logo ? Storage::url($university->logo) : '/images/icon-transparent.png';
+        $this->logoDarkUrl = $university->logo ? Storage::url($university->logo) : '/images/icon-transparent.png';
         $this->modules = DB::table('modules')
             ->join('enrollments', 'modules.module_id', '=', 'enrollments.module_id')
             ->where('enrollments.user_id', Auth::user()->user_id)
