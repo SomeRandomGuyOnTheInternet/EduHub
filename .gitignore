@@ -26,4 +26,4 @@ Homestead.json
 # Misc.
 *DS_Store
 .vscode/
-storage/app/public/seeder-media/default-profiles/.DS_Store
+storage/app/public/seeder-media/.DS_Store
