@@ -6,7 +6,6 @@ use Filament\Panel;
 use App\Models\Module;
 use App\Models\Teaches;
 use App\Models\Enrollment;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable;
 
     protected $primaryKey = 'user_id';
     protected $fillable = ['first_name', 'last_name', 'email', 'date_of_birth', 'password', 'user_type', 'profile_picture'];
