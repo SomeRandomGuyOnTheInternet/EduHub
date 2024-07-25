@@ -41,14 +41,11 @@ class ProfessorProfileController extends Controller
             list(, $data) = explode(',', $data);
             $data = base64_decode($data);
             $imageName = uniqid() . '.png';
-            Storage::put('profile-pics/' . $imageName, $data);
+            Storage::put('/profile-pics/' . $imageName, $data, 'public');
             $user->profile_picture = $imageName;
         } elseif ($request->hasFile('profile_picture')) {
-            if ($user->profile_picture && $user->profile_picture !== '/default-profiles/placeholder.jpg') {
-                Storage::delete('profile-pics/' . $user->profile_picture);
-            }
-            $profilePicturePath = $request->file('profile_picture')->store('/profile-pics/');
-            $user->profile_picture = $profilePicturePath;
+            $originalFileName = $request->file('profile_picture')->getClientOriginalName();
+            $user->profile_picture = $request->file('profile_picture')->storeAs('profile-pics', $originalFileName, 'public');
         }
 
         $user->save();
