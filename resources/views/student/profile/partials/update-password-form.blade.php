@@ -5,9 +5,9 @@
         </p>
     </header>
 
-    <form method="post" action="{{ route('student.profile.update') }}" class="mt-6 ">
+    <form method="post" action="{{ route('student.profile.update.password') }}" class="mt-6 space-y-6">
         @csrf
-        @method('put')
+        @method('patch')
 
         <div class="mb-3">
             <label for="update_password_current_password" class="form-label">{{ __('Current Password') }}</label>
