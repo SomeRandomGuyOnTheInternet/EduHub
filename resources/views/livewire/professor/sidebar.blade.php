@@ -1,11 +1,13 @@
 <div class="viewport-container sidebar offcanvas-lg offcanvas-start bg-body-secondary border-end" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel" style="min-height: 100vh">
-    <div class="">
-        <a href="/" class="d-flex align-items-center py-4 px-3 link-dark text-decoration-none">
-            <img id="logo-light" class="" src="{{ $logoLightUrl }}" alt="Logo" height="45">
+    <div class="border-bottom">
+        <a href="/" class="d-flex align-items-center py-4 px-4 link-dark text-decoration-none">
+            <img id="logo-light" class="d-none" src="{{ $logoLightUrl }}" alt="Logo" height="45">
             <img id="logo-dark" class="d-none" src="{{ $logoDarkUrl }}" alt="Logo" height="45">
-            <span>
-                {{ $universityName }}
-            </span>
+            <div class="d-flex align-items-center">
+                <span class="h5 ms-3 mb-0 text-body">
+                    {{ $universityName }}
+                </span>
+            </div>
         </a>
     </div>
     <div class="offcanvas-body" style="flex-grow: 1;">

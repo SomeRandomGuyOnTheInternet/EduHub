@@ -5,7 +5,7 @@
             <img id="logo-light" class="d-none" src="{{ $logoLightUrl }}" alt="Logo" height="45">
             <img id="logo-dark" class="d-none" src="{{ $logoDarkUrl }}" alt="Logo" height="45">
             <div class="d-flex align-items-center">
-                <span class="h5 ms-3 mb-0">
+                <span class="h5 ms-3 mb-0 text-body">
                     {{ $universityName }}
                 </span>
             </div>
