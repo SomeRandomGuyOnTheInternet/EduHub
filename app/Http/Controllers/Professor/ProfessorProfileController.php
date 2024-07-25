@@ -40,8 +40,8 @@ class ProfessorProfileController extends Controller
             list($type, $data) = explode(';', $data);
             list(, $data) = explode(',', $data);
             $data = base64_decode($data);
-            $imageName = uniqid() . '.png';
-            Storage::put('/profile-pics/' . $imageName, $data, 'public');
+            $imageName ='profile-pics/' . uniqid() . '.png';
+            Storage::disk('public')->put($imageName, $data);
             $user->profile_picture = $imageName;
         } elseif ($request->hasFile('profile_picture')) {
             $originalFileName = $request->file('profile_picture')->getClientOriginalName();
@@ -50,7 +50,7 @@ class ProfessorProfileController extends Controller
 
         $user->save();
 
-        return back()->with('status', 'profile-updated');
+        return back()->with('status', 'Profile picture updated!');
     }
 
     /**

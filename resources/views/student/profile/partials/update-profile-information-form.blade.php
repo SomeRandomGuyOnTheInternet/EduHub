@@ -11,7 +11,7 @@
 
         <div class="mb-4">
             <div class="mb-3">
-                <img id="profilePicturePreview" src="{{ $user->profile_picture ? Storage::url($user->profile_picture) : '/images/default-profiles/placeholder.jpg' }}" alt="{{ $user->name }}" class="rounded-full h-20 w-20 object-cover">
+                <img id="profilePicturePreview" src="{{ $user->profile_picture ? Storage::url($user->profile_picture) : '/images/default-profiles/placeholder.jpg' }}" alt="{{ $user->name }}" class="rounded-circle border" height="100" width="100">
             </div>
 
             <div class="mb-3">
