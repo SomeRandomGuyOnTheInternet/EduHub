@@ -8,69 +8,30 @@ use Faker\Factory as Faker;
 
 class ModuleContentSeeder extends Seeder
 {
-    // /**
-    //  * Run the database seeds.
-    //  */
-    public function run(): void
+    public function run()
     {
-        $folders = DB::table('module_folders')->get(['module_folder_id', 'module_id', 'folder_name']);
+        $faker = Faker::create();
+        $data = [];
 
-        foreach ($folders as $folder) {
-            $folderName = strtolower($folder->folder_name);
-            $contentTemplates = $this->getContentTemplates($folderName);
+        // Retrieve all module folder IDs and their corresponding module IDs
+        $moduleFolders = DB::table('module_folders')
+            ->join('modules', 'module_folders.module_id', '=', 'modules.module_id')
+            ->get(['module_folders.module_folder_id', 'modules.module_name']);
 
-            foreach ($contentTemplates as $index => $content) {
-                // Ensuring unique document number by using folder ID and an index
-                $docNumber = $folder->module_folder_id * 100 + $index + 1;
-                $title = "{$content['title']} {$docNumber}";
-                $description = $content['description'];
-
-                DB::table('module_contents')->insert([
-                    'module_folder_id' => $folder->module_folder_id,
-                    'title' => $title,
-                    'description' => $description,
-                    'file_path' => '',  // File path is set to empty
-                    'upload_date' => now(),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
+        for ($i = 0; $i < 500; $i++) { // Assuming we seed 500 module contents
+            $moduleFolder = $faker->randomElement($moduleFolders); // Get a random module folder
+            
+            $data[] = [
+                'module_folder_id' => $moduleFolder->module_folder_id, // Ensure module_folder_id exists
+                'title' => substr('Content for ' . $moduleFolder->module_name . ': ' . $faker->sentence, 0, 100),
+                'description' => 'This content for ' . $moduleFolder->module_name . ' includes ' . $faker->paragraph,
+                'file_path' => '', // Set file path to empty string
+                'upload_date' => $faker->dateTimeBetween('-1 year', 'now'),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ];
         }
+
+        DB::table('module_contents')->insert($data);
     }
-
-    /**
-     * Get content templates based on the folder type
-     *
-     * @param string $folderType
-     * @return array
-     */
-    private function getContentTemplates($folderType)
-    {
-        switch ($folderType) {
-            case 'lecture':
-                return [
-                    ['title' => 'Lecture Notes on', 'description' => 'Detailed lecture notes covering all key concepts discussed during the session.'],
-                    ['title' => 'Lecture Slides on', 'description' => 'Slides from the lecture, including diagrams and summary points.'],
-                    ['title' => 'Lecture Video on', 'description' => 'Recorded video of the full lecture for revision and distance learning.']
-                ];
-
-            case 'tutorial':
-                return [
-                    ['title' => 'Tutorial Worksheet on', 'description' => 'Worksheet with exercises and problems to solve during tutorials.'],
-                    ['title' => 'Tutorial Solutions for', 'description' => 'Detailed solutions to the problems presented in the tutorial worksheet.'],
-                    ['title' => 'Tutorial Discussion on', 'description' => 'Summary of discussions and key points from the tutorial session.']
-                ];
-
-            case 'practical':
-                return [
-                    ['title' => 'Practical Lab Instructions for', 'description' => 'Step-by-step instructions to carry out the lab exercises.'],
-                    ['title' => 'Practical Lab Report Template for', 'description' => 'Template for submitting reports on practical lab exercises.'],
-                    ['title' => 'Practical Skills Video on', 'description' => 'Video demonstrations of essential skills required for the lab.']
-                ];
-
-            default:
-                return [];  // Return an empty array for unknown folder types
-        }
-    }
-
 }

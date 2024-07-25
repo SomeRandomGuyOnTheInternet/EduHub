@@ -2,10 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Enrollment;
-use App\Models\Faculty;
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,7 +21,13 @@ class DatabaseSeeder extends Seeder
             TeachesSeeder::class,
             AdminSeeder::class,
             AssignmentSeeder::class,
+            AssignmentSubmissionsSeeder::class,
             QuizSeeder::class,
+            QuizQuestionsSeeder::class,
+            QuizAttemptSeeder::class,
+            QuizSubmissionsSeeder::class,
+            MeetingsSeeder::class,
+            NewsSeeder::class,
         ]);
     }
 }
