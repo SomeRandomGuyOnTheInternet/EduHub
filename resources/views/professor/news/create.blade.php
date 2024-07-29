@@ -19,7 +19,7 @@
                     <textarea class="form-control" id="news_description" name="news_description" required></textarea>
                 </div>
                 <input type="hidden" name="module_id" value="{{ $module->module_id }}">
-                <button type="submit" class="btn btn-success">Create News</button>
+                <button type="submit" class="btn btn-success">Upload News</button>
             </form>
         </div>
     </div>
