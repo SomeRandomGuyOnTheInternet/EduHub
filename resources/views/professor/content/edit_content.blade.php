@@ -37,15 +37,15 @@
                         <label for="file_path">Upload New File (Optional)</label>
                         <input type="file" class="form-control" id="file_path" name="file_path">
                     </div>
-                    <div class="d-inline-block gap-2">
+                    <div class="d-inline-block gap-4">
                         <form
                             action="{{ route('modules.professor.content.destroy', ['module_id' => $module_id, 'content' => $content->content_id]) }}"
                             method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-lg"><i class="bi bi-trash"></i>  Delete</button>
+                            <button type="submit" class="btn btn-outline-danger"><i class="bi bi-trash"></i>  Delete</button>
                         </form>
-                        <button type="submit" class="btn btn-lg btn-primary"><i class="bi bi-save"></i>  Save</button>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>  Save</button>
                     </div>
                 </form>
             </div>

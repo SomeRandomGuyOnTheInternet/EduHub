@@ -27,6 +27,7 @@ class ProfessorMeetingController extends Controller
                 'student.last_name as student_last_name'        // Student's last name
             )
             ->where('meetings.module_id', $module_id)
+            ->where('meetings.user_id', auth()->id())
             ->get();
 
         // dd($meetings);
