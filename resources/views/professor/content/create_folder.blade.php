@@ -10,11 +10,11 @@
         <div class="p-4">
             <form action="{{ route('modules.professor.folder.store', ['module_id' => $module->module_id]) }}" method="POST">
                 @csrf
-                <div class="form-group">
+                <div class="form-group mb-4">
                     <label for="folder_name">Folder Name</label>
                     <input type="text" class="form-control" id="folder_name" name="folder_name" required>
                 </div>
-                <button type="submit" class="btn btn-success">Create Folder</button>
+                <button type="submit" class="btn btn-primary">Create Folder</button>
             </form>
         </div>
     </div>
