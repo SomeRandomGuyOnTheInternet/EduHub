@@ -12,6 +12,15 @@
                     @php($due_date = \Carbon\Carbon::parse($assignment->due_date))
                     <p>Due on <strong>{{ $assignment->due_date }}</strong>.</p>
                     <p>Weightage: <strong>{{ $assignment->weightage }}</strong></p>
+                    @if (is_string($assignment->file_path))
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-6 col-md-8 text-md-center">
+            <h5 class="mb-3">Uploaded File</h5>
+            <livewire:content-preview :file-url="$assignment->file_path" lazy />
+        </div>
+    </div>
+        @endif
+
                 </div>
 
                 <div>
