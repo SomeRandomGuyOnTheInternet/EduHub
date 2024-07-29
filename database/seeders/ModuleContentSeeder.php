@@ -25,7 +25,7 @@ class ModuleContentSeeder extends Seeder
                 'module_folder_id' => $moduleFolder->module_folder_id, // Ensure module_folder_id exists
                 'title' => substr('Content for ' . $moduleFolder->module_name . ': ' . $faker->sentence, 0, 100),
                 'description' => 'This content for ' . $moduleFolder->module_name . ' includes ' . $faker->paragraph,
-                'file_path' => '', // Set file path to empty string
+                'file_path' => $faker->randomElement(['/seeder-media/example-content-1.pdf', '/seeder-media/example-content-2.pdf', '/seeder-media/example-content-3.JPG']),
                 'upload_date' => $faker->dateTimeBetween('-1 year', 'now'),
                 'created_at' => now(),
                 'updated_at' => now(),

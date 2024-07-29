@@ -8,14 +8,14 @@
     <div class="viewport-container container-fluid p-0">
         @livewire('student.module-header', ['currentPage' => 'Quizzes', 'currentModuleId' => $module_id])
         <div class="p-4">
-            <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3" style="width: fit-content;"
+            <ul class="nav nav-pills flex-scroll-x gap-2 p-1 small bg-body-secondary rounded-5 mb-3" style="width: fit-content;"
                 id="quizzes-tab" role="tablist">
-                <li class="nav-item" role="presentation">
+                <li class="nav-item d-inline-block" role="presentation">
                     <button class="nav-link active rounded-5" id="pills-pending-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-pending" type="button" role="tab" aria-controls="pills-pending"
                         aria-selected="false">Pending</button>
                 </li>
-                <li class="nav-item" role="presentation">
+                <li class="nav-item d-inline-block" role="presentation">
                     <button class="nav-link rounded-5" id="pills-completed-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-completed" type="button" role="tab" aria-controls="pills-completed"
                         aria-selected="true">Completed</button>

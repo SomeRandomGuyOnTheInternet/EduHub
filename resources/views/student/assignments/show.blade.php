@@ -15,12 +15,12 @@
                 </div>
 
                 <div>
-                    <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" style="width: fit-content;" id="content-tab" role="tablist">
-                        <li class="nav-item" role="presentation">
+                    <ul class="nav nav-pills flex-scroll-x gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" style="width: fit-content;" id="content-tab" role="tablist">
+                        <li class="nav-item d-inline-block" role="presentation">
                             <a id="tab-submission" class="nav-link rounded-5 active" data-bs-toggle="tab" href="#folder-submission" role="tab" aria-controls="folder-submission" aria-selected="true">New Submission</a>
                         </li>
                         @foreach ($assignment->submissions as $submission)
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item d-inline-block" role="presentation">
                             <a class="nav-link rounded-5 }}" id="tab-{{ $submission->assignment_submission_id }}" data-bs-toggle="tab" href="#folder-{{ $submission->assignment_submission_id }}" role="tab" aria-controls="folder-{{ $submission->assignment_submission_id }}" aria-selected="true">Submission {{ $loop->index + 1 }}</a>
                         </li>
                         @endforeach
@@ -46,12 +46,12 @@
                                 <div class="me-auto">
                                     <div class="mb-3">
                                         @if ($submission->grade)
-                                        <p class="mb-1">Grade: {{ $submission->grade }}</p>
+                                        <h5 class="mb-1 fw-normal">Grade: <span class="fw-bolder">{{ $submission->grade }}</span></h5>
                                         @else
                                         <h5 class="mb-1">Not graded</h5>
                                         @endif
                                         @if ($submission->feedback)
-                                        <p class="mb-1">Feedback: {{ $submission->feedback }}</p>
+                                        <h5 class="mb-1 fw-normal">Feedback: <span class="fw-bolder">{{ $submission->feedback }}</span></h5>
                                         @else
                                         <h5 class="mb-1">No feedback provided</h5>
                                         @endif

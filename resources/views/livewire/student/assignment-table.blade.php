@@ -1,15 +1,15 @@
 <div id="assignment-table">
     <div class="d-flex">
         <div class="me-auto">
-            <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" id="content-tab"
+            <ul class="nav nav-pills flex-scroll-x gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" id="content-tab"
                 role="tablist">
-                <li class="nav-item" role="presentation">
+                <li class="nav-item d-inline-block" role="presentation">
                     <a id="tab-pending" class="nav-link rounded-5 {{ $currentFolder == 0 ? 'active' : '' }}"
                         data-bs-toggle="tab" href="#folder-pending" role="tab" aria-controls="folder-pending"
                         aria-selected="{{ $currentFolder == 0 ? 'true' : 'false' }}"
                         wire:click="updateCurrentFolder(0)">Pending</a>
                 </li>
-                <li class="nav-item" role="presentation">
+                <li class="nav-item d-inline-block" role="presentation">
                     <a id="tab-submitted" class="nav-link rounded-5 {{ $currentFolder == 1 ? 'active' : '' }}"
                         data-bs-toggle="tab" href="#folder-submitted" role="tab" aria-controls="folder-submitted"
                         aria-selected="{{ $currentFolder == 1 ? 'true' : 'false' }}"
@@ -74,7 +74,7 @@
                                     {{ $assignment->due_date }}
                                 </td>
                                 <td>
-                                    {{ $assignment->weightage }}
+                                    {{ $assignment->weightage }} %
                                 </td>
                             </tr>
                         @empty
@@ -127,7 +127,7 @@
                                         {{ $submission->submission_date }}
                                     </td>
                                     <td>
-                                        {{ $assignment->weightage }}
+                                        {{ $assignment->weightage }} %
                                     </td>
                                     <td>
                                         @if ($submission->grade)

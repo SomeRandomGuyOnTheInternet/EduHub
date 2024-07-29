@@ -69,9 +69,9 @@ class ContentTable extends Component
     public function downloadSelectedContent()
     {
         $zip = new \ZipArchive;
-        $fileName = 'content.zip';
+        $fileName = public_path('content.zip');
     
-        if ($zip->open(public_path($fileName), \ZipArchive::CREATE) === TRUE) {
+        if ($zip->open($fileName, \ZipArchive::CREATE) === TRUE) {
             foreach ($this->selectedContentIds as $content_id) {
                 $content = ModuleContent::find($content_id);
                 if ($content && $content->file_path) {
@@ -82,8 +82,10 @@ class ContentTable extends Component
             }
             $zip->close();
         }
-    
-        return response()->download(public_path($fileName))->deleteFileAfterSend(true);
+        
+        if ($zip->lastId >= 0) {
+            return response()->download($fileName)->deleteFileAfterSend(true);
+        }
     }
 
     public function updateSort($sort)

@@ -8,13 +8,13 @@
     <div class="viewport-container container-fluid p-0">
         @livewire('professor.module-header', ['currentPage' => 'Dashboard'])
         <div class="p-4">
-            <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3" style="width: fit-content;" id="dashboard-tab" role="tablist">
-                <li class="nav-item" role="presentation">
+            <ul class="nav nav-pills flex-scroll-x gap-2 p-1 small bg-body-secondary rounded-5 mb-3" style="width: fit-content;" id="dashboard-tab" role="tablist">
+                <li class="nav-item d-inline-block" role="presentation">
                     <button class="nav-link active rounded-5" id="pills-calendar-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-calendar" type="button" role="tab" aria-controls="pills-calendar"
                         aria-selected="false">Calendar</button>
                 </li>
-                <li class="nav-item" role="presentation">
+                <li class="nav-item d-inline-block" role="presentation">
                     <button class="nav-link rounded-5" id="pills-announcements-tab" data-bs-toggle="pill" data-bs-target="#pills-announcements"
                         type="button" role="tab" aria-controls="pills-announcements" aria-selected="true">Announcements</button>
                 </li>

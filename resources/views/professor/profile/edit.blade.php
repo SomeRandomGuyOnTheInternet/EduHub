@@ -6,14 +6,14 @@
         <div class="p-4">
             <div class="d-flex">
                 <div class="me-auto">
-                    <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" id="profile-tab"
+                    <ul class="nav nav-pills flex-scroll-x gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" id="profile-tab"
                         role="tablist">
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item d-inline-block" role="presentation">
                             <a id="tab-profile" class="nav-link rounded-5 active" data-bs-toggle="tab"
                                 href="#folder-profile" role="tab" aria-controls="folder-profile"
                                 aria-selected="true">Profile</a>
                         </li>
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item d-inline-block" role="presentation">
                             <a id="tab-password" class="nav-link rounded-5" data-bs-toggle="tab"
                                 href="#folder-password" role="tab" aria-controls="folder-password"
                                 aria-selected="false">Password</a>

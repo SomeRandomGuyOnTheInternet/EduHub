@@ -24,11 +24,11 @@ class AssignmentSubmissionsSeeder extends Seeder
             $assignment = $faker->randomElement($assignments); // Get a random assignment
             
             // Generate a filename based on the assignment title
-            $filename = str_replace(' ', '_', strtolower($assignment->title)) . '_' . $faker->word . '.' . $faker->randomElement($fileExtensions);
+            $filename = $faker->randomElement(['/seeder-media/example-assignment-1.pdf', '/seeder-media/example-assignment-2.JPG']);
 
             $fileDetails = [
-                'filename' => $filename,
-                'path' => 'uploads/' . $filename, // Assuming files are uploaded to an 'uploads' directory
+                'filename' => pathinfo($filename, PATHINFO_BASENAME),
+                'path' => $filename, // Assuming files are uploaded to an 'uploads' directory
                 'size' => $faker->numberBetween(1000, 1000000), // Random file size in bytes
                 'type' => pathinfo($filename, PATHINFO_EXTENSION) // File type based on the extension
             ];

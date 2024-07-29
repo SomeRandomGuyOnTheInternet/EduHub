@@ -1,4 +1,4 @@
-<div class="viewport-container sidebar offcanvas-lg offcanvas-start bg-body-secondary border-end" tabindex="-1"
+<div class="viewport-container sidebar offcanvas-lg offcanvas-start bg-body-secondary border-end d-flex flex-column" tabindex="-1"
     id="sidebar" aria-labelledby="sidebarLabel" style="min-height: 100vh">
     <div class="border-bottom">
         <a href="/" class="d-flex align-items-center py-4 px-4 link-dark text-decoration-none">
@@ -11,7 +11,7 @@
             </div>
         </a>
     </div>
-    <div class="offcanvas-body">
+    <div class="flex-grow-1 offcanvas-body">
         <ul class="list-unstyled flex-column overflow-auto mb-auto mt-4 px-3">
             <li class="mb-1">
                 <a href="{{ route('student.dashboard') }}"
@@ -74,7 +74,7 @@
             @endforelse
         </ul>
     </div>
-    <div class="offcanvas-footer">
+    <div class="">
         <div class="dropdown border-top p-4 mt-4 w-100">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
                 id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">

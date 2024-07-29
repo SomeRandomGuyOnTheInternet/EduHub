@@ -32,9 +32,11 @@ Run the following code.
 6. Run php artisan key:generate in terminal
 7. Run php artisan storage:link in terminal
 8. Run php artisan migrate:fresh --seed in terminal
-9. Run npm install in terminal
-10. Run npm run dev in terminal
-11. Open another terminal, run php artisan serve
+9. Run php artisan storage:link in terminal
+10. Run php artisan optimize in terminal
+11. Run npm install in terminal
+12. Run npm run dev in terminal
+13. Open another terminal, run php artisan serve
 
 ## If you have already set it up and there were migration changes
 1. Run php artisan migrate:fresh --seed in terminal if you want to delete all records and seed with default records

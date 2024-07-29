@@ -10,7 +10,7 @@
                 Your browser does not support the video tag.
             </video>
         @elseif ($fileType === PreviewFileTypes::PDF)
-            <iframe src="{{ url($fileUrl) }}" width="100%" class="border rounded"></iframe>
+            <iframe src="{{ url($fileUrl) }}" width="100%" style="height: 900px;" class="border rounded"></iframe>
         @elseif ($fileType === PreviewFileTypes::Image)
             <img src="{{ $fileUrl }}" alt="Image Preview" style="max-width: 100%; height: auto;" class="border rounded">
         @else

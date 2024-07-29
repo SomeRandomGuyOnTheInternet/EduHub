@@ -10,10 +10,10 @@
             <div class="p-4">
                 <div class="d-flex">
                     <div class="me-auto">
-                        <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3"
+                        <ul class="nav nav-pills flex-scroll-x gap-2 p-1 small bg-body-secondary rounded-5 mb-3"
                             style="width: fit-content;" id="content-tab" role="tablist">
                             @foreach ($folders as $index => $folder)
-                                <li class="nav-item" role="presentation">
+                                <li class="nav-item d-inline-block" role="presentation">
                                     <a class="nav-link rounded-5 @if ($index == 0) active @endif"
                                         id="tab-{{ $folder->module_folder_id }}" data-toggle="tab"
                                         href="#folder-{{ $folder->module_folder_id }}" role="tab"

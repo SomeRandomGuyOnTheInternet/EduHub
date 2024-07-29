@@ -20,7 +20,7 @@
         @endisset
 
         @if (session('error'))
-            <div class="toast bg-danger w-100 bo" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast bg-danger w-100" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-body">
                     <div class="d-flex text-white">
                         <div class="me-auto text-white">

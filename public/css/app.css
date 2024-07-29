@@ -8,6 +8,19 @@ main {
     overflow-y: scroll !important;
 }
 
+.flex-scroll-x {
+    overflow-x: scroll;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    max-width: 40vw;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.flex-scroll-x::-webkit-scrollbar {
+    display: none;
+}
+
 .sidebar {
     min-width: 300px;
 }
@@ -56,9 +69,8 @@ main {
 }
 
 .hero-container {
-    @media (max-width: 768) { 
-        
-     }
+    @media (max-width: 768) {
+    }
 }
 
 .shadow-box {

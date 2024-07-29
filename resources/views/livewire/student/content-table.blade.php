@@ -4,10 +4,10 @@
             @if ($folders->isEmpty())
                 <p class="p-3">No content found.</p>
             @else
-                <ul class="nav nav-pills gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" style="width: fit-content;"
+                <ul class="nav nav-pills flex-scroll-x gap-2 p-1 small bg-body-secondary rounded-5 mb-3 me-3" style="width: fit-content;"
                     id="content-tab" role="tablist">
                     @foreach ($folders as $folder)
-                        <li class="nav-item" role="presentation">
+                        <li class="nav-item d-inline-block" role="presentation">
                             <a class="nav-link rounded-5 {{ $currentFolder == $folder->module_folder_id ? 'active' : '' }}"
                                 id="tab-{{ $folder->module_folder_id }}" data-bs-toggle="tab"
                                 href="#folder-{{ $folder->module_folder_id }}" role="tab"
@@ -16,7 +16,7 @@
                                 wire:click="updateCurrentFolder({{ $folder->module_folder_id }})">{{ $folder->folder_name }}</a>
                         </li>
                     @endforeach
-                    <li class="nav-item" role="presentation">
+                    <li class="nav-item d-inline-block" role="presentation">
                         <a id="tab-favourites"
                             class="nav-link rounded-5 {{ $currentFolder == 'favourites' ? 'active' : '' }}"
                             data-bs-toggle="tab" href="#folder-favourites" role="tab"
@@ -32,13 +32,13 @@
         </div>
         @if (count($selectedContentIds) > 0)
             <div class="me-3">
-                <button id="download-btn" class="btn btn-primary"
+                <button id="download-btn" class="btn btn-primary my-1"
                     wire:click="downloadSelectedContent()">Download</button>
             </div>
         @endif
         <div class="row g-3">
             <div class="col-auto ">
-                <input type="text" id="search-input" class="form-control" aria-describedby="search-input"
+                <input type="text" id="search-input" class="form-control my-1" aria-describedby="search-input"
                     placeholder="Search..." wire:model.live="search">
             </div>
         </div>
