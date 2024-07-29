@@ -46,8 +46,6 @@ class ModuleResource extends Resource
             ->columns([
                 TextColumn::make('module_name')->label('Module Name')->searchable(),
                 TextColumn::make('module_code')->label('Module Code')->searchable(),
-                TextColumn::make('professor.user.name')->label('Professor')->searchable(),
-                TextColumn::make('faculty.faculty_name')->label('Faculty')->searchable(),
             ])
             ->filters([])
             ->actions([
