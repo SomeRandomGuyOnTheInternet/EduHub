@@ -50,5 +50,5 @@ Run the following code.
 - Username: binder@eduhub.com
 - Password: password
 3. Student
-- Username: abdul.hakam@eduhub.com
+- Username: alex.smith@eduhub.com
 - Password: password
