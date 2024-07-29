@@ -12,7 +12,7 @@
         @elseif ($fileType === PreviewFileTypes::PDF)
             <iframe src="{{ url($fileUrl) }}" width="100%" style="height: 900px;" class="border rounded"></iframe>
         @elseif ($fileType === PreviewFileTypes::Image)
-            <img src="{{ $fileUrl }}" alt="Image Preview" style="max-width: 100%; height: auto;" class="border rounded">
+            <img src="{{ $fileUrl }}" alt="Image Preview" style="max-width: 100%; height: 900px;" class="border rounded">
         @else
             <p>Unable to preview.</p>
         @endif

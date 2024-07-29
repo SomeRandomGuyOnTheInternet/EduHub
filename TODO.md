@@ -1,5 +1,6 @@
 TODO: 
 download on azure
+azure 
 change font colors based on dates and grades
 assignments displaying submissions weurdly
 meeting to caendar
